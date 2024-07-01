@@ -448,5 +448,4 @@ animation = &"up_idle"
 offset = Vector2(-0.5, -13)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 0.1
 replication_config = SubResource("SceneReplicationConfig_ig4yw")
