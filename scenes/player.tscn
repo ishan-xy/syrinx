@@ -53,7 +53,6 @@ func process_input() -> void:
 	if retval:
 		$Direction.set_rotation_degrees(90 * movement)
 
-
 func _ready() -> void:
 	anim.speed_scale = 2.0 if animation_type == AnimationType.sprint else 1.4
 	anim.play(\"down_idle\")
@@ -544,9 +543,11 @@ radius = 3.0
 script/source = "extends Area2D
 
 func _on_area_entered(area: Area2D) -> void:
+	print_debug(\"Enter\")
 	pass # Replace with function body.
 
 func _on_area_exited(area: Area2D) -> void:
+	print_debug(\"Exit\")
 	pass # Replace with function body.
 "
 
@@ -567,6 +568,7 @@ script = SubResource("GDScript_cwf02")
 replication_config = SubResource("SceneReplicationConfig_ig4yw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xgcfc")
@@ -580,17 +582,17 @@ shape = SubResource("CircleShape2D_pca5x")
 [node name="Direction" type="Marker2D" parent="."]
 position = Vector2(0, -2)
 
-[node name="Interactable" type="Area2D" parent="Direction"]
+[node name="Area2d" type="Area2D" parent="Direction"]
 collision_layer = 0
 collision_mask = 256
 input_pickable = false
 monitorable = false
 script = SubResource("GDScript_drsgr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Interactable"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Area2d"]
 position = Vector2(0, -11)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_1yw1y")
 
-[connection signal="area_entered" from="Direction/Interactable" to="Direction/Interactable" method="_on_area_entered"]
-[connection signal="area_exited" from="Direction/Interactable" to="Direction/Interactable" method="_on_area_exited"]
+[connection signal="area_entered" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_entered"]
+[connection signal="area_exited" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_exited"]

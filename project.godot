@@ -49,8 +49,8 @@ save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 text/autopauses={}
 variables={}
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://scenes/dialogue.tres"]
+layout/default_style="res://scenes/dialogue.tres"
 
 [display]
 
