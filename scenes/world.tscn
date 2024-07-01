@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://evubvr3xftm7"]
+[gd_scene load_steps=4 format=3 uid="uid://evubvr3xftm7"]
 
+[ext_resource type="PackedScene" uid="uid://c8y7swam30fsu" path="res://scenes/player.tscn" id="1_2pl53"]
 [ext_resource type="TileSet" uid="uid://dqujacqvd0g2o" path="res://components/mystic.tres" id="3_mhhl7"]
 
 [sub_resource type="GDScript" id="GDScript_d5htu"]
 script/source = "extends Node2D
+
+signal KEY_INPUT
+
+@onready var VIEWPORT := get_viewport()
+func _unhandled_key_input(event: InputEvent):
+	VIEWPORT.set_input_as_handled()
+	emit_signal(\"KEY_INPUT\")
+
 
 # TODO: Implement manual syncronization of player's properties
 
@@ -12,7 +21,6 @@ script/source = "extends Node2D
 # 10 for delta (+- 4 blocks) subdevided into 2^7 (128) parts
 # WARNING: this may become a problem as delta's need to be sent in-order
 # WARNING: we need to sync posotion (once per second) in as this is not precise
-
 
 # This is to be used for testing only
 const IS_SERVER: bool = false
@@ -31,17 +39,22 @@ var peer := WebSocketMultiplayerPeer.new()
 # WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
 
+func disappear_buttons() -> void:
+	$Host.queue_free()
+	$Join.queue_free()
+	$Camera2D.queue_free()
+
 func _on_host_pressed():
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
 	add_player()
-	$Camera2D.enabled = false
+	disappear_buttons()
 
 func _on_join_pressed():
 	peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
 	multiplayer.multiplayer_peer = peer
-	$Camera2D.enabled = false
+	disappear_buttons()
 
 func add_player(id = 1):
 	var player := player_scene.instantiate()
@@ -61,7 +74,9 @@ func del_player(id):
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
+position = Vector2(24, 0)
 script = SubResource("GDScript_d5htu")
+player_scene = ExtResource("1_2pl53")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -83,15 +98,18 @@ offset_right = 64.0
 offset_bottom = 15.0
 scale = Vector2(0.5, 0.5)
 text = "HOST"
+metadata/_edit_use_anchors_ = true
 
 [node name="Join" type="Button" parent="."]
 offset_right = 64.0
 offset_bottom = 31.0
 scale = Vector2(0.5, 0.5)
 text = "JOIN"
+metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(16, 0)
 
+[connection signal="KEY_INPUT" from="." to="." method="_on_key_input"]
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
