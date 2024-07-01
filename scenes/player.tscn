@@ -15,6 +15,20 @@ enum AnimationType { idle, walk, sprint, swing, fall }
 @export var animation_type := AnimationType.idle
 @onready var anim := $AnimatedSprite2D
 
+
+# TODO: encode player's animation info etc into 2 bytes short for multiplayer
+# 2 bits for movement direction, 3 for action 1 for movement direction,
+# 10 for delta (+- 4 blocks) subdevided into 2^7 (128) parts
+# WARNING: this may become a problem as delta's need to be sent in-order
+# WARNING: we need to sync posotion (once per second) in as this is not precise
+
+func serialize() -> void:
+	pass
+
+func deserialize() -> void:
+	pass
+
+
 # `true` iff this is the multiplayer authority, do NOT change this
 var AUTHORITY := false
 
