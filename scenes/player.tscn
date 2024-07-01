@@ -1,10 +1,128 @@
-[gd_scene load_steps=57 format=3 uid="uid://c8y7swam30fsu"]
+[gd_scene load_steps=58 format=3 uid="uid://c8y7swam30fsu"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_7uyka"]
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mystic woods/characters/player.png" id="1_yvf2c"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pca5x"]
-radius = 3.0
+[sub_resource type="GDScript" id="GDScript_cwf02"]
+script/source = "extends CharacterBody2D
+
+# Player's movement speed
+const SPEED = 55*60
+
+# Player States
+enum Direction{ up, right, down, left, }
+enum AnimationType { idle, walk, sprint, swing, fall }
+@export var movement := Direction.down
+@export var animation_type := AnimationType.idle
+
+# True if this is the multiplayer authority
+var AUTHORITY := false
+
+# Customm movement logic for 4 (NOT `8`) directional movement
+var _prev := PackedByteArray()
+func pressed_direction(direction: Direction) -> void:
+	_prev.append(direction)
+	movement = direction
+	animation_type = AnimationType.walk;
+func released_direction(direction: Direction) -> void:
+	var pos := _prev.find(direction)
+	if pos != -1:
+		_prev.remove_at(pos)
+	if _prev.is_empty():
+		animation_type = AnimationType.idle
+		return
+	else:
+		movement = _prev[-1] as Direction
+	return
+func process_ui_key(direction: Direction) -> void:
+	var key_name: String = \"ui_\"+Direction.keys()[direction]
+	if Input.is_action_just_pressed(key_name):
+		pressed_direction(direction)
+	elif Input.is_action_just_released(key_name):
+		released_direction(direction)
+
+func process_input() -> void:
+	process_ui_key(Direction.up)
+	process_ui_key(Direction.right)
+	process_ui_key(Direction.down)
+	process_ui_key(Direction.left)
+	if Input.is_key_pressed(KEY_SHIFT):
+		if animation_type == AnimationType.walk:
+			animation_type = AnimationType.sprint
+
+func _ready() -> void:
+	_prev.resize(4)
+	#assert(_prev.size() == 0)
+	$AnimatedSprite2D.speed_scale = 2.0 if animation_type == AnimationType.sprint else 1.4
+	$AnimatedSprite2D.play(\"down_idle\")
+
+# The Plater animation Function
+func play_animation() -> void:
+	var anim = $AnimatedSprite2D
+	anim.flip_h = (movement == Direction.left)
+	anim.speed_scale = 1.4
+	if animation_type == AnimationType.fall:
+		anim.play(\"fall\")
+		return
+	
+	var anim_name:String
+	match movement:
+		Direction.up:
+			anim_name = \"up_\"
+		Direction.down:
+			anim_name = \"down_\"
+		Direction.left, Direction.right:
+			anim_name = \"side_\"
+	match animation_type:
+		AnimationType.idle:
+			anim.play(anim_name+\"idle\")
+		AnimationType.swing:
+			anim.play(anim_name+\"swing\")
+		AnimationType.sprint:
+			anim.speed_scale = 2
+			anim.play(anim_name+\"walk\")
+		AnimationType.walk:
+			anim.play(anim_name+\"walk\")
+
+# Play animation on frame update, not physics update
+func _process(delta: float) -> void:
+	play_animation()
+
+# Process input and move
+func _physics_process(delta: float) -> void:
+	if AUTHORITY:
+		process_input()
+		velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
+		velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
+		if not (Input.is_action_pressed(\"ui_up\") or Input.is_action_pressed(\"ui_right\") or\\
+	 	Input.is_action_pressed(\"ui_down\") or Input.is_action_pressed(\"ui_left\")):
+			animation_type = AnimationType.idle
+
+	if animation_type == AnimationType.idle:
+		velocity *= 0
+	elif animation_type == AnimationType.sprint:
+		velocity *= 2*delta
+	else:
+		velocity *= delta
+	# WARNING: DO NOT USE `move_and_slide`, player interaction becomes bery buggy
+	move_and_collide(velocity * delta)
+
+#enable camra for our player
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	AUTHORITY = is_multiplayer_authority()
+	$Camera2D.enabled = AUTHORITY
+"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ig4yw"]
+properties/0/path = NodePath(".:movement")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:animation_type")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74xpf"]
 atlas = ExtResource("1_yvf2c")
@@ -416,16 +534,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ig4yw"]
-properties/0/path = NodePath(".:movement")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath(".:animation_type")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath(".:position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
+[sub_resource type="CircleShape2D" id="CircleShape2D_pca5x"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1yw1y"]
+radius = 8.0
+height = 24.0
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -433,19 +547,32 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 platform_on_leave = 2
 platform_floor_layers = 0
-script = ExtResource("1_7uyka")
+safe_margin = 0.001
+script = SubResource("GDScript_cwf02")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ig4yw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-process_physics_priority = 5
-position = Vector2(0, -0.5)
-shape = SubResource("CircleShape2D_pca5x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xgcfc")
 animation = &"up_idle"
 offset = Vector2(-0.5, -13)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_ig4yw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_pca5x")
+
+[node name="Direction" type="Marker2D" parent="."]
+
+[node name="Interactable" type="Area2D" parent="Direction"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Interactable"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 9)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_1yw1y")
