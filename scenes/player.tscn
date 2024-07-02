@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://c8y7swam30fsu"]
+[gd_scene load_steps=62 format=3 uid="uid://c8y7swam30fsu"]
 
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mystic woods/characters/player.png" id="1_yvf2c"]
 
@@ -10,24 +10,8 @@ const SPEED = 55*60
 
 # Player States
 enum Direction{ up, right, down, left, }
-enum AnimationType { idle, walk, sprint, swing, fall }
 @export var movement := Direction.down
-@export var animation_type := AnimationType.idle
 @onready var anim := $AnimatedSprite2D
-
-
-# TODO: encode player's animation info etc into 2 bytes short for multiplayer
-# 2 bits for movement direction, 3 for action 1 for movement direction,
-# 10 for delta (+- 4 blocks) subdevided into 2^7 (128) parts
-# WARNING: this may become a problem as delta's need to be sent in-order
-# WARNING: we need to sync posotion (once per second) in as this is not precise
-
-func serialize() -> void:
-	pass
-
-func deserialize() -> void:
-	pass
-
 
 # `true` iff this is the multiplayer authority, do NOT change this
 var AUTHORITY := false
@@ -37,13 +21,13 @@ var _prev := PackedByteArray()
 func pressed_direction(direction: Direction) -> void:
 	_prev.append(direction)
 	movement = direction
-	animation_type = AnimationType.walk;
+	anim.animation_type = anim.AnimationType.walk
 func released_direction(direction: Direction) -> void:
 	var pos := _prev.find(direction)
 	if pos != -1:
 		_prev.remove_at(pos)
 	if _prev.is_empty():
-		animation_type = AnimationType.idle
+		anim.animation_type = anim.AnimationType.idle
 		return
 	else:
 		movement = _prev[-1] as Direction
@@ -58,48 +42,14 @@ func process_ui_key(direction: Direction) -> bool:
 		return true
 	return false
 
+#Process user input
 func process_input() -> void:
-	var retval := process_ui_key(Direction.up) or process_ui_key(Direction.right) or\\
-					process_ui_key(Direction.down) or process_ui_key(Direction.left)
 	if Input.is_key_pressed(KEY_SHIFT):
-		if animation_type == AnimationType.walk:
-			animation_type = AnimationType.sprint
-	if retval:
+		if anim.animation_type == anim.AnimationType.walk:
+			anim.animation_type = anim.AnimationType.sprint
+	if process_ui_key(Direction.up) or process_ui_key(Direction.right) or\\
+		process_ui_key(Direction.down) or process_ui_key(Direction.left):
 		$Direction.set_rotation_degrees(90 * movement)
-
-func _ready() -> void:
-	anim.speed_scale = 2.0 if animation_type == AnimationType.sprint else 1.4
-	anim.play(\"down_idle\")
-
-# The Plater animation Function
-func play_animation() -> void:
-	var anim_name:String
-	anim.speed_scale = 1.4
-	anim.flip_h = (movement == Direction.left)
-	match animation_type:
-		AnimationType.fall:
-			anim.play(\"fall\")
-			return
-		AnimationType.idle:
-			anim_name = \"idle\"
-		AnimationType.swing:
-			anim_name = \"swing\"
-		AnimationType.sprint:
-			anim.speed_scale = 2
-			anim_name = \"walk\"
-		AnimationType.walk:
-			anim_name = \"walk\"
-	match movement:
-		Direction.up:
-			anim.play(\"up_\"+anim_name)
-		Direction.down:
-			anim.play(\"down_\"+anim_name)
-		Direction.left, Direction.right:
-			anim.play(\"side_\"+anim_name)
-
-# Play animation on frame update, not physics update
-func _process(delta: float) -> void:
-	play_animation()
 
 # Process input and move
 func _physics_process(delta: float) -> void:
@@ -107,15 +57,15 @@ func _physics_process(delta: float) -> void:
 		process_input()
 		if not (Input.is_action_pressed(\"ui_up\") or Input.is_action_pressed(\"ui_right\") or\\
 	 	Input.is_action_pressed(\"ui_down\") or Input.is_action_pressed(\"ui_left\")):
-			animation_type = AnimationType.idle
+			anim.animation_type = anim.AnimationType.idle
 	
-	if animation_type == AnimationType.idle:
+	if anim.animation_type == anim.AnimationType.idle:
 		return
 	
 	velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
 	velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
 	
-	if animation_type == AnimationType.sprint:
+	if anim.animation_type == anim.AnimationType.sprint:
 		velocity *= 2*delta
 	else:
 		velocity *= delta
@@ -126,19 +76,32 @@ func _physics_process(delta: float) -> void:
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	AUTHORITY = is_multiplayer_authority()
-	$Camera2D.enabled = AUTHORITY
 "
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ig4yw"]
-properties/0/path = NodePath(".:movement")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath(".:animation_type")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath(".:position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/0/replication_mode = 1
+
+[sub_resource type="GDScript" id="GDScript_214hx"]
+script/source = "extends MultiplayerSynchronizer
+
+@onready var player_node := $\"..\"
+@onready var anim_node := $\"./AnimatedSprite2D\"
+
+func serialize() -> void:
+	pass
+
+func deserialize() -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_q5ejk"]
+script/source = "extends Camera2D
+
+func _enter_tree():
+	self.enabled = $\"..\".AUTHORITY
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74xpf"]
 atlas = ExtResource("1_yvf2c")
@@ -550,6 +513,48 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_12o1k"]
+script/source = "extends AnimatedSprite2D
+
+enum AnimationType { idle, walk, sprint, swing, fall }
+@export var animation_type := AnimationType.idle
+@onready var player_node := $\"..\"
+
+# The Plater animation Function
+func play_animation() -> void:
+	var anim_name:String
+	self.speed_scale = 1.4
+	self.flip_h = (player_node.movement == player_node.Direction.left)
+	match animation_type:
+		AnimationType.fall:
+			self.play(\"fall\")
+			return
+		AnimationType.idle:
+			anim_name = \"idle\"
+		AnimationType.swing:
+			anim_name = \"swing\"
+		AnimationType.sprint:
+			self.speed_scale = 2
+			anim_name = \"walk\"
+		AnimationType.walk:
+			anim_name = \"walk\"
+	match player_node.movement:
+		player_node.Direction.up:
+			self.play(\"up_\"+anim_name)
+		player_node.Direction.down:
+			self.play(\"down_\"+anim_name)
+		player_node.Direction.left, player_node.Direction.right:
+			self.play(\"side_\"+anim_name)
+
+# Play animation on frame update, not physics update
+func _process(delta: float) -> void:
+	play_animation()
+
+func _enter_tree():
+	self.speed_scale = 2.0 if animation_type == AnimationType.sprint else 1.4
+	self.play(\"down_idle\")
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pca5x"]
 radius = 3.0
 
@@ -580,14 +585,17 @@ script = SubResource("GDScript_cwf02")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ig4yw")
+script = SubResource("GDScript_214hx")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 limit_smoothed = true
+script = SubResource("GDScript_q5ejk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xgcfc")
 animation = &"up_idle"
 offset = Vector2(-0.5, -13)
+script = SubResource("GDScript_12o1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
