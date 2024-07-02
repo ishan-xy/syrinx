@@ -19,17 +19,11 @@ config/icon="res://assets/icon.svg"
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
-directories/dch_directory={
-"Player": "res://components/characters/Player.dch",
-"blob": "res://components/characters/blob.dch"
-}
-directories/dtl_directory={
-"timeline1": "res://components/timeline/timeline1.dtl"
-}
+directories/dch_directory={}
+directories/dtl_directory={}
 glossary/default_case_sensitive=true
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -49,8 +43,9 @@ save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 text/autopauses={}
 variables={}
-layout/style_list=["res://scenes/dialogue.tres"]
+layout/style_list=[]
 layout/default_style="res://scenes/dialogue.tres"
+extensions_folder="res://addons/dialogic_additions"
 
 [display]
 
