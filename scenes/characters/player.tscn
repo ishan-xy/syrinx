@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://csxndgunsyc70"]
+[gd_scene load_steps=61 format=3 uid="uid://csxndgunsyc70"]
 
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mystic woods/characters/player.png" id="1_yvf2c"]
 
@@ -52,8 +52,8 @@ func process_input() -> void:
 	if Input.is_key_pressed(KEY_SHIFT):
 		if anim.animation_type == anim.AnimationType.walk:
 			anim.animation_type = anim.AnimationType.sprint
-	if inp:
-		$Direction.set_rotation_degrees(90 * movement)
+	#if inp:
+		#$Direction.set_rotation_degrees(90 * movement)
 
 # Process input and move
 func _physics_process(delta: float) -> void:
@@ -81,6 +81,11 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	AUTHORITY = is_multiplayer_authority()
 "
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bvcf6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_q5ejk"]
 script/source = "extends Camera2D
@@ -560,32 +565,6 @@ func _on_area_exited(area: Area2D) -> void:
 radius = 7.0
 height = 20.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bvcf6"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
-[sub_resource type="GDScript" id="GDScript_8mn8p"]
-script/source = "extends MultiplayerSynchronizer
-
-@onready var player_node := $\"..\"
-@onready var anim_node := $\"../AnimatedSprite2D\"
-
-var theoratical_pos:Vector2
-
-func get_delta_vec():
-	var vec := Vector2(player_node.position.x-theoratical_pos.x, player_node.position.y-theoratical_pos.y)
-	var retval: int = round(vec.angle()*4/PI)
-	if retval < 0:
-		retval = 8-retval
-
-func serialize() -> void:
-	pass
-
-func deserialize() -> void:
-	pass
-"
-
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 floor_stop_on_slope = false
@@ -594,6 +573,9 @@ platform_on_leave = 2
 platform_floor_layers = 0
 safe_margin = 0.001
 script = SubResource("GDScript_cwf02")
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bvcf6")
 
 [node name="Camera" type="Camera2D" parent="."]
 limit_smoothed = true
@@ -623,10 +605,6 @@ script = SubResource("GDScript_drsgr")
 position = Vector2(0, -11)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_1yw1y")
-
-[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_bvcf6")
-script = SubResource("GDScript_8mn8p")
 
 [connection signal="area_entered" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_entered"]
 [connection signal="area_exited" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_exited"]
