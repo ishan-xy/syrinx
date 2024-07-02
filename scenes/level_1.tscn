@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dsd44cbstk6jw"]
 
 [ext_resource type="TileSet" uid="uid://dqujacqvd0g2o" path="res://components/mystic.tres" id="1_wfsyt"]
-[ext_resource type="Texture2D" uid="uid://5yh4ludsuop8" path="res://assets/mystic woods/objects/objects.png" id="2_nufhx"]
+[ext_resource type="Texture2D" uid="uid://cpk5ae8ts6pn2" path="res://assets/mystic woods/objects/objects.png" id="2_nufhx"]
 [ext_resource type="Script" path="res://scripts/interactable.gd" id="3_30ckh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onvcp"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bk6kqygg018pa" path="res://assets/mystic woods/tilesets/plains.png" id="1_ako6u"]
 [ext_resource type="Texture2D" uid="uid://xhfrq8omfbtj" path="res://assets/mystic woods/tilesets/grass.png" id="2_t7ert"]
-[ext_resource type="Texture2D" uid="uid://5yh4ludsuop8" path="res://assets/mystic woods/objects/objects.png" id="3_2dxb3"]
+[ext_resource type="Texture2D" uid="uid://cpk5ae8ts6pn2" path="res://assets/mystic woods/objects/objects.png" id="3_2dxb3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xf1js"]
 texture = ExtResource("1_ako6u")
