@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dkicy2vr8h47j"]
+[gd_scene load_steps=51 format=3 uid="uid://bh54geoorceyk"]
 
 [ext_resource type="Texture2D" uid="uid://u376aqf8ix7s" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Character_Generator_Addons_16x16/Characters_16x16/Modern_Exteriors_Characters_Postman_16x16_1.png" id="1_munk8"]
 
@@ -215,9 +215,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3s0ng")
 }],
-"loop": true,
+"loop": false,
 "name": &"d_idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -240,7 +240,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"d_walking",
-"speed": 10.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -263,7 +263,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"l_idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -286,7 +286,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"l_walking",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -309,7 +309,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"r_idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -332,7 +332,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"r_walking",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -355,7 +355,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"t_idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -378,12 +378,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"t_walking",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q5n4o")
-animation = &"l_idle"
-frame_progress = 0.114756
+animation = &"d_idle"
