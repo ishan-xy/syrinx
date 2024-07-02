@@ -89,6 +89,25 @@ properties/0/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_uucc6"]
 script/source = "extends MultiplayerSynchronizer
+
+const TWO_BY_PI = 2/PI
+@onready var player_node := $\"..\"
+@onready var anim_node := $\"../AnimatedSprite2D\"
+
+
+var theoratical_pos:Vector2
+
+func get_delta():
+	var vec := Vector2(player_node.position.x-theoratical_pos.x, player_node.position.y-theoratical_pos.y)
+	var retval: int = round(vec.angle()*TWO_BY_PI)
+	if retval < 0:
+		retval = 4-retval
+
+func serialize() -> void:
+	pass
+
+func deserialize() -> void:
+	pass
 "
 
 [sub_resource type="GDScript" id="GDScript_q5ejk"]
