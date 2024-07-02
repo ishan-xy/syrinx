@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://csxndgunsyc70"]
+[gd_scene load_steps=62 format=3 uid="uid://csxndgunsyc70"]
 
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mystic woods/characters/player.png" id="1_yvf2c"]
 
@@ -52,8 +52,8 @@ func process_input() -> void:
 	if Input.is_key_pressed(KEY_SHIFT):
 		if anim.animation_type == anim.AnimationType.walk:
 			anim.animation_type = anim.AnimationType.sprint
-	#if inp:
-		#$Direction.set_rotation_degrees(90 * movement)
+	if inp:
+		$Direction.set_rotation_degrees(90 * movement)
 
 # Process input and move
 func _physics_process(delta: float) -> void:
@@ -86,6 +86,10 @@ func _enter_tree():
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+
+[sub_resource type="GDScript" id="GDScript_uucc6"]
+script/source = "extends MultiplayerSynchronizer
+"
 
 [sub_resource type="GDScript" id="GDScript_q5ejk"]
 script/source = "extends Camera2D
@@ -576,6 +580,7 @@ script = SubResource("GDScript_cwf02")
 
 [node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bvcf6")
+script = SubResource("GDScript_uucc6")
 
 [node name="Camera" type="Camera2D" parent="."]
 limit_smoothed = true
