@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhfrq8omfbtj"
-path="res://.godot/imported/grass.png-9b793beb0266fd45d7b8127fb77ebc5f.ctex"
+uid="uid://ikgvwcfm1gya"
+path="res://.godot/imported/player.png-f5ca0202f47ce0b286504303d8ae2cfc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mystic woods/tilesets/grass.png"
-dest_files=["res://.godot/imported/grass.png-9b793beb0266fd45d7b8127fb77ebc5f.ctex"]
+source_file="res://assets/mysticwoods/characters/player.png"
+dest_files=["res://.godot/imported/player.png-f5ca0202f47ce0b286504303d8ae2cfc.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk6kqygg018pa"
-path="res://.godot/imported/plains.png-d5ed0f260d3cd4427bb01ec950633edf.ctex"
+uid="uid://11icri3ir1fu"
+path="res://.godot/imported/wooden_door_b.png-8552e305ffc146915f6010c0dcd42426.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mystic woods/tilesets/plains.png"
-dest_files=["res://.godot/imported/plains.png-d5ed0f260d3cd4427bb01ec950633edf.ctex"]
+source_file="res://assets/mysticwoods/tilesets/walls/wooden_door_b.png"
+dest_files=["res://.godot/imported/wooden_door_b.png-8552e305ffc146915f6010c0dcd42426.ctex"]
 
 [params]
 

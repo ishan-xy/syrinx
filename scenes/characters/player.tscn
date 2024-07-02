@@ -1,6 +1,6 @@
 [gd_scene load_steps=62 format=3 uid="uid://csxndgunsyc70"]
 
-[ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mystic woods/characters/player.png" id="1_yvf2c"]
+[ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mysticwoods/characters/player.png" id="1_yvf2c"]
 
 [sub_resource type="GDScript" id="GDScript_cwf02"]
 script/source = "extends CharacterBody2D

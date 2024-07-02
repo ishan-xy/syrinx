@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ikgvwcfm1gya"
-path="res://.godot/imported/player.png-f88621bfaab4dbccf204818e078c2156.ctex"
+uid="uid://c4y477meq2ykl"
+path="res://.godot/imported/carpet.png-81ce127868c47cc412a72839583564c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mystic woods/characters/player.png"
-dest_files=["res://.godot/imported/player.png-f88621bfaab4dbccf204818e078c2156.ctex"]
+source_file="res://assets/mysticwoods/tilesets/floors/carpet.png"
+dest_files=["res://.godot/imported/carpet.png-81ce127868c47cc412a72839583564c4.ctex"]
 
 [params]
 
