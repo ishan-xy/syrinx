@@ -1,11 +1,6 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dqujacqvd0g2o"]
-
-[ext_resource type="Texture2D" uid="uid://bk6kqygg018pa" path="res://assets/mysticwoods/tilesets/plains.png" id="1_ako6u"]
-[ext_resource type="Texture2D" uid="uid://xhfrq8omfbtj" path="res://assets/mysticwoods/tilesets/grass.png" id="2_t7ert"]
-[ext_resource type="Texture2D" uid="uid://cpk5ae8ts6pn2" path="res://assets/mysticwoods/objects/objects.png" id="3_2dxb3"]
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://dqujacqvd0g2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xf1js"]
-texture = ExtResource("1_ako6u")
 0:0/0 = 0
 0:0/0/z_index = -1
 0:0/0/terrain_set = 0
@@ -452,13 +447,11 @@ texture = ExtResource("1_ako6u")
 3:7/0/terrains_peering_bit/left_side = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgwik"]
-texture = ExtResource("2_t7ert")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lo3id"]
-texture = ExtResource("3_2dxb3")
 0:0/0 = 0
 0:0/0/y_sort_origin = 2
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -469,30 +462,25 @@ texture = ExtResource("3_2dxb3")
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
 5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.96015, -0.0278416, -7.01583, 0.0278397, -6.84879, 5.98573, 6.96015, 6.09709)
-6:7/size_in_atlas = Vector2i(2, 2)
 6:7/0 = 0
 6:7/0/y_sort_origin = 10
 6:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:7/0/physics_layer_0/angular_velocity = 0.0
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(13.5, -5, 14.5, 9, 10, 13, -8.5, 14.5, -14.5, 10.5, -14.5, -2, -8.5, -10, 6.5, -10.5)
-8:6/size_in_atlas = Vector2i(2, 3)
 8:6/0 = 0
 8:6/0/y_sort_origin = 16
 8:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:6/0/physics_layer_0/angular_velocity = 0.0
 8:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(6, 19.5, 0.5, 22, -5.5, 19.5, -9.5, 14.5, 8.5, 14.5)
-10:7/size_in_atlas = Vector2i(2, 2)
 10:7/0 = 0
 10:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:7/0/physics_layer_0/angular_velocity = 0.0
 10:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 1.5, 11.5, 4.5, 9, 5, 9.5, 6, 10, 9, 1.5, 8.5, -6.5, 9, -7, 6, -11.5, 5.5, -12, -0.5, 10, -0.5)
-10:0/size_in_atlas = Vector2i(2, 1)
 10:0/0 = 0
 10:0/0/y_sort_origin = -4
 10:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:0/0/physics_layer_0/angular_velocity = 0.0
 10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.0867, -4.61829, 15.9983, -4.48571, 15.9983, 4.13216, 14.9376, 7.00478, 0.5, 5, -14.9616, 7.00831, -15.9099, 3.91119)
-11:2/size_in_atlas = Vector2i(1, 2)
 11:2/0 = 0
 11:2/0/y_sort_origin = -10
 11:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -503,7 +491,6 @@ texture = ExtResource("3_2dxb3")
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(7.18287, 3.9812, 6.7931, -0.807377, -6.96015, -0.863058, -8, 0.139202, -8, 3.03462, -6.7931, 4.5937, -0.890898, 7.04367, 2.9511, 7.04367)
-0:5/size_in_atlas = Vector2i(3, 4)
 0:5/0 = 0
 0:5/0/y_sort_origin = 19
 0:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
