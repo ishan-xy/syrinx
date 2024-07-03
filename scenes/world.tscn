@@ -37,6 +37,54 @@ func _on_join_pressed():
 	multiplayer.peer_connected.connect(add_player)
 	$UI.queue_free()
 
+func handle_message(packet):
+	var bits = packet.get_data()
+	var procedure = bits >> 12
+	var player_id = bits & 0xFFF
+	
+	match procedure:
+		#-> (16) + 64 bit position, must not modify player animation
+		0:
+			handle_set_position(player_id, packet)
+		#-> (16) + 16 bit (direction + delta)
+		1:
+			handle_update_direction(player_id, packet)
+		#-> (16) + 16 bit (animation data + direction + delta)
+		2:
+			handle_update_animation(player_id, packet)
+		#-> (16) + 0, remove the player form scene:
+		3:
+			handle_remove_player(player_id)
+
+func handle_set_position(player_id, packet):
+	var position_data = packet.get_u64()
+	var x = position_data >> 32
+	var y = position_data & 0xFFFFFFFF
+	var player = get_player_by_id(player_id)
+	player.position = Vector2(x, y)
+
+func handle_update_direction(player_id, packet):
+	var direction_delta = packet.get_u16()
+	var direction = direction_delta >> 8
+	var delta = direction_delta & 0xFF
+	var player = get_player_by_id(player_id)
+	player.update_direction(direction, delta)
+
+func handle_update_animation(player_id, packet):
+	var animation_data = packet.get_u16()
+	var animation = animation_data >> 8
+	var direction = (animation_data >> 4) & 0xF
+	var delta = animation_data & 0xF
+	var player = get_player_by_id(player_id)
+	player.update_animation(animation, direction, delta)
+
+func handle_remove_player(player_id):
+	var player = get_player_by_id(player_id)
+	player.queue_free()
+
+func get_player_by_id(player_id):
+	return get_node(str(player_id))
+
 func add_player(id):
 	var player := player_scene.instantiate()
 	player.name = str(id)
