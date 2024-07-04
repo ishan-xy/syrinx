@@ -20,7 +20,7 @@ func send_player_data(player_id: int, position: Vector2, direction: int, animati
 # server's port
 const PORT = 3001
 const MAX_DELTA = 4.0
-
+var session_id=\"\"
 # NOTE: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
 
@@ -62,7 +62,31 @@ func _on_close() -> void:
 
 func _on_string_data(data: PackedByteArray) -> int:
 	# TODO: implement after game's flow is decided
+	var response = data.get_string_from_utf16()
+	
+	if response.begins_with(\"0\"):
+		if response.length() > 1:
+			session_id = response.substr(1)
+		print(\"success\")
+		return OK
+	elif response == \"1\":
+		print(\"uth error, invalid username / password\")
+		return ERR_UNAUTHORIZED
+	elif response == \"2\":
+		print(\"invalid session, user must re-login wit username and password\")
+		session_id = \"\"
+		return ERR_UNAUTHORIZED
 	return OK
+
+func authenticate(username: String, password: String):
+	var auth_data = JSON.stringify({\"user\": username, \"pass\": password})
+	socket.send_text(auth_data)
+
+func send_session_id():
+	if session_id != \"\":
+		socket.send_text(session_id)
+	else:
+		print(\"sesison id not valid, authenticate first\")
 
 func _on_binary_data(data: PackedByteArray) -> int:
 	var size := data.size()
