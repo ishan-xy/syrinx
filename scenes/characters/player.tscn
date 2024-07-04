@@ -138,7 +138,6 @@ func serialize() -> int:
 	
 	return result
 
-
 func deserialize_into(data: int, dest: Vector2) -> int:
 	var delta: float = (data & BIT_MASK) * MAX_DELTA / TWO_TO_N
 	var direction := (data & DIRECTION_MASK) >> N_BITS
@@ -151,6 +150,8 @@ func deserialize_into(data: int, dest: Vector2) -> int:
 func deserialize(data: int) -> void:
 	player_node.movement = deserialize_into(data, player_node.position)
 	anim_node.animation_type = data >> (N_BITS + 2)
+	
+# FIXME: Implement manual syncronization send code.
 "
 
 [sub_resource type="GDScript" id="GDScript_q5ejk"]

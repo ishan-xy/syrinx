@@ -6,25 +6,17 @@
 [sub_resource type="GDScript" id="GDScript_oqeu7"]
 script/source = "extends Node2D
 
-# FIXME: Implement manual syncronization of player's properties, implement send code too.
-func send_player_data(player_id: int, position: Vector2, direction: int, animation: int):
-	var data = PackedByteArray()
-	data.resize(14)
-	data.encode_u16(0, player_id)
-	data.encode_float(2, position.x)
-	data.encode_float(6, position.y)
-	data.encode_u8(10, direction)
-	data.encode_u8(11, animation)
-	socket.send(data)
-
 # server's port
 const PORT = 3001
 const MAX_DELTA = 4.0
-var session_id=\"\"
+
+var session_id: String = \"\"
+# TODO: Make this \"\", and handle empty url
+var server_url: String = \"ws://example.com/\"
+var socket = WebSocketPeer.new()
+
 # NOTE: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
-
-var socket = WebSocketPeer.new()
 
 #func _on_join_pressed():
 	#peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
@@ -32,7 +24,9 @@ var socket = WebSocketPeer.new()
 	#$UI.queue_free()
 
 func _ready():
-	socket.connect_to_url(\"ws://example.com\")
+	set_physics_process(false)
+	# FIXME: get the url first
+	socket.connect_to_url(server_url)
 
 func _physics_process(delta: float):
 	socket.poll()
@@ -49,7 +43,16 @@ func _physics_process(delta: float):
 		pass
 	elif state == WebSocketPeer.STATE_CLOSED:
 		_on_close()
-		
+
+#func send_player_data(player_id: int, position: Vector2, direction: int, animation: int):
+	#var data = PackedByteArray()
+	#data.resize(14)
+	#data.encode_u16(0, player_id)
+	#data.encode_float(2, position.x)
+	#data.encode_float(6, position.y)
+	#data.encode_u8(10, direction)
+	#data.encode_u8(11, animation)
+	#socket.send(data)
 
 func _on_close() -> void:
 	var code = socket.get_close_code()
@@ -57,26 +60,24 @@ func _on_close() -> void:
 	print(\"WebSocket closed with code: %d, reason %s. Clean: %s\" % [code, reason, code != -1])
 	# Reconnection logic
 	socket = WebSocketPeer.new()
-	socket.connect_to_url(\"ws://example.com\")
-	set_process(true)
+	socket.connect_to_url(server_url)
 
 func _on_string_data(data: PackedByteArray) -> int:
-	# TODO: implement after game's flow is decided
-	var response = data.get_string_from_utf16()
-	
-	if response.begins_with(\"0\"):
+	var response = data.get_string_from_ascii()
+	if response[0] == \"0\":
 		if response.length() > 1:
 			session_id = response.substr(1)
-		print(\"success\")
 		return OK
 	elif response == \"1\":
-		print(\"uth error, invalid username / password\")
 		return ERR_UNAUTHORIZED
 	elif response == \"2\":
-		print(\"invalid session, user must re-login wit username and password\")
 		session_id = \"\"
-		return ERR_UNAUTHORIZED
-	return OK
+		return ERR_UNCONFIGURED
+	elif response == \"3\":
+		if response.length() > 1:
+			server_url = response.substr(1)
+		return OK
+	return ERR_INVALID_DATA
 
 func authenticate(username: String, password: String):
 	var auth_data = JSON.stringify({\"user\": username, \"pass\": password})
