@@ -7,10 +7,22 @@
 script/source = "extends Node2D
 
 # FIXME: Implement manual syncronization of player's properties, implement send code too.
+func send_player_data(player_id: int, position: Vector2, direction: int, animation: int):
+	var data = PackedByteArray()
+	data.resize(14)
+	data.encode_u16(0, player_id)
+	data.encode_float(2, position.x)
+	data.encode_float(6, position.y)
+	data.encode_u8(10, direction)
+	data.encode_u8(11, animation)
+	socket.send(data)
 
 # server's port
 const PORT = 3001
-
+const MAX_DELTA = 4.0
+# Probably will not chance
+const N_BITS = 11
+const TWO_TO_N = 2 ** N_BITS
 # WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
 
@@ -53,7 +65,12 @@ func _on_close() -> void:
 	var reason = socket.get_close_reason()
 	print(\"WebSocket closed with code: %d, reason %s. Clean: %s\" % [code, reason, code != -1])
 	# FIXME: make it reconnect instead
-	set_process(false)
+	reconnect()
+	#set_process(false)
+func reconnect():
+	socket = WebSocketPeer.new()
+	socket.connect_to_url(\"ws://example.com\")
+	set_process(true)
 
 func _on_string_data(data: PackedByteArray) -> int:
 	return OK
@@ -83,28 +100,53 @@ func handle_set_position(player_id: int, data: PackedByteArray) -> void:
 	# FIXME: create player if not present
 	# FIXME: it is not an int, you need to typecast to float,
 	# c equivalant  `*(float *) &(data)` and `*(float *) &(data+4)`
-	var position_data = packet.get_u64()
-	var x = position_data >> 32
-	var y = position_data & 0xFFFFFFFF
+	var x = data.decode_float(2)
+	var y = data.decode_float(6)
 	var player = get_player_by_id(player_id)
+	if not player:
+		add_player(player_id)
+		player = get_player_by_id(player_id)
 	player.position = Vector2(x, y)
 
 func handle_update_direction(player_id: int, data: PackedByteArray) -> void:
-	# NOTE: see Player > Syncronizer 'script'
-	var direction_delta = packet.get_u16()
-	var direction = direction_delta >> 8
-	var delta = direction_delta & 0xFF
 	var player = get_player_by_id(player_id)
-	player.update_direction(direction, delta) # FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
+	if not player:
+		add_player(player_id)
+		player = get_player_by_id(player_id)
+	var direction_delta: int = data.decode_u16(2)
+	var direction: int = direction_delta >> N_BITS
+	var delta: float = (direction_delta & ((1 << N_BITS) - 1)) * MAX_DELTA / TWO_TO_N
+	
+	update_player_movement(player, direction, delta)
+
+func update_player_movement(player: CharacterBody2D, direction: int, delta: float) -> void:
+	var movement: Vector2 = Vector2.ZERO
+	
+	match direction:
+		player.Direction.right:
+			movement.x = delta
+		player.Direction.left:
+			movement.x = -delta
+		player.Direction.down:
+			movement.y = delta
+		player.Direction.up:
+			movement.y = -delta
+	
+	player.position += movement# FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
 
 func handle_update_animation(player_id: int, data: PackedByteArray) -> void:
-	# NOTE: see Player > Syncronizer 'script'
-	var animation_data = packet.get_u16()
+	var player = get_player_by_id(player_id)
+	if not player:
+		add_player(player_id)
+		player = get_player_by_id(player_id)
+	
+	var animation_data = data.decode_u16(2)
 	var animation = animation_data >> 8
 	var direction = (animation_data >> 4) & 0xF
 	var delta = animation_data & 0xF
-	var player = get_player_by_id(player_id)
-	player.update_animation(animation, direction, delta) # FIXME: this does not exist and does not need to exist !
+	
+	update_player_movement(player, direction, delta)
+ # FIXME: this does not exist and does not need to exist !
 
 func handle_remove_player(player_id: int) -> void:
 	var player = get_player_by_id(player_id)
