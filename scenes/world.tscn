@@ -6,14 +6,39 @@
 [sub_resource type="GDScript" id="GDScript_oqeu7"]
 script/source = "extends Node2D
 
+
 # FIXME: Implement manual syncronization of player's properties, implement send code too.
+func send_player_data(player_id: int, position: Vector2, direction: int, animation: int):
+	var data = PackedByteArray()
+	data.resize(14)
+	data.encode_u16(0, player_id)
+	data.encode_float(2, position.x)
+	data.encode_float(6, position.y)
+	data.encode_u8(10, direction)
+	data.encode_u8(11, animation)
+	socket.send(data)
+
+func receive_player_data(data: PackedByteArray):
+	var player_id = data.decode_u16(0)
+	var x = data.decode_float(2)
+	var y = data.decode_float(6)
+	var direction = data.decode_u8(10)
+	var animation = data.decode_u8(11)
+	
+	var player = get_player_by_id(player_id)
+	if player:
+		player.position = Vector2(x, y)
+		player.direction = direction
+		player.animation = animation
+	else:
+		add_player(player_id)
+
 
 # server's port
 const PORT = 3001
 
 # WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
-
 var socket = WebSocketPeer.new()
 
 #func _on_host_pressed():
@@ -53,7 +78,13 @@ func _on_close() -> void:
 	var reason = socket.get_close_reason()
 	print(\"WebSocket closed with code: %d, reason %s. Clean: %s\" % [code, reason, code != -1])
 	# FIXME: make it reconnect instead
-	set_process(false)
+	reconnect()
+	#set_process(false)
+
+func reconnect():
+	socket = WebSocketPeer.new()
+	socket.connect_to_url(\"ws://example.com\")
+	set_process(true)
 
 func _on_string_data(data: PackedByteArray) -> int:
 	return OK
@@ -80,31 +111,32 @@ func _on_binary_data(data: PackedByteArray) -> int:
 	return OK
 
 func handle_set_position(player_id: int, data: PackedByteArray) -> void:
-	# FIXME: create player if not present
-	# FIXME: it is not an int, you need to typecast to float,
-	# c equivalant  `*(float *) &(data)` and `*(float *) &(data+4)`
-	var position_data = packet.get_u64()
-	var x = position_data >> 32
-	var y = position_data & 0xFFFFFFFF
+	if len(data) < 10:
+		return
+	var x = data.decode_float(2)
+	var y = data.decode_float(6)
 	var player = get_player_by_id(player_id)
+	if not player:
+		add_player(player_id)
+		player = get_player_by_id(player_id)
 	player.position = Vector2(x, y)
 
 func handle_update_direction(player_id: int, data: PackedByteArray) -> void:
-	# NOTE: see Player > Syncronizer 'script'
-	var direction_delta = packet.get_u16()
-	var direction = direction_delta >> 8
-	var delta = direction_delta & 0xFF
+	var sync_data = data.decode_u32(2)
 	var player = get_player_by_id(player_id)
-	player.update_direction(direction, delta) # FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
+	if player:
+		var synchronizer = player.get_node(\"MultiplayerSynchronizer\")
+		synchronizer.deserialize(sync_data) # FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
 
 func handle_update_animation(player_id: int, data: PackedByteArray) -> void:
-	# NOTE: see Player > Syncronizer 'script'
-	var animation_data = packet.get_u16()
-	var animation = animation_data >> 8
-	var direction = (animation_data >> 4) & 0xF
-	var delta = animation_data & 0xF
+	var animation_data = data.decode_u16(2)
 	var player = get_player_by_id(player_id)
-	player.update_animation(animation, direction, delta) # FIXME: this does not exist and does not need to exist !
+	if player:
+		var synchronizer = player.get_node(\"MultiplayerSynchronizer\")
+		synchronizer.deserialize(animation_data)
+
+		var anim_type = animation_data >> (synchronizer.N_BITS + 2)
+		player.get_node(\"AnimatedSprite2D\").animation_type = anim_type # FIXME: this does not exist and does not need to exist !
 
 func handle_remove_player(player_id: int) -> void:
 	var player = get_player_by_id(player_id)
