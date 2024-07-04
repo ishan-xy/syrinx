@@ -17,6 +17,7 @@ var socket = WebSocketPeer.new()
 
 # NOTE: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
+@export var owner_id: String
 
 #func _on_join_pressed():
 	#peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
@@ -66,17 +67,19 @@ func _on_string_data(data: PackedByteArray) -> int:
 	var response = data.get_string_from_ascii()
 	if response[0] == \"0\":
 		if response.length() > 1:
-			session_id = response.substr(1)
+			var obj = JSON.parse_string(response.substr(1))
+			if obj == null:
+				return ERR_INVALID_DATA
+			session_id = obj[\"sessionID\"]
+			server_url = obj[\"url\"]
+			# Disable previous owner and enable the new one recieved
+			owner_id = obj[\"owner\"]
 		return OK
 	elif response == \"1\":
 		return ERR_UNAUTHORIZED
 	elif response == \"2\":
 		session_id = \"\"
 		return ERR_UNCONFIGURED
-	elif response == \"3\":
-		if response.length() > 1:
-			server_url = response.substr(1)
-		return OK
 	return ERR_INVALID_DATA
 
 func authenticate(username: String, password: String):
@@ -141,7 +144,6 @@ func deserialize(N: int, data: int, player: CharacterBody2D) -> void:
 	else:
 		player.position.y += (-1 * (direction>>1)&2) * delta
 	player.movement = direction
-
 
 func add_player(id):
 	print(\"Called with ID: \" + str(id))
