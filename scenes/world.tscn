@@ -6,83 +6,111 @@
 [sub_resource type="GDScript" id="GDScript_oqeu7"]
 script/source = "extends Node2D
 
-# TODO: Implement manual syncronization of player's properties
-
-# This is to be used for testing only
-const IS_SERVER: bool = true
-#func _ready():
-	#if IS_SERVER:
-		#_on_host_pressed()
-	#else:
-		#_on_join_pressed()
+# FIXME: Implement manual syncronization of player's properties, implement send code too.
 
 # server's port
 const PORT = 3001
 
-# ENetMultiplayerPeer is faster but incompatiblle with browsers
-var peer := WebSocketMultiplayerPeer.new()
-
 # WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
 
-func _on_host_pressed():
-	peer.create_server(PORT)
-	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(add_player)
-	add_player(1)
-	$UI.queue_free()
+var socket = WebSocketPeer.new()
 
-func _on_join_pressed():
-	peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
-	multiplayer.multiplayer_peer = peer
-	$UI.queue_free()
+#func _on_host_pressed():
+	#peer.create_server(PORT)
+	#multiplayer.multiplayer_peer = peer
+	#multiplayer.peer_connected.connect(add_player)
+	#add_player(1)
+	#$UI.queue_free()
+#
+#func _on_join_pressed():
+	#peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
+	#multiplayer.multiplayer_peer = peer
+	#$UI.queue_free()
 
-func handle_message(packet):
-	var bits = packet.get_data()
-	var procedure = bits >> 12
-	var player_id = bits & 0xFFF
-	
-	match procedure:
+func _ready():
+	socket.connect_to_url(\"ws://example.com\")
+
+func _physics_process(delta: float):
+	socket.poll()
+	var state = socket.get_ready_state()
+	if state == WebSocketPeer.STATE_OPEN:
+		while socket.get_available_packet_count():
+			# NOTE: it possbly can cause issues with endianness
+			var packet := socket.get_packet()
+			if socket.was_string_packet():
+				_on_string_data(packet)
+			else:
+				_on_binary_data(packet)
+	elif state == WebSocketPeer.STATE_CLOSING:
+		pass
+	elif state == WebSocketPeer.STATE_CLOSED:
+		_on_close()
+		
+
+func _on_close() -> void:
+	var code = socket.get_close_code()
+	var reason = socket.get_close_reason()
+	print(\"WebSocket closed with code: %d, reason %s. Clean: %s\" % [code, reason, code != -1])
+	# FIXME: make it reconnect instead
+	set_process(false)
+
+func _on_string_data(data: PackedByteArray) -> int:
+	return OK
+
+func _on_binary_data(data: PackedByteArray) -> int:
+	var size := len(data)
+	if size < 2:
+		return ERR_PARSE_ERROR
+	var player_id = (data[0]&0xF << 8) | data[1]
+
+	match data[0] >> 4:
 		#-> (16) + 64 bit position, must not modify player animation
 		0:
-			handle_set_position(player_id, packet)
+			handle_set_position(player_id, data)
 		#-> (16) + 16 bit (direction + delta)
 		1:
-			handle_update_direction(player_id, packet)
+			handle_update_direction(player_id, data)
 		#-> (16) + 16 bit (animation data + direction + delta)
 		2:
-			handle_update_animation(player_id, packet)
+			handle_update_animation(player_id, data)
 		#-> (16) + 0, remove the player form scene:
 		3:
 			handle_remove_player(player_id)
+	return OK
 
-func handle_set_position(player_id, packet):
+func handle_set_position(player_id: int, data: PackedByteArray) -> void:
+	# FIXME: create player if not present
+	# FIXME: it is not an int, you need to typecast to float,
+	# c equivalant  `*(float *) &(data)` and `*(float *) &(data+4)`
 	var position_data = packet.get_u64()
 	var x = position_data >> 32
 	var y = position_data & 0xFFFFFFFF
 	var player = get_player_by_id(player_id)
 	player.position = Vector2(x, y)
 
-func handle_update_direction(player_id, packet):
+func handle_update_direction(player_id: int, data: PackedByteArray) -> void:
+	# NOTE: see Player > Syncronizer 'script'
 	var direction_delta = packet.get_u16()
 	var direction = direction_delta >> 8
 	var delta = direction_delta & 0xFF
 	var player = get_player_by_id(player_id)
-	player.update_direction(direction, delta)
+	player.update_direction(direction, delta) # FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
 
-func handle_update_animation(player_id, packet):
+func handle_update_animation(player_id: int, data: PackedByteArray) -> void:
+	# NOTE: see Player > Syncronizer 'script'
 	var animation_data = packet.get_u16()
 	var animation = animation_data >> 8
 	var direction = (animation_data >> 4) & 0xF
 	var delta = animation_data & 0xF
 	var player = get_player_by_id(player_id)
-	player.update_animation(animation, direction, delta)
+	player.update_animation(animation, direction, delta) # FIXME: this does not exist and does not need to exist !
 
-func handle_remove_player(player_id):
+func handle_remove_player(player_id: int) -> void:
 	var player = get_player_by_id(player_id)
 	player.queue_free()
 
-func get_player_by_id(player_id):
+func get_player_by_id(player_id) -> CharacterBody2D:
 	return get_node(str(player_id))
 
 func add_player(id):
