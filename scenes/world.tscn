@@ -20,21 +20,12 @@ func send_player_data(player_id: int, position: Vector2, direction: int, animati
 # server's port
 const PORT = 3001
 const MAX_DELTA = 4.0
-# Probably will not chance
-const N_BITS = 11
-const TWO_TO_N = 2 ** N_BITS
-# WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
+
+# NOTE: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
 @export var player_scene: PackedScene
 
 var socket = WebSocketPeer.new()
 
-#func _on_host_pressed():
-	#peer.create_server(PORT)
-	#multiplayer.multiplayer_peer = peer
-	#multiplayer.peer_connected.connect(add_player)
-	#add_player(1)
-	#$UI.queue_free()
-#
 #func _on_join_pressed():
 	#peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
 	#multiplayer.multiplayer_peer = peer
@@ -64,96 +55,68 @@ func _on_close() -> void:
 	var code = socket.get_close_code()
 	var reason = socket.get_close_reason()
 	print(\"WebSocket closed with code: %d, reason %s. Clean: %s\" % [code, reason, code != -1])
-	# FIXME: make it reconnect instead
-	reconnect()
-	#set_process(false)
-func reconnect():
+	# Reconnection logic
 	socket = WebSocketPeer.new()
 	socket.connect_to_url(\"ws://example.com\")
 	set_process(true)
 
 func _on_string_data(data: PackedByteArray) -> int:
+	# TODO: implement after game's flow is decided
 	return OK
 
 func _on_binary_data(data: PackedByteArray) -> int:
-	var size := len(data)
-	if size < 2:
+	var size := data.size()
+	if size == 0:
+		return OK
+	elif size < 2:
 		return ERR_PARSE_ERROR
-	var player_id = (data[0]&0xF << 8) | data[1]
-
+	var player_id := (data[0]&0xF << 8) | data[1]
+	var player := get_node(str(player_id))
 	match data[0] >> 4:
-		#-> (16) + 64 bit position, must not modify player animation
-		0:
-			handle_set_position(player_id, data)
-		#-> (16) + 16 bit (direction + delta)
-		1:
-			handle_update_direction(player_id, data)
-		#-> (16) + 16 bit (animation data + direction + delta)
-		2:
-			handle_update_animation(player_id, data)
-		#-> (16) + 0, remove the player form scene:
-		3:
-			handle_remove_player(player_id)
-	return OK
+		0: # set user position
+			if size < 10:
+				return ERR_PARSE_ERROR
+			if not player:
+				add_player(player_id)
+				player = get_node(str(player_id))
+			player.position = Vector2(data.decode_float(2), data.decode_float(6))
+			data = data.slice(11)
+		1: # (direction + delta)
+			if size < 4:
+				return ERR_PARSE_ERROR
+			if not player:
+				return ERR_DOES_NOT_EXIST
+			var short := data.decode_u16(2)
+			deserialize(14, short, player)
+			data = data.slice(5)
+		2: # (animation data + direction + delta)
+			if size < 4:
+				return ERR_PARSE_ERROR
+			if not player:
+				return ERR_DOES_NOT_EXIST
+			var short := data.decode_u16(2)
+			deserialize(14, short, player)
+			player.animation_type = short >> (13)
+			data = data.slice(5)
+		3: # remove the player form scene
+			if not player:
+				return ERR_DOES_NOT_EXIST
+			player.queue_free()
+			data = data.slice(3)
+		_: # corrupt packet
+			return ERR_INVALID_DATA
+	return _on_binary_data(data)
 
-func handle_set_position(player_id: int, data: PackedByteArray) -> void:
-	# FIXME: create player if not present
-	# FIXME: it is not an int, you need to typecast to float,
-	# c equivalant  `*(float *) &(data)` and `*(float *) &(data+4)`
-	var x = data.decode_float(2)
-	var y = data.decode_float(6)
-	var player = get_player_by_id(player_id)
-	if not player:
-		add_player(player_id)
-		player = get_player_by_id(player_id)
-	player.position = Vector2(x, y)
+func deserialize(N: int, data: int, player: CharacterBody2D) -> void:
+	var TTN := (2 << N)
+	var delta: float = (data & (TTN*2 - 1)) * MAX_DELTA / TTN
+	var direction := (data & ((TTN*2)|(TTN*4))) >> N
+	if (direction&1 == 0):
+		player.position.x += (-1 * (direction>>1)&2) * delta
+	else:
+		player.position.y += (-1 * (direction>>1)&2) * delta
+	player.movement = direction
 
-func handle_update_direction(player_id: int, data: PackedByteArray) -> void:
-	var player = get_player_by_id(player_id)
-	if not player:
-		add_player(player_id)
-		player = get_player_by_id(player_id)
-	var direction_delta: int = data.decode_u16(2)
-	var direction: int = direction_delta >> N_BITS
-	var delta: float = (direction_delta & ((1 << N_BITS) - 1)) * MAX_DELTA / TWO_TO_N
-	
-	update_player_movement(player, direction, delta)
-
-func update_player_movement(player: CharacterBody2D, direction: int, delta: float) -> void:
-	var movement: Vector2 = Vector2.ZERO
-	
-	match direction:
-		player.Direction.right:
-			movement.x = delta
-		player.Direction.left:
-			movement.x = -delta
-		player.Direction.down:
-			movement.y = delta
-		player.Direction.up:
-			movement.y = -delta
-	
-	player.position += movement# FIXME: update_direction does not exist !!!, and you dont need it see the 'script'
-
-func handle_update_animation(player_id: int, data: PackedByteArray) -> void:
-	var player = get_player_by_id(player_id)
-	if not player:
-		add_player(player_id)
-		player = get_player_by_id(player_id)
-	
-	var animation_data = data.decode_u16(2)
-	var animation = animation_data >> 8
-	var direction = (animation_data >> 4) & 0xF
-	var delta = animation_data & 0xF
-	
-	update_player_movement(player, direction, delta)
- # FIXME: this does not exist and does not need to exist !
-
-func handle_remove_player(player_id: int) -> void:
-	var player = get_player_by_id(player_id)
-	player.queue_free()
-
-func get_player_by_id(player_id) -> CharacterBody2D:
-	return get_node(str(player_id))
 
 func add_player(id):
 	print(\"Called with ID: \" + str(id))
