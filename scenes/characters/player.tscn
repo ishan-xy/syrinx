@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://csxndgunsyc70"]
+[gd_scene load_steps=58 format=3 uid="uid://csxndgunsyc70"]
 
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mysticwoods/characters/player.png" id="1_yvf2c"]
 
@@ -529,8 +529,9 @@ func _enter_tree():
 	self.play(\"down_idle\")
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pca5x"]
-radius = 3.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sriwm"]
+radius = 8.0
+height = 37.9914
 
 [sub_resource type="GDScript" id="GDScript_drsgr"]
 script/source = "extends Area2D
@@ -543,10 +544,6 @@ func _on_area_exited(area: Area2D) -> void:
 	print_debug(\"Exit\")
 	pass # Replace with function body.
 "
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1yw1y"]
-radius = 7.0
-height = 20.0
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -561,14 +558,16 @@ script = SubResource("GDScript_cwf02")
 zoom = Vector2(0.5, 0.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_xgcfc")
 animation = &"up_idle"
 offset = Vector2(-0.5, -13)
 script = SubResource("GDScript_12o1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("CircleShape2D_pca5x")
+position = Vector2(0, -2)
+scale = Vector2(0.997913, 0.473791)
+shape = SubResource("CapsuleShape2D_sriwm")
 
 [node name="Direction" type="Marker2D" parent="."]
 position = Vector2(0, -2)
@@ -579,11 +578,6 @@ collision_mask = 256
 input_pickable = false
 monitorable = false
 script = SubResource("GDScript_drsgr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Area2d"]
-position = Vector2(0, -11)
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_1yw1y")
 
 [connection signal="area_entered" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_entered"]
 [connection signal="area_exited" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_exited"]
