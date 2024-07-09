@@ -1,6 +1,9 @@
-[gd_scene load_steps=51 format=3 uid="uid://cq17ymwl7yrrp"]
+[gd_scene load_steps=56 format=3 uid="uid://cq17ymwl7yrrp"]
 
 [ext_resource type="Texture2D" uid="uid://u376aqf8ix7s" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Character_Generator_Addons_16x16/Characters_16x16/Modern_Exteriors_Characters_Postman_16x16_1.png" id="1_munk8"]
+[ext_resource type="Script" path="res://scenes/characters/Npc_dialogue.gd" id="2_3pjhy"]
+[ext_resource type="PackedScene" uid="uid://cdgvwyvsqhvsd" path="res://questions/textbox.tscn" id="3_fved3"]
+[ext_resource type="PackedScene" uid="uid://xoanerlbh3a4" path="res://questions/canvas_layer.tscn" id="3_qtig4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77qdf"]
 atlas = ExtResource("1_munk8")
@@ -381,8 +384,33 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qoxq2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xujbt"]
+radius = 25.02
+
+[node name="postman" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q5n4o")
 animation = &"d_idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_qoxq2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("2_3pjhy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_xujbt")
+
+[node name="MarginContainer" parent="." instance=ExtResource("3_fved3")]
+
+[node name="Questions" parent="." instance=ExtResource("3_qtig4")]
+visible = false
