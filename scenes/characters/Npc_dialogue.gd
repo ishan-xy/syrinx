@@ -6,6 +6,5 @@ func _input(event):
 
 func use_dialogue():
 	var dialogue= get_parent().get_node("Questions")
-	
 	if dialogue:
 		dialogue.start()

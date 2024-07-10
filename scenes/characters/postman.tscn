@@ -1,9 +1,8 @@
-[gd_scene load_steps=56 format=3 uid="uid://cq17ymwl7yrrp"]
+[gd_scene load_steps=55 format=3 uid="uid://cq17ymwl7yrrp"]
 
 [ext_resource type="Texture2D" uid="uid://u376aqf8ix7s" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Character_Generator_Addons_16x16/Characters_16x16/Modern_Exteriors_Characters_Postman_16x16_1.png" id="1_munk8"]
 [ext_resource type="Script" path="res://scenes/characters/Npc_dialogue.gd" id="2_3pjhy"]
-[ext_resource type="PackedScene" uid="uid://cdgvwyvsqhvsd" path="res://questions/textbox.tscn" id="3_fved3"]
-[ext_resource type="PackedScene" uid="uid://xoanerlbh3a4" path="res://questions/canvas_layer.tscn" id="3_qtig4"]
+[ext_resource type="PackedScene" uid="uid://cdgvwyvsqhvsd" path="res://questions/dialogBox.tscn" id="3_05qjc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77qdf"]
 atlas = ExtResource("1_munk8")
@@ -410,7 +409,8 @@ script = ExtResource("2_3pjhy")
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_xujbt")
 
-[node name="MarginContainer" parent="." instance=ExtResource("3_fved3")]
-
-[node name="Questions" parent="." instance=ExtResource("3_qtig4")]
-visible = false
+[node name="Questions" parent="." instance=ExtResource("3_05qjc")]
+offset_left = -103.0
+offset_top = -141.0
+offset_right = -15.0
+offset_bottom = -27.0

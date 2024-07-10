@@ -64255,10 +64255,10 @@ layer_0/tile_data = PackedInt32Array(2555929, 1376258, 9, 2621464, 1376258, 9, 2
 layer_1/tile_data = PackedInt32Array()
 
 [node name="postman" parent="." instance=ExtResource("12_dw35g")]
-position = Vector2(3226, 1040)
+position = Vector2(3141, 958)
 
 [node name="Player" parent="." instance=ExtResource("37_ra42a")]
-position = Vector2(3081, 1000)
+position = Vector2(3060, 968)
 
 [node name="butchery" type="StaticBody2D" parent="."]
 y_sort_enabled = true
@@ -64825,4 +64825,5 @@ scale = Vector2(1.04688, 1.60938)
 shape = SubResource("CircleShape2D_7046j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(57, 14)
 shape = SubResource("WorldBoundaryShape2D_sopri")
