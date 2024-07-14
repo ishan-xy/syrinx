@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bsq46ps1juje7" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/4_Generic_Buildings_16x16.png" id="4_s0lof"]
 [ext_resource type="Texture2D" uid="uid://yq8npptilyay" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="5_lwfc1"]
 [ext_resource type="Texture2D" uid="uid://bm5wcb5rr454o" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="6_t0a64"]
-[ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mysticwoods/characters/player.png" id="8_hmtay"]
+[ext_resource type="Texture2D" uid="uid://brbdm8wtcplj2" path="res://assets/mysticwoods/characters/player.png" id="8_hmtay"]
 [ext_resource type="Texture2D" uid="uid://cq8mmeijlxk01" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="9_jjjs2"]
 [ext_resource type="Texture2D" uid="uid://doqxk1mnchybb" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/8_Worksite_16x16.png" id="10_isf8m"]
 [ext_resource type="Texture2D" uid="uid://dc3r5jixffs0h" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/6_Garage_Sales_16x16.png" id="11_wi6kl"]
@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://re0f43nqjf65" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_134.png" id="32_dive6"]
 [ext_resource type="Texture2D" uid="uid://b02qxkfuvi6ul" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_183.png" id="33_mcfsa"]
 [ext_resource type="Texture2D" uid="uid://bbjajidc617cw" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_Dead_23.png" id="37_cftwm"]
-[ext_resource type="PackedScene" uid="uid://csxndgunsyc70" path="res://scenes/characters/player.tscn" id="37_ra42a"]
+[ext_resource type="PackedScene" uid="uid://bw147rds31bgl" path="res://scenes/characters/player.tscn" id="37_ra42a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdls5"]
 texture = ExtResource("8_hmtay")

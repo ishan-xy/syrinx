@@ -1,6 +1,6 @@
 [remap]
 
-importer="texture"
+importer="image"
 type="CompressedTexture2D"
 uid="uid://dajn1gws8gwbt"
 path="res://.godot/imported/Sea_Water_Tileset_No_Sand_Outer_Corners_32x32.png-2ff2b14309ad9a8f52ef4b41f3d939fb.ctex"
@@ -12,23 +12,3 @@ metadata={
 
 source_file="res://assets/modernexteriors/Modern_Exteriors_32x32/Animated_32x32/Animated_Terrains_32x32/Sea_Water_Tileset_No_Sand_Outer_Corners_32x32.png"
 dest_files=["res://.godot/imported/Sea_Water_Tileset_No_Sand_Outer_Corners_32x32.png-2ff2b14309ad9a8f52ef4b41f3d939fb.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal=""
-process/fix_alpha_border=false
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=0

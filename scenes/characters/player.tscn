@@ -13,7 +13,7 @@ enum Direction{ right, up, left, down, }
 @export var movement := Direction.down
 @onready var anim := $AnimatedSprite2D
 
-# `true` iff this is the multiplayer authority, do NOT change this
+# `true` iff  this is the multiplayer authority, do NOT change this
 
 # Customm movement logic for 4 (NOT `8`) directional movement
 var _prev := PackedByteArray()
