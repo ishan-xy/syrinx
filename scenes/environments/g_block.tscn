@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://re0f43nqjf65" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_134.png" id="32_dive6"]
 [ext_resource type="Texture2D" uid="uid://b02qxkfuvi6ul" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_183.png" id="33_mcfsa"]
 [ext_resource type="Texture2D" uid="uid://bbjajidc617cw" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_Dead_23.png" id="37_cftwm"]
-[ext_resource type="PackedScene" uid="uid://csxndgunsyc70" path="res://scenes/characters/player.tscn" id="37_ra42a"]
+[ext_resource type="PackedScene" uid="uid://dpdo8ewbwemm5" path="res://addons/area_of_sight_2d/example/player.tscn" id="37_ra42a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdls5"]
 texture = ExtResource("8_hmtay")
