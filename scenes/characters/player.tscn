@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://csxndgunsyc70"]
+[gd_scene load_steps=59 format=3 uid="uid://csxndgunsyc70"]
 
 [ext_resource type="Texture2D" uid="uid://ikgvwcfm1gya" path="res://assets/mysticwoods/characters/player.png" id="1_yvf2c"]
 
@@ -6,42 +6,58 @@
 script/source = "extends CharacterBody2D
 
 # Player's movement speed
-const SPEED = 100*60
+const SPEED = 100 * 60
 
 # Player States
-enum Direction{ right, up, left, down, }
+enum Direction { right, up, left, down }
 @export var movement := Direction.down
 @onready var anim := $AnimatedSprite2D
+@onready var camera := $Camera2D
 
-# `true` iff this is the multiplayer authority, do NOT change this
-
-# Customm movement logic for 4 (NOT `8`) directional movement
+# Custom movement logic for 4 (NOT `8`) directional movement
 var _prev := PackedByteArray()
+
+func _ready():
+	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		camera.make_current()
+
+
+@rpc(\"any_peer\", \"call_local\")
 func pressed_direction(direction: Direction) -> void:
 	_prev.append(direction)
 	movement = direction
 	anim.animation_type = anim.AnimationType.walk
+	rpc(\"update_animation_type\", anim.AnimationType.walk)
+
+@rpc(\"any_peer\", \"call_local\")
 func released_direction(direction: Direction) -> void:
 	var pos := _prev.rfind(direction)
 	if pos != -1:
 		_prev.remove_at(pos)
 	if _prev.is_empty():
 		anim.animation_type = anim.AnimationType.idle
+		rpc(\"update_animation_type\", anim.AnimationType.idle)
 		return
 	else:
 		movement = _prev[-1] as Direction
 	return
+
+@rpc(\"any_peer\", \"call_local\")
+func update_animation_type(type: int) -> void:
+	anim.animation_type = type
+
 func process_ui_key(direction: Direction) -> bool:
-	var key_name: String = \"ui_\"+Direction.keys()[direction]
+	var key_name: String = \"move_\" + Direction.keys()[direction]
 	if Input.is_action_just_pressed(key_name):
-		pressed_direction(direction)
+		rpc(\"pressed_direction\", direction)
 		return true
 	elif Input.is_action_just_released(key_name):
-		released_direction(direction)
+		rpc(\"released_direction\", direction)
 		return true
 	return false
 
-#Process user input
+# Process user input
 func process_input() -> void:
 	var inp: bool = false
 	inp = inp or process_ui_key(Direction.right)
@@ -51,30 +67,47 @@ func process_input() -> void:
 	if Input.is_key_pressed(KEY_SHIFT):
 		if anim.animation_type == anim.AnimationType.walk:
 			anim.animation_type = anim.AnimationType.sprint
+			rpc(\"update_animation_type\", anim.AnimationType.sprint)
 	if inp:
 		$Direction.set_rotation_degrees(90 * movement)
+		rpc(\"update_rotation_degrees\", 90 * movement)
 
 # Process input and move
 func _physics_process(delta: float) -> void:
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		process_input()
+		if not (Input.is_action_pressed(\"move_up\") or Input.is_action_pressed(\"move_right\") or \\
+				Input.is_action_pressed(\"move_down\") or Input.is_action_pressed(\"move_left\")):
+			anim.animation_type = anim.AnimationType.idle
+			rpc(\"update_animation_type\", anim.AnimationType.idle)
 
-	process_input()
-	if not (Input.is_action_pressed(\"ui_up\") or Input.is_action_pressed(\"ui_right\") or\\
-	 Input.is_action_pressed(\"ui_down\") or Input.is_action_pressed(\"ui_left\")):
-		anim.animation_type = anim.AnimationType.idle
-	
-	if anim.animation_type == anim.AnimationType.idle:
-		return
-	
-	velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
-	velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
-	
-	if anim.animation_type == anim.AnimationType.sprint:
-		velocity *= 2*delta
-	else:
-		velocity *= delta
-	# WARNING: DO NOT USE `move_and_slide`, player interaction becomes bery buggy
-	move_and_collide(velocity * delta)
+		if anim.animation_type == anim.AnimationType.idle:
+			return
 
+		velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
+		velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
+
+		if anim.animation_type == anim.AnimationType.sprint:
+			velocity *= 2 * delta
+		else:
+			velocity *= delta
+
+		# WARNING: DO NOT USE `move_and_slide`, player interaction becomes very buggy
+		move_and_collide(velocity * delta)
+		rpc(\"update_position\", position)
+		rpc(\"update_velocity\", velocity)
+
+@rpc(\"any_peer\", \"call_local\")
+func update_position(pos: Vector2) -> void:
+	position = pos
+
+@rpc(\"any_peer\", \"call_local\")
+func update_velocity(vel: Vector2) -> void:
+	velocity = vel
+
+@rpc(\"any_peer\", \"call_local\")
+func update_rotation_degrees(degrees: float) -> void:
+	$Direction.rotation_degrees = degrees
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74xpf"]
@@ -545,7 +578,9 @@ func _on_area_exited(area: Area2D) -> void:
 	pass # Replace with function body.
 "
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xi4mr"]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 collision_layer = 3
 collision_mask = 31
@@ -557,7 +592,8 @@ safe_margin = 0.001
 script = SubResource("GDScript_cwf02")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
@@ -580,6 +616,9 @@ collision_mask = 256
 input_pickable = false
 monitorable = false
 script = SubResource("GDScript_drsgr")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xi4mr")
 
 [connection signal="area_entered" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_entered"]
 [connection signal="area_exited" from="Direction/Area2d" to="Direction/Area2d" method="_on_area_exited"]
