@@ -1,42 +1,59 @@
-extends Node2D
-
+extends Node
 
 @export_file("*.json") var d_file
 var dialogue = []
-var current_dialogue_id=0
-var d_active=false
+var current_dialogue_id = 0
+var d_active = false
 var question: TextEdit
-var answer:TextEdit
-var submit:Button
-var post_url = "http://example.com/submit"
+var answer: TextEdit
+var submit: Button
+@export var websocket_url = "ws://localhost:8000"
+var socket = WebSocketPeer.new()
+#var post_url = "http://example.com/submit"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	question=$question
-	answer=$answer
-	submit=$submit
-	submit.visible=false
-	question.visible=false
-	answer.visible=false
-	
-
-	$NinePatchRect.visible=false
+	question = $question
+	answer = $answer
+	submit = $submit
+	#$NinePatchRect.visible = false
+	#submit.visible = false
+	#question.visible = false
+	#answer.visible = false
+	var err=socket.connect_to_url(websocket_url)	
+	if err!=OK:
+		print("unable to connect")
+		set_process(false)
 	d_file = "res://questions/json/questions.json"
-	start()
-
-
+	start() 	
+func _process(delta):
+	socket.poll()
+	var state = socket.get_ready_state()
+	if state == WebSocketPeer.STATE_OPEN:
+		while socket.get_available_packet_count():
+			var reply=socket.get_packet().get_string_from_ascii()
+			print("Packet: ", reply)
+	elif state == WebSocketPeer.STATE_CLOSING:
+		# Keep polling to achieve proper close.
+		pass
+	elif state == WebSocketPeer.STATE_CLOSED:
+		var code = socket.get_close_code()
+		var reason = socket.get_close_reason()
+		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+		set_process(false) 
+	
 func start():
 	if d_active:
 		return
-	d_active=true
-	submit.visible=true
-	question.visible=true
-	answer.visible=true
-	
-	$NinePatchRect.visible=true
+	d_active = true
+	submit.visible = true
+	question.visible = true
+	answer.visible = true
+	$NinePatchRect.visible = true
 	dialogue = load_dialogue()
-	current_dialogue_id=-1
+	current_dialogue_id = -1
 	next_script()
-	
+
 func load_dialogue():
 	var file = FileAccess.open(d_file, FileAccess.READ)
 	if file.file_exists(d_file):
@@ -50,37 +67,28 @@ func _input(event):
 		next_script()
 
 func next_script():
-	
-	current_dialogue_id+=1
-	if current_dialogue_id>=len(dialogue):
+	current_dialogue_id += 1
+	if current_dialogue_id >= len(dialogue):
 		$Timer.start()
-		$NinePatchRect.visible=false
-		submit.visible=false
-		question.visible=false
-		answer.visible=false
+		$NinePatchRect.visible = false
+		submit.visible = false
+		question.visible = false
+		answer.visible = false
 		return
-	question.text=dialogue[current_dialogue_id]['question']
+	question.text = dialogue[current_dialogue_id]['question']
 
 func _on_timer_timeout():
-	d_active=false
-
- # Replace with function body.
+	d_active = false
 
 func _on_submit_button_down():
 	var ans=$answer.text 
 # now send this ans to web socket to server to check the ans
-	print(ans)
-	var http_request = $HTTPRequest
 	var body={
 		"user":"USERSID",
 		"answer":ans
 	}
 	var json_body=JSON.stringify(body)
-	var headers = ["Content-Type: application/json"]
-	http_request.request(post_url,headers,HTTPClient.METHOD_POST,json_body)
+	socket.send_text(json_body)
+	print(json_body)
 
-func _on_http_request_request_completed(result, response_code, headers, body):
-	if response_code==200:
-		print("connected")
-	else:
-		print("not connected") # Replace with function body.
+
