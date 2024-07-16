@@ -8,6 +8,7 @@ var d_active=false
 var question: TextEdit
 var answer:TextEdit
 var submit:Button
+var post_url = "http://example.com/submit"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	question=$question
@@ -69,3 +70,17 @@ func _on_submit_button_down():
 	var ans=$answer.text 
 # now send this ans to web socket to server to check the ans
 	print(ans)
+	var http_request = $HTTPRequest
+	var body={
+		"user":"USERSID",
+		"answer":ans
+	}
+	var json_body=JSON.stringify(body)
+	var headers = ["Content-Type: application/json"]
+	http_request.request(post_url,headers,HTTPClient.METHOD_POST,json_body)
+
+func _on_http_request_request_completed(result, response_code, headers, body):
+	if response_code==200:
+		print("connected")
+	else:
+		print("not connected") # Replace with function body.

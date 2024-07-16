@@ -48,5 +48,8 @@ offset_right = 546.0
 offset_bottom = 159.0
 text = "my name is shereyas"
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="submit" to="." method="_on_submit_button_down"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
