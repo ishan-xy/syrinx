@@ -217,7 +217,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3s0ng")
 }],
-"loop": false,
+"loop": true,
 "name": &"d_idle",
 "speed": 5.0
 }, {
@@ -395,12 +395,15 @@ collision_mask = 2
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q5n4o")
 animation = &"d_idle"
+frame_progress = 0.698283
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_qoxq2")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("2_3pjhy")
@@ -410,6 +413,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_xujbt")
 
 [node name="Questions" parent="." instance=ExtResource("3_05qjc")]
+visible = false
 offset_left = -103.0
 offset_top = -141.0
 offset_right = -15.0

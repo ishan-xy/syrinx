@@ -172,5 +172,3 @@ func _on_join_lobby_button_down():
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass # Replace with function body.
-
-
