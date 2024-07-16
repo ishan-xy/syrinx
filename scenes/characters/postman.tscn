@@ -410,7 +410,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_xujbt")
 
 [node name="Questions" parent="." instance=ExtResource("3_05qjc")]
-offset_left = -103.0
-offset_top = -141.0
-offset_right = -15.0
-offset_bottom = -27.0
+offset_left = -245.0
+offset_top = -144.0
+offset_right = -157.0
+offset_bottom = -30.0
