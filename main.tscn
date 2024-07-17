@@ -47,14 +47,16 @@ func _on_lobby_response(result: int = 0, response_code: int = 0, headers: Packed
 	LobbyID = json[\"LobbyID\"]
 	_connect_to_lobby()
 
+
 var wsConn := WebSocketClient.new()
 var p1 := WebRTCPeerConnection.new()
 var ch1 := p1.create_data_channel(\"chat\", { \"id\": 1, \"negotiated\": true })
+
 func _connect_to_lobby() -> void:
 	wsConn.connect_to_url(\"ws://127.0.0.1:8080/lobby/\" + LobbyID)
-	set_physics_process(true)
 	wsConn.connection_established.connect(_on_ws_ready)
 	print(LobbyID)
+	set_physics_process(true)
 	await get_tree().create_timer(3).timeout
 	ch1.put_packet((\"Hi from P\" + str(myIndex)).to_utf8_buffer())
 	#while true:
@@ -125,13 +127,15 @@ func handle_packet(json: Variant) -> void:
 			p1.add_ice_candidate(json[\"media\"], json[\"index\"], json[\"name\"])
 
 func _physics_process(delta) -> void:
-	wsConn.poll()
-	p1.poll()
-	ch1.poll()
-	while ch1.get_available_packet_count():
-		var packet = ch1.get_packet()
-		print(packet.get_string_from_ascii())
-	pass
+	if wsConn != null:
+		wsConn.poll()
+	if p1 != null:
+		p1.poll()
+	if ch1 != null:
+		ch1.poll()
+		while ch1.get_available_packet_count():
+			var packet = ch1.get_packet()
+			print(packet.get_string_from_ascii())
 	#p1.poll()
 	#if ch1.get_ready_state() == ch1.STATE_OPEN and ch1.get_available_packet_count() > 0:
 		#print(\"P1 received: \", ch1.get_packet().get_string_from_utf8())
