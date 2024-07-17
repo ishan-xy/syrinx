@@ -11,6 +11,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_eypk5")
+Address = null
+port = null
+no_of_player_peers = null
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 0

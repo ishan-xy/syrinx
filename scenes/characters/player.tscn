@@ -17,7 +17,7 @@ enum Direction { right, up, left, down }
 # Custom movement logic for 4 (NOT `8`) directional movement
 var _prev := PackedByteArray()
 
-func _ready():
+func _ready() -> void:
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		camera.make_current()
@@ -557,7 +557,7 @@ func play_animation() -> void:
 func _process(delta: float) -> void:
 	play_animation()
 
-func _enter_tree():
+func _enter_tree() -> void:
 	self.speed_scale = 2.0 if animation_type == AnimationType.sprint else 1.4
 	self.play(\"down_idle\")
 "

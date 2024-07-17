@@ -46,7 +46,6 @@ func _process(delta):
 			if data.message == Message.removeLobby:
 				if lobbies.has(data.lobbyID):
 					lobbies.erase(data.lobbyID)
-	pass
 
 func peer_connected(id):
 	print("Peer Connected: " + str(id))
