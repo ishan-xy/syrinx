@@ -25,14 +25,17 @@ func _ready():
 		print("unable to connect")
 		set_process(false)
 	d_file = "res://questions/json/questions.json"
-	start() 	
+	
+	
 func _process(delta):
 	socket.poll()
 	var state = socket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
-			var reply=socket.get_packet().get_string_from_ascii()
-			print("Packet: ", reply)
+			var packet = socket.get_packet()
+			if packet.size() > 0:
+				var reply = packet.get_string_from_utf8()
+				print(reply)
 	elif state == WebSocketPeer.STATE_CLOSING:
 		# Keep polling to achieve proper close.
 		pass
@@ -81,14 +84,15 @@ func _on_timer_timeout():
 	d_active = false
 
 func _on_submit_button_down():
-	var ans=$answer.text 
-# now send this ans to web socket to server to check the ans
-	var body={
-		"user":"USERSID",
-		"answer":ans
+	var ans = $answer.text
+	# Now send this answer to the WebSocket server to check the answer
+	var string = {
+		"QuestionID": "questionId",
+		"Answer": ans
 	}
-	var json_body=JSON.stringify(body)
-	socket.send_text(json_body)
-	print(json_body)
-
-
+	
+	var json_string = JSON.stringify(string)
+	#print(json_string)
+	var byte_array = json_string.to_utf8_buffer()
+	#print(byte_array)
+	socket.send(byte_array, WebSocketPeer.WRITE_MODE_BINARY)
