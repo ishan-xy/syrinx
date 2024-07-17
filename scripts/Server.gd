@@ -17,7 +17,7 @@ var users = {}
 var lobbies = {}
 
 var Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-@export var hostPort = 8914
+@export var hostPort = 9999
 func _ready():
 	if "--server" in OS.get_cmdline_args():
 		print("hosting on " + str(hostPort))

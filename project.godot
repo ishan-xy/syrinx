@@ -50,6 +50,7 @@ extensions_folder="res://addons/dialogic_additions"
 
 [display]
 
+window/size/initial_position_type=2
 window/stretch/mode="canvas_items"
 
 [editor]

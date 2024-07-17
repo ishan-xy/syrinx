@@ -141,7 +141,7 @@ func iceCandidateCreated(midName, indexName, sdpName, id):
 	pass
 	
 func connectToServer(ip):
-	peer.create_client("ws://127.0.0.1:8914")
+	peer.create_client("ws://127.0.0.1:9999")
 	print("Started Client")
 
 
@@ -172,5 +172,3 @@ func _on_join_lobby_button_down():
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass # Replace with function body.
-
-
