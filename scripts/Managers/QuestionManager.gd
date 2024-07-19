@@ -16,7 +16,7 @@ func fetch_question_by_id(question_id: int, label: RichTextLabel) -> void:
 	else:
 	#fetch question from db
 		var question
-		wsConn.send(question_id)
+		wsConn.send(JSON.stringify({"QuestionID":question_id}))
 		while wsConn.get_available_packet_count():
 			var packet = wsConn.get_packet()
 			question=packet.get_string_from_ascii()
@@ -25,10 +25,10 @@ func fetch_question_by_id(question_id: int, label: RichTextLabel) -> void:
 			_on_request_completed(question,question_id,label)
 
 func _on_request_completed(result, question_id, label) -> void:
-	var question = Question.new(question_id, result)
-	questions[question.id] = question
-	label.text = question.text
-	emit_signal("question_updated", question.id, label)
+	#var question = Question.new(question_id, result)
+	#questions[question.id] = question
+	label.text = result
+	emit_signal("question_updated", question_id, label)
 
 func _on_player_entered_area(question_id: int, label: RichTextLabel) -> void:
 	#fetch_question_by_id(question_id, label)
