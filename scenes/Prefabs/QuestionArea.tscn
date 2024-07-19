@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs32wacbpdddi"]
+
+[sub_resource type="GDScript" id="GDScript_cb0t7"]
+script/source = "extends Area2D
+
+@export var question_id: int
+@onready var quesPanel := $\"../UI/Question\"
+var inPlayerArea := false
+var playerBody
+
+signal player_entered_area(question_id: int, label: RichTextLabel)
+
+func _ready() -> void:
+	quesPanel.visible = false
+	add_to_group(\"QuestionAreas\")
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"ques_int\") and inPlayerArea:
+		toggle_question_panel()
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group(\"Player\"):
+		var quesText := quesPanel.get_child(1).get_child(0) as RichTextLabel
+		emit_signal(\"player_entered_area\", question_id, quesText)
+		inPlayerArea = true
+		playerBody = body
+		print(\"Press E to interact\")
+
+func toggle_question_panel() -> void:
+	quesPanel.visible = !quesPanel.visible
+	if playerBody:
+		playerBody.SetIsInteracting(quesPanel.visible)
+
+func _on_body_exited(body: Node) -> void:
+	inPlayerArea = false
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vh74r"]
+
+[node name="QuestionArea" type="Area2D" groups=["QuestionAreas"]]
+script = SubResource("GDScript_cb0t7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vh74r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
