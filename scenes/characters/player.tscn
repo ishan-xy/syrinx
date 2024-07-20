@@ -560,7 +560,7 @@ func play_animation() -> void:
 			self.play(\"side_\"+anim_name)
 
 # Play animation on frame update, not physics update
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	play_animation()
 
 func _enter_tree():
@@ -575,11 +575,11 @@ height = 37.9914
 [sub_resource type="GDScript" id="GDScript_drsgr"]
 script/source = "extends Area2D
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	print_debug(\"Enter\")
 	pass # Replace with function body.
 
-func _on_area_exited(area: Area2D) -> void:
+func _on_area_exited(_area: Area2D) -> void:
 	print_debug(\"Exit\")
 	pass # Replace with function body.
 "

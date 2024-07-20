@@ -1,31 +1,45 @@
 extends Node
 
 var questions = {}
+var label : RichTextLabel
+func fetch_question_by_id(ques_id: int):
+	if ques_id in questions:
+		label.text = questions[ques_id].text
+		print("ques in dict")
+	else:
+		var wsConn = WebsocketHandler.wsConn
+		print("fetching ques")
+		WebsocketHandler.data_recieved.connect(_on_data_recieved.bind(ques_id))
+		wsConn.send_text(JSON.stringify({"ID":ques_id}))
+		
+func _on_data_recieved(data, ques_id:int):
+	WebsocketHandler.data_recieved.disconnect(_on_data_recieved.bind(ques_id))
 
-signal question_updated(question_id: int, label: RichTextLabel)
+	#if data.type == Type.question:
+	addQuestion(data, ques_id)
+	#elif data.type == Type.ansresponse:
+	
+	
+func addQuestion(quesText,ques_id) -> void:
+	if ques_id not in questions:
+		var quesObj = Question.new(ques_id, quesText)
+		questions[ques_id] = quesObj
+		label.text = quesObj.text
 
-func _ready() -> void:
-	# Connect to the signal from all question areas
-	for area in get_tree().get_nodes_in_group("QuestionAreas"):
-		print("Node Connected")
-		area.connect("player_entered_area", _on_player_entered_area)
-
-func fetch_question_by_id(question_id: int, label: RichTextLabel) -> void:
-# if ques_id in questions:
-#	label.text = questions[question_id].text
-#else:
-#	fetch question from db
-	pass
-
-func _on_request_completed(result, response_code, headers, body, question_id, label) -> void:
-#	if result is OK:
-#		var question = Question.new(question_data.id, question_data.text)
-#		questions[question.id] = question
-#		label.text = question.text
-#		emit_signal("question_updated", question.id, label)
-	pass
-
-func _on_player_entered_area(question_id: int, label: RichTextLabel) -> void:
-	#fetch_question_by_id(question_id, label)
+func OnPlayerEnter(question_id: int, _label: RichTextLabel) -> void:
 	print("Fetch Question " + str(question_id))
+	label = _label
+	fetch_question_by_id(question_id)
 
+
+func OnPlayerSubmit(ques_id:int, ansNode : TextEdit) -> void:
+	var ans := ansNode.text
+	# Now send this answer to the WebSocket server to check the answer
+	var string := {
+		"ID": ques_id,
+		"Answer": ans
+	}
+	var json_string: Variant= JSON.stringify(string)
+	WebsocketHandler.data_recieved.connect(_on_data_recieved.bind(ques_id))
+	WebsocketHandler.wsConn.send_text(json_string)
+	

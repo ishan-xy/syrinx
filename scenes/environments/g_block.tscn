@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=73 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -69187,6 +69187,12 @@ size = Vector2(64, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxfa8"]
 size = Vector2(75, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rfyh"]
+size = Vector2(23, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6idc"]
+size = Vector2(22, 32)
+
 [node name="g-block" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(-17, -8)
@@ -69912,16 +69918,74 @@ offset_top = -234.0
 offset_right = 188.0
 offset_bottom = 253.0
 
-[node name="Question" parent="." instance=ExtResource("44_t7ode")]
-position = Vector2(2719, 1332)
+[node name="Questions" type="Node" parent="."]
+
+[node name="Question" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2702, 1324)
 collision_layer = 129
 collision_mask = 129
+question_id = 1
 
-[node name="CollisionShape2D" parent="Question" index="0"]
+[node name="CollisionShape2D" parent="Questions/Question" index="0"]
 position = Vector2(1.5, 4.5)
 shape = SubResource("RectangleShape2D_vxfa8")
+
+[node name="Question2" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2259, 1866)
+collision_layer = 129
+collision_mask = 129
+question_id = 2
+
+[node name="CollisionShape2D" parent="Questions/Question2" index="0"]
+position = Vector2(1.5, 4.5)
+shape = SubResource("RectangleShape2D_vxfa8")
+
+[node name="Question3" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3951, 1070)
+collision_layer = 129
+collision_mask = 129
+question_id = 3
+
+[node name="CollisionShape2D" parent="Questions/Question3" index="0"]
+position = Vector2(5.5, -6.5)
+shape = SubResource("RectangleShape2D_6rfyh")
+
+[node name="Question4" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3668, 1736)
+collision_layer = 129
+collision_mask = 129
+question_id = 4
+
+[node name="CollisionShape2D" parent="Questions/Question4" index="0"]
+position = Vector2(1.5, 4.5)
+shape = SubResource("RectangleShape2D_vxfa8")
+
+[node name="Question5" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3797, 1924)
+collision_layer = 129
+collision_mask = 129
+question_id = 5
+
+[node name="CollisionShape2D" parent="Questions/Question5" index="0"]
+position = Vector2(1.5, 4.5)
+shape = SubResource("RectangleShape2D_vxfa8")
+
+[node name="Question6" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3635, 596)
+collision_layer = 129
+collision_mask = 129
+question_id = 6
+
+[node name="CollisionShape2D" parent="Questions/Question6" index="0"]
+position = Vector2(34, 4)
+shape = SubResource("RectangleShape2D_m6idc")
 
 [editable path="gblock_gate1"]
 [editable path="gblock_gate2"]
 [editable path="UI"]
-[editable path="Question"]
+[editable path="Questions/Question"]
+[editable path="Questions/Question2"]
+[editable path="Questions/Question3"]
+[editable path="Questions/Question4"]
+[editable path="Questions/Question5"]
+[editable path="Questions/Question6"]

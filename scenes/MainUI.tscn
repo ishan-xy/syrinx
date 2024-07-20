@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://8mnmvvsj40u5"]
+[gd_scene load_steps=11 format=3 uid="uid://8mnmvvsj40u5"]
 
 [ext_resource type="Texture2D" uid="uid://srgwookmvm7l" path="res://assets/scroll/pngs/medium.png" id="1_muv1u"]
 [ext_resource type="FontFile" uid="uid://dech6cjsnspma" path="res://assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_0laop"]
 [ext_resource type="FontFile" uid="uid://bye0glqrqpgde" path="res://assets/fonts/Pixelify_Sans/static/PixelifySans-Bold.ttf" id="3_5xrfk"]
 [ext_resource type="FontFile" uid="uid://dhptw8ukwfp6a" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="4_lfmlb"]
+[ext_resource type="Texture2D" uid="uid://dx1qaf6l42wrn" path="res://assets/scroll/pngs/parts/ribbon.png" id="5_n0ew6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_els77"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -15,9 +16,15 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 bg_color = Color(0, 0, 0, 0)
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2xkr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbi0l"]
+bg_color = Color(0.72549, 0, 0, 1)
+
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="Question" type="Panel" parent="."]
+[node name="Question" type="Panel" parent="." groups=["QuestionPanel"]]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -111,3 +118,43 @@ theme_override_font_sizes/font_size = 256
 theme_override_styles/normal = SubResource("StyleBoxFlat_nd6g1")
 placeholder_text = "Answer Here"
 wrap_mode = 1
+
+[node name="submit" type="Panel" parent="Question"]
+layout_mode = 0
+offset_left = 287.0
+offset_top = 461.5
+offset_right = 351.0
+offset_bottom = 494.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_v2xkr")
+
+[node name="Button" type="Button" parent="Question/submit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -432.5
+offset_top = -154.0
+offset_right = 432.5
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.08, 0.08)
+pivot_offset = Vector2(410, 155)
+theme_override_fonts/font = ExtResource("4_lfmlb")
+theme_override_font_sizes/font_size = 256
+theme_override_styles/normal = SubResource("StyleBoxFlat_sbi0l")
+text = "Submit"
+
+[node name="TextureRect" type="TextureRect" parent="Question/submit"]
+visible = false
+layout_mode = 0
+offset_left = -52.0
+offset_top = -100.0
+offset_right = 109.0
+offset_bottom = 193.0
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(75, 22.59)
+texture = ExtResource("5_n0ew6")
+flip_v = true
