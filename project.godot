@@ -21,6 +21,7 @@ GameManager="*res://scripts/Managers/GameManager.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 QuestionManager="*res://scripts/Managers/QuestionManager.gd"
+WebsocketHandler="*res://scripts/WebsocketHandler.gd"
 
 [dialogic]
 

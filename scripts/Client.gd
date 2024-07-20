@@ -29,14 +29,14 @@ func _ready():
 func RTCServerConnected():
 	print ("RTC Server Connected")
 	
-func RTCPeerConnected(id):
+func RTCPeerConnected(_id):
 	print("RTC Peer Connected "+ str(id))
 
-func RTCPeerDisconnected(id):
+func RTCPeerDisconnected(_id):
 	print("RTC Peer Disconnected "+ str(id))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	peer.poll()
 	if peer.get_available_packet_count() > 0:
 		var packet = peer.get_packet()
@@ -74,11 +74,11 @@ func _process(delta):
 					rtcPeer.get_peer(data.orgPeer).connection.set_remote_description("answer", data.data)
 	pass
 
-func connected(id):
+func connected(_id):
 	rtcPeer.create_mesh(id)
 	multiplayer.multiplayer_peer = rtcPeer
 
-func createPeer(id):
+func createPeer(_id):
 	if id != self.id:
 		var peer : WebRTCPeerConnection = WebRTCPeerConnection.new()
 		peer.initialize({
@@ -140,7 +140,7 @@ func iceCandidateCreated(midName, indexName, sdpName, id):
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass
 	
-func connectToServer(ip):
+func connectToServer(_ip):
 	peer.create_client("ws://127.0.0.1:8914")
 	print("Started Client")
 

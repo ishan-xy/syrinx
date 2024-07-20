@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://fxrxvi2od4mv"]
+[gd_scene load_steps=4 format=3 uid="uid://b1xl74ofruim2"]
 
 [sub_resource type="GDScript" id="GDScript_c57rr"]
 script/source = "extends Node2D
@@ -70,7 +70,7 @@ func _on_auth_response(result: int, response_code: int, headers: PackedStringArr
 	httpRequest.request(\"http://127.0.0.1:8080/getlobby\", [], HTTPClient.METHOD_POST, SessionIDBodyString)
 
 var LobbyID: String
-@export var wsConn := WebSocketClient.new()
+var wsConn := WebSocketClient.new()
 func _on_lobby_response(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.parse_string(body.get_string_from_ascii())
 	if json == null: return _lobby_error(\"Json parse error\")
@@ -92,7 +92,7 @@ func _on_ws_ready(peer: WebSocketPeer, protocol: String) -> void:
 var myIndex: int = -1
 func _on_data_recieved(peer : WebSocketPeer, message, is_string : bool) -> void:
 	if is_string:
-		#!!!!!!!!!! Handle packet
+		pass
 
 func _physics_process(delta) -> void:
 	wsConn.poll()

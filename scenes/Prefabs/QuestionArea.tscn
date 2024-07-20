@@ -4,35 +4,58 @@
 script/source = "extends Area2D
 
 @export var question_id: int
-@onready var quesPanel := $\"../UI/Question\"
+@onready var quesPanel
 var inPlayerArea := false
 var playerBody
-signal player_entered_area(question_id: int, label: RichTextLabel)
+
+var quesLabel : RichTextLabel
+var user_answer : TextEdit
+var submitBtn : Button
+
+# Flag to check if the player is typing
+var is_typing := false
 
 func _ready() -> void:
+	quesPanel = get_tree().get_nodes_in_group(\"QuestionPanel\")[0]
+	quesLabel = quesPanel.get_child(1).get_child(0)
+	user_answer = quesPanel.get_child(2).get_child(0)
+	submitBtn = quesPanel.get_child(3).get_child(0)
 	quesPanel.visible = false
 	add_to_group(\"QuestionAreas\")
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed(\"ques_int\") and inPlayerArea:
+	# Connect the focus signals
+	user_answer.focus_entered.connect(_on_TextEdit_focus_entered)
+	user_answer.focus_exited.connect(_on_TextEdit_focus_exited)
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed(\"ques_int\") and inPlayerArea and not is_typing:
 		toggle_question_panel()
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group(\"Player\"):
-		var quesText := quesPanel.get_child(1).get_child(0) as RichTextLabel
-		emit_signal(\"player_entered_area\", question_id, quesText)
+		submitBtn.button_down.connect(_on_playersubmit_pressed)
+		QuestionManager.OnPlayerEnter(question_id, quesLabel)
+
 		inPlayerArea = true
 		playerBody = body
 		print(\"Press E to interact\")
 
+func _on_playersubmit_pressed():
+	QuestionManager.OnPlayerSubmit(question_id, user_answer)
+	
 func toggle_question_panel() -> void:
 	quesPanel.visible = !quesPanel.visible
 	if playerBody:
 		playerBody.SetIsInteracting(quesPanel.visible)
 
-func _on_body_exited(body: Node) -> void:
+func _on_body_exited(_body: Node) -> void:
 	inPlayerArea = false
-	pass
+
+func _on_TextEdit_focus_entered():
+	is_typing = true
+
+func _on_TextEdit_focus_exited():
+	is_typing = false
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vh74r"]
@@ -40,7 +63,7 @@ func _on_body_exited(body: Node) -> void:
 [node name="QuestionArea" type="Area2D" groups=["QuestionAreas"]]
 script = SubResource("GDScript_cb0t7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["QuestionAreas"]]
 shape = SubResource("RectangleShape2D_vh74r")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
