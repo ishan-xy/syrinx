@@ -587,10 +587,8 @@ func _on_area_exited(_area: Area2D) -> void:
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xi4mr"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 1
 y_sort_enabled = true
 collision_layer = 131
-collision_mask = 31
 floor_stop_on_slope = false
 floor_block_on_wall = false
 platform_on_leave = 2
@@ -608,7 +606,7 @@ sprite_frames = SubResource("SpriteFrames_xgcfc")
 animation = &"down_swing"
 frame = 1
 frame_progress = 0.766112
-offset = Vector2(-0.5, -13)
+offset = Vector2(-0.5, -13.6)
 script = SubResource("GDScript_12o1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
