@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://dhy8nscwhc53c"]
+[gd_scene load_steps=175 format=3 uid="uid://dhy8nscwhc53c"]
 
 [ext_resource type="Texture2D" uid="uid://covu1acdcjyxf" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Autotiles_16x16/Game_Maker_Studio_Autotiles_16x16.png" id="1_kmd6a"]
 [ext_resource type="Texture2D" uid="uid://dxf5uhowhfusy" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/16_Office_16x16.png" id="2_0rmeo"]
@@ -84,6 +84,7 @@
 [ext_resource type="Texture2D" uid="uid://pl561uai3uuf" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_City_Props_16x16_Manhole_8.png" id="84_jxb37"]
 [ext_resource type="Texture2D" uid="uid://b1mcw0e2h4m2n" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_City_Props_16x16_Traffic_Sign_Modular_11.png" id="85_5rm7y"]
 [ext_resource type="Texture2D" uid="uid://dlisu1dqhss6q" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Animated_16x16/Animated_sheets_16x16/Fire_Hydrant_Water_Jet_16x16.png" id="86_8e5ei"]
+[ext_resource type="Texture2D" uid="uid://i4olotee82jf" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Animated_16x16/Animated_sheets_16x16/Street_Lamp_3_2_16x16.png" id="86_074hb"]
 [ext_resource type="Texture2D" uid="uid://bxm8xcqw6me1" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/3_City_Props_Singles_16x16/ME_Singles_City_Props_16x16_Flowers_1.png" id="86_ej1t2"]
 [ext_resource type="Texture2D" uid="uid://hg6lml5fqtpe" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Animated_16x16/Animated_sheets_16x16/Firefighter_Fire_Hydrant_1_16x16.png" id="88_8cb2j"]
 [ext_resource type="Texture2D" uid="uid://saqs0uupie26" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/3_City_Props_Singles_16x16/ME_Singles_City_Props_16x16_Hydrant_1.png" id="89_rm24x"]
@@ -96,6 +97,7 @@
 [ext_resource type="Texture2D" uid="uid://b708oejhos13a" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/2_City_Terrains_Singles_16x16/ME_Singles_City_Terrains_16x16_Asphalt_1_Variation_16.png" id="95_0wpji"]
 [ext_resource type="Texture2D" uid="uid://bt23akcor2tam" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/10_Vehicles_Singles_16x16/ME_Singles_Vehicles_16x16_Gas_Station_Car_3.png" id="96_8rxmy"]
 [ext_resource type="Texture2D" uid="uid://pen86turfrxm" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/10_Vehicles_Singles_16x16/ME_Singles_Vehicles_16x16_Gas_Station_Car_2.png" id="97_ybyda"]
+[ext_resource type="Texture2D" uid="uid://ck5bdbhktf7e6" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/3_City_Props_Singles_16x16/ME_Singles_City_Props_16x16_Street_Lamp_5.png" id="98_qqryc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_htqfj"]
 texture = ExtResource("1_kmd6a")
@@ -6364,6 +6366,7 @@ texture = ExtResource("11_jbndu")
 3:4/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_3wky4"]
+terrain_set_0/mode = 0
 sources/0 = SubResource("TileSetAtlasSource_htqfj")
 sources/1 = SubResource("TileSetAtlasSource_cjtvy")
 sources/2 = SubResource("TileSetAtlasSource_q85wa")
@@ -12198,6 +12201,38 @@ region = Rect2(240, 0, 48, 64)
 atlas = ExtResource("88_8cb2j")
 region = Rect2(0, 0, 48, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_teijb"]
+atlas = ExtResource("86_074hb")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgtpi"]
+atlas = ExtResource("86_074hb")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tj7a"]
+atlas = ExtResource("86_074hb")
+region = Rect2(96, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2vj8"]
+atlas = ExtResource("86_074hb")
+region = Rect2(144, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf0pa"]
+atlas = ExtResource("86_074hb")
+region = Rect2(192, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyiuk"]
+atlas = ExtResource("86_074hb")
+region = Rect2(240, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfjrt"]
+atlas = ExtResource("86_074hb")
+region = Rect2(288, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56qi1"]
+atlas = ExtResource("86_074hb")
+region = Rect2(336, 0, 48, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_nhh25"]
 animations = [{
 "frames": [{
@@ -12222,7 +12257,38 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_teijb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgtpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tj7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2vj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf0pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyiuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfjrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56qi1")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4a6b"]
 
 [node name="waterbody cafe" type="Node2D"]
 
@@ -12619,7 +12685,7 @@ position = Vector2(-454, 800)
 scale = Vector2(1.27083, 1.08594)
 sprite_frames = SubResource("SpriteFrames_nhh25")
 autoplay = "default"
-frame_progress = 0.106028
+frame_progress = 0.2316
 
 [node name="oak10" type="Sprite2D" parent="MeSinglesCityProps16x16Flowers1"]
 position = Vector2(-499, 153)
@@ -12853,5 +12919,88 @@ position = Vector2(1526, 1252)
 texture = ExtResource("45_unxgc")
 
 [node name="MeSinglesCityProps16x16Tree35" type="Sprite2D" parent="."]
-position = Vector2(1787, 1252)
+position = Vector2(1749, 1249)
 texture = ExtResource("45_unxgc")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d4a6b")
+
+[node name="MeSinglesCityProps16x16StreetLamp5" type="Sprite2D" parent="."]
+position = Vector2(-2558, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp6" type="Sprite2D" parent="."]
+position = Vector2(-2340, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp7" type="Sprite2D" parent="."]
+position = Vector2(-2119, 1239)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp8" type="Sprite2D" parent="."]
+position = Vector2(-1899, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp9" type="Sprite2D" parent="."]
+position = Vector2(-1673, 1242)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp10" type="Sprite2D" parent="."]
+position = Vector2(-1457, 1240)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp11" type="Sprite2D" parent="."]
+position = Vector2(-1237, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp12" type="Sprite2D" parent="."]
+position = Vector2(-1015, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp13" type="Sprite2D" parent="."]
+position = Vector2(-795, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp14" type="Sprite2D" parent="."]
+position = Vector2(-571, 1240)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp15" type="Sprite2D" parent="."]
+position = Vector2(-350, 1242)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp16" type="Sprite2D" parent="."]
+position = Vector2(-130, 1243)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp17" type="Sprite2D" parent="."]
+position = Vector2(90, 1242)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp18" type="Sprite2D" parent="."]
+position = Vector2(310, 1243)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp19" type="Sprite2D" parent="."]
+position = Vector2(533, 1242)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp20" type="Sprite2D" parent="."]
+position = Vector2(753, 1242)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp21" type="Sprite2D" parent="."]
+position = Vector2(973, 1243)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp22" type="Sprite2D" parent="."]
+position = Vector2(1197, 1241)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp23" type="Sprite2D" parent="."]
+position = Vector2(1417, 1243)
+texture = ExtResource("98_qqryc")
+
+[node name="MeSinglesCityProps16x16StreetLamp24" type="Sprite2D" parent="."]
+position = Vector2(1639, 1241)
+texture = ExtResource("98_qqryc")
