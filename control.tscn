@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1e7qcqkaoc3u"]
+[gd_scene load_steps=2 format=3 uid="uid://b1e7qcqkaoc3u"]
 
-[ext_resource type="Script" path="res://scripts/Client.gd" id="1_dk3s5"]
-[ext_resource type="Script" path="res://scripts/Server.gd" id="2_7xvem"]
+[sub_resource type="GDScript" id="GDScript_y35yx"]
+script/source = "extends Button
+
+func _pressed():
+	disabled = true
+	var scene = load(\"res://scenes/environments/g_block.tscn\").instantiate()
+	get_tree().root.add_child(scene)
+"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,63 +17,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Client" type="Node" parent="."]
-script = ExtResource("1_dk3s5")
-
-[node name="LineEdit" type="LineEdit" parent="Client"]
-offset_left = 184.0
-offset_top = 144.0
-offset_right = 529.0
-offset_bottom = 175.0
-
-[node name="Server" type="Node" parent="."]
-script = ExtResource("2_7xvem")
-
-[node name="JoinLobby" type="Button" parent="."]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 143.0
-offset_right = 173.0
-offset_bottom = 174.0
-text = "Join Lobby
-"
-
-[node name="StartClient" type="Button" parent="."]
-layout_mode = 0
-offset_left = 31.0
-offset_top = 33.0
-offset_right = 126.0
-offset_bottom = 64.0
-text = "Start Client"
-
-[node name="StartServer" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1020.0
-offset_top = 26.0
-offset_right = 1120.0
-offset_bottom = 57.0
-text = "Start Server"
-
-[node name="SendTestPacket" type="Button" parent="."]
-layout_mode = 0
-offset_left = 33.0
-offset_top = 85.0
-offset_right = 172.0
-offset_bottom = 116.0
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -62.0
+offset_right = 192.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
 text = "Start Game
 "
-
-[node name="Button2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 911.0
-offset_top = 78.0
-offset_right = 1125.0
-offset_bottom = 109.0
-text = "Send Test Packet to clients"
-
-[connection signal="focus_entered" from="." to="Client" method="_on_control_focus_entered"]
-[connection signal="button_down" from="JoinLobby" to="Client" method="_on_join_lobby_button_down"]
-[connection signal="button_down" from="StartClient" to="Client" method="_on_start_client_button_down"]
-[connection signal="button_down" from="StartServer" to="Server" method="_on_start_server_button_down"]
-[connection signal="button_down" from="SendTestPacket" to="Client" method="_on_send_test_packet_button_down"]
-[connection signal="button_down" from="Button2" to="Server" method="_on_button_2_button_down"]
+script = SubResource("GDScript_y35yx")

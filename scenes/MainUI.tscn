@@ -20,7 +20,7 @@ border_color = Color(0, 0, 0, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbi0l"]
-bg_color = Color(0.72549, 0, 0, 1)
+bg_color = Color(0.72549, 0, 0, 0)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -118,14 +118,28 @@ theme_override_font_sizes/font_size = 256
 theme_override_styles/normal = SubResource("StyleBoxFlat_nd6g1")
 placeholder_text = "Answer Here"
 wrap_mode = 1
+scroll_smooth = true
+caret_blink = true
 
 [node name="submit" type="Panel" parent="Question"]
 layout_mode = 0
-offset_left = 287.0
-offset_top = 461.5
-offset_right = 351.0
-offset_bottom = 494.5
+offset_left = 302.0
+offset_top = 457.5
+offset_right = 366.0
+offset_bottom = 490.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_v2xkr")
+
+[node name="TextureRect" type="TextureRect" parent="Question/submit"]
+layout_mode = 0
+offset_left = -17.0
+offset_top = 19.0
+offset_right = 144.0
+offset_bottom = 312.0
+rotation = 1.5708
+scale = Vector2(0.35, 0.35)
+pivot_offset = Vector2(75, 22.59)
+texture = ExtResource("5_n0ew6")
+flip_v = true
 
 [node name="Button" type="Button" parent="Question/submit"]
 layout_mode = 1
@@ -134,27 +148,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -432.5
-offset_top = -154.0
-offset_right = 432.5
-offset_bottom = 154.0
+offset_left = -433.0
+offset_top = -137.5
+offset_right = 432.0
+offset_bottom = 170.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.07, 0.07)
 pivot_offset = Vector2(410, 155)
 theme_override_fonts/font = ExtResource("4_lfmlb")
 theme_override_font_sizes/font_size = 256
 theme_override_styles/normal = SubResource("StyleBoxFlat_sbi0l")
 text = "Submit"
-
-[node name="TextureRect" type="TextureRect" parent="Question/submit"]
-visible = false
-layout_mode = 0
-offset_left = -52.0
-offset_top = -100.0
-offset_right = 109.0
-offset_bottom = 193.0
-scale = Vector2(0.3, 0.3)
-pivot_offset = Vector2(75, 22.59)
-texture = ExtResource("5_n0ew6")
-flip_v = true

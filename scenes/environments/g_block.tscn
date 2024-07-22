@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=76 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -2561,11 +2561,11 @@ texture = ExtResource("1_ulrqp")
 8:36/0 = 0
 8:36/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:36/0/physics_layer_0/angular_velocity = 0.0
-8:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -2.5, -8, -2.875, 8, -8, 8)
+8:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 10:36/0 = 0
 10:36/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:36/0/physics_layer_0/angular_velocity = 0.0
-10:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 2.5, -8, 2.875, 8, 8, 8)
+10:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:36/0 = 0
 11:36/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 11:36/0/physics_layer_0/angular_velocity = 0.0
@@ -26602,7 +26602,6 @@ texture = ExtResource("2_p3go2")
 51:13/0 = 0
 51:13/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 51:13/0/physics_layer_0/angular_velocity = 0.0
-51:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 52:13/0 = 0
 52:13/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 52:13/0/physics_layer_0/angular_velocity = 0.0
@@ -26757,15 +26756,12 @@ texture = ExtResource("2_p3go2")
 50:14/0 = 0
 50:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 50:14/0/physics_layer_0/angular_velocity = 0.0
-50:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 51:14/0 = 0
 51:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 51:14/0/physics_layer_0/angular_velocity = 0.0
-51:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 52:14/0 = 0
 52:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 52:14/0/physics_layer_0/angular_velocity = 0.0
-52:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 53:14/0 = 0
 53:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 53:14/0/physics_layer_0/angular_velocity = 0.0
@@ -26913,15 +26909,12 @@ texture = ExtResource("2_p3go2")
 50:15/0 = 0
 50:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 50:15/0/physics_layer_0/angular_velocity = 0.0
-50:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 51:15/0 = 0
 51:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 51:15/0/physics_layer_0/angular_velocity = 0.0
-51:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 52:15/0 = 0
 52:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 52:15/0/physics_layer_0/angular_velocity = 0.0
-52:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 53:15/0 = 0
 53:15/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 53:15/0/physics_layer_0/angular_velocity = 0.0
@@ -69152,9 +69145,6 @@ sources/9 = SubResource("TileSetAtlasSource_1ha1w")
 sources/10 = SubResource("TileSetAtlasSource_r0800")
 sources/11 = SubResource("TileSetAtlasSource_es52c")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6wor"]
-size = Vector2(20, 82)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xjqg"]
 size = Vector2(527.032, 43.9432)
 
@@ -69163,6 +69153,18 @@ size = Vector2(110.439, 57.0614)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jv8re"]
 radius = 5.09902
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sru32"]
+size = Vector2(69, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1h6n"]
+size = Vector2(20, 77)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ufgs"]
+radius = 19.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5l6ih"]
+size = Vector2(46, 40)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mce3e"]
 radius = 6.1193
@@ -69178,13 +69180,13 @@ radius = 9.06204
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sopri"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctxxx"]
-size = Vector2(75, 37)
+size = Vector2(75, 32.3333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nf5o"]
 size = Vector2(40, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jnv1u"]
-size = Vector2(64, 20)
+size = Vector2(64, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxfa8"]
 size = Vector2(75, 29)
@@ -69214,18 +69216,6 @@ layer_2/name = "Props2"
 layer_2/z_index = 1
 layer_2/tile_data = PackedInt32Array(2293972, 327684, 69, 2293973, 393220, 69)
 
-[node name="Props2" type="Node2D" parent="Base"]
-
-[node name="Area2D" type="Area2D" parent="Base/Props2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Props2/Area2D"]
-position = Vector2(4216, 837)
-shape = SubResource("RectangleShape2D_y6wor")
-
-[node name="MeSinglesPoliceStation16x16AutomaticBarrier3" type="Sprite2D" parent="Base/Props2/Area2D/CollisionShape2D"]
-position = Vector2(3, 3)
-texture = ExtResource("15_f8bdb")
-
 [node name="Buildings" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -69254,9 +69244,11 @@ offset = Vector2(0, -38)
 
 [node name="cealing" type="Sprite2D" parent="Buildings/butchery/butchery"]
 show_behind_parent = true
-position = Vector2(7.62939e-06, -57.7312)
+y_sort_enabled = true
+position = Vector2(0, -19)
 scale = Vector2(3.60606, 1.89863)
 texture = ExtResource("16_1sfk1")
+offset = Vector2(0, -20)
 
 [node name="bakery" type="StaticBody2D" parent="Buildings"]
 y_sort_enabled = true
@@ -69318,6 +69310,26 @@ position = Vector2(790, 583)
 texture = ExtResource("20_nadcg")
 offset = Vector2(16, -26)
 
+[node name="MeSinglesSchool16x16BasketballNet7" type="Sprite2D" parent="Buildings/Basketpoles"]
+position = Vector2(658, 585.115)
+texture = ExtResource("19_jg8yi")
+offset = Vector2(-15.2, -27.115)
+
+[node name="MeSinglesSchool16x16BasketballNet8" type="Sprite2D" parent="Buildings/Basketpoles"]
+position = Vector2(458, 584.115)
+texture = ExtResource("20_nadcg")
+offset = Vector2(16, -26)
+
+[node name="MeSinglesSchool16x16BasketballNet9" type="Sprite2D" parent="Buildings/Basketpoles"]
+position = Vector2(658, 767.115)
+texture = ExtResource("19_jg8yi")
+offset = Vector2(-15.2, -27.115)
+
+[node name="MeSinglesSchool16x16BasketballNet10" type="Sprite2D" parent="Buildings/Basketpoles"]
+position = Vector2(458, 766.115)
+texture = ExtResource("20_nadcg")
+offset = Vector2(16, -26)
+
 [node name="MeSinglesSchool16x16BasketballNet5" type="Sprite2D" parent="Buildings/Basketpoles"]
 position = Vector2(990, 767.115)
 texture = ExtResource("19_jg8yi")
@@ -69325,16 +69337,6 @@ offset = Vector2(-15.2, -27.115)
 
 [node name="MeSinglesSchool16x16BasketballNet6" type="Sprite2D" parent="Buildings/Basketpoles"]
 position = Vector2(790, 766.115)
-texture = ExtResource("20_nadcg")
-offset = Vector2(16, -26)
-
-[node name="MeSinglesSchool16x16BasketballNet7" type="Sprite2D" parent="Buildings/Basketpoles"]
-position = Vector2(990, 584)
-texture = ExtResource("19_jg8yi")
-offset = Vector2(-15.2, -27.115)
-
-[node name="MeSinglesSchool16x16BasketballNet8" type="Sprite2D" parent="Buildings/Basketpoles"]
-position = Vector2(790, 583)
 texture = ExtResource("20_nadcg")
 offset = Vector2(16, -26)
 
@@ -69360,6 +69362,22 @@ shape = SubResource("CircleShape2D_jv8re")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Buildings/Basketpoles"]
 position = Vector2(790, 584)
+shape = SubResource("CircleShape2D_jv8re")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Basketpoles"]
+position = Vector2(658, 584)
+shape = SubResource("CircleShape2D_jv8re")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Buildings/Basketpoles"]
+position = Vector2(458, 583)
+shape = SubResource("CircleShape2D_jv8re")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Buildings/Basketpoles"]
+position = Vector2(658, 766)
+shape = SubResource("CircleShape2D_jv8re")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Buildings/Basketpoles"]
+position = Vector2(458, 765)
 shape = SubResource("CircleShape2D_jv8re")
 
 [node name="basketballcourts" type="StaticBody2D" parent="Buildings"]
@@ -69469,10 +69487,10 @@ offset = Vector2(0, -13.995)
 
 [node name="MeSinglesFloorModularBuilding16x16RoofProps12" type="Sprite2D" parent="Buildings/advertisements"]
 top_level = true
-position = Vector2(3489.5, 595.363)
+position = Vector2(3488, 595)
 scale = Vector2(1.03125, 1.30208)
 texture = ExtResource("23_nytlj")
-offset = Vector2(0, -20.055)
+offset = Vector2(0, -20)
 
 [node name="MeSinglesFloorModularBuilding16x16RoofProps15" type="Sprite2D" parent="Buildings/advertisements"]
 top_level = true
@@ -69500,11 +69518,6 @@ scale = Vector2(1.8125, 1.77583)
 texture = ExtResource("23_nytlj")
 offset = Vector2(0, -17.12)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Buildings/advertisements"]
-position = Vector2(573, -336)
-scale = Vector2(1.03125, 1.30208)
-polygon = PackedVector2Array(32.9697, 3.05176e-05, 29.0908, 3.05176e-05, 29.0908, 2.30402, 23.2726, 2.30402, 23.2726, 3.05176e-05, -25.2122, 3.05176e-05, -25.2122, 3.07202, -31.0304, 3.07202, -31.0304, 3.05176e-05, -33.9395, 3.05176e-05, -33.9395, -6.14398, 6.78784, -6.14398, 32.9697, -6.14398)
-
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Buildings/advertisements"]
 position = Vector2(851, 466)
 scale = Vector2(1.2, 1.22917)
@@ -69517,7 +69530,23 @@ polygon = PackedVector2Array(39.9819, 5.51117, 39.4025, 10.6982, 38.2437, 12.319
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Buildings/advertisements"]
 position = Vector2(1017, 240)
-polygon = PackedVector2Array(12, -3, 31, -3, 31, 11, 28, 10, 28, 13, 22, 13, 22, 11, -26, 11, -26, 13, -32, 13, -32, 11, -35, 10, -35, -4, -21, -4, -6, -3)
+polygon = PackedVector2Array(32, -4, 32, 10, -36, 10, -36, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/advertisements"]
+position = Vector2(587.5, -352)
+shape = SubResource("RectangleShape2D_sru32")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Buildings/advertisements"]
+position = Vector2(1299, -94.5)
+shape = SubResource("RectangleShape2D_d1h6n")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Buildings/advertisements"]
+position = Vector2(1171, 147)
+shape = SubResource("CircleShape2D_2ufgs")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Buildings/advertisements"]
+position = Vector2(-61, 647)
+shape = SubResource("RectangleShape2D_5l6ih")
 
 [node name="ad2" type="StaticBody2D" parent="Buildings"]
 y_sort_enabled = true
@@ -69588,11 +69617,6 @@ position = Vector2(-381, 1063)
 scale = Vector2(2.875, 3.44792)
 texture = ExtResource("37_cftwm")
 offset = Vector2(0, -11.465)
-
-[node name="apple tree2" type="Sprite2D" parent="Buildings/plantation"]
-position = Vector2(1248, 373.44)
-texture = ExtResource("30_frv6b")
-offset = Vector2(0, -13.945)
 
 [node name="apple tree3" type="Sprite2D" parent="Buildings/plantation"]
 position = Vector2(1254, 576.44)
@@ -69728,10 +69752,6 @@ rotation = 1.52367
 scale = Vector2(2.875, 3.44792)
 shape = SubResource("CircleShape2D_rtiv6")
 
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/plantation"]
-position = Vector2(1248, 373)
-shape = SubResource("CircleShape2D_nvlgy")
-
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Buildings/plantation"]
 position = Vector2(1254, 577)
 shape = SubResource("CircleShape2D_nvlgy")
@@ -69806,6 +69826,118 @@ position = Vector2(-290, 585)
 scale = Vector2(1.04688, 1.60938)
 shape = SubResource("CircleShape2D_7046j")
 
+[node name="Trees" type="Node" parent="Buildings"]
+
+[node name="AppleTree" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4230, 1228)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree2" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4240, 1247)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree2"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree2"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree3" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4225, 1264)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree3"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree3"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree4" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4236, 1284)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree4"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree4"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree5" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4223, 1308)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree5"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree5"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree6" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4240, 1321)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree6"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree6"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree7" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4203, 1277)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree7"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree7"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree8" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4201, 1330)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree8"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree8"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree9" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4201, 1330)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree9"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree9"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
+[node name="AppleTree10" type="StaticBody2D" parent="Buildings/Trees"]
+position = Vector2(4240, 1345)
+
+[node name="apple tree2" type="Sprite2D" parent="Buildings/Trees/AppleTree10"]
+texture = ExtResource("30_frv6b")
+offset = Vector2(0, -13.945)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Buildings/Trees/AppleTree10"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_nvlgy")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(57, 14)
 shape = SubResource("WorldBoundaryShape2D_sopri")
@@ -69840,7 +69972,7 @@ texture = ExtResource("39_8la2p")
 texture = ExtResource("40_4c2qr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableArea/TableBench"]
-position = Vector2(0.5, -2.5)
+position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_ctxxx")
 
 [node name="TableBench2" type="StaticBody2D" parent="TableArea"]
@@ -69858,7 +69990,7 @@ texture = ExtResource("39_8la2p")
 texture = ExtResource("40_4c2qr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableArea/TableBench2"]
-position = Vector2(0.5, -2.5)
+position = Vector2(0, -0.666667)
 shape = SubResource("RectangleShape2D_ctxxx")
 
 [node name="TableBench3" type="StaticBody2D" parent="TableArea"]
@@ -69876,7 +70008,7 @@ texture = ExtResource("39_8la2p")
 texture = ExtResource("40_4c2qr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableArea/TableBench3"]
-position = Vector2(0.5, -2.5)
+position = Vector2(0.666667, -0.666667)
 shape = SubResource("RectangleShape2D_ctxxx")
 
 [node name="TableBench4" type="StaticBody2D" parent="TableArea"]
@@ -69894,7 +70026,7 @@ texture = ExtResource("39_8la2p")
 texture = ExtResource("40_4c2qr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableArea/TableBench4"]
-position = Vector2(0.5, -2.5)
+position = Vector2(0.333374, -1.5)
 shape = SubResource("RectangleShape2D_ctxxx")
 
 [node name="Shop Interior" parent="." instance=ExtResource("41_pn3v8")]
@@ -69902,17 +70034,25 @@ position = Vector2(2167, 872)
 
 [node name="gblock_gate1" parent="." instance=ExtResource("40_4e0vo")]
 position = Vector2(3279, 807)
-exitGate = NodePath("../gblock_gate2")
+exitGate = NodePath("../gblock_gate2/exit_location")
 
 [node name="CollisionShape2D" parent="gblock_gate1" index="0"]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_4nf5o")
 
+[node name="exit_location" type="Node2D" parent="gblock_gate1"]
+position = Vector2(9, 10)
+
 [node name="gblock_gate2" parent="." instance=ExtResource("40_4e0vo")]
-position = Vector2(3281, 635)
-exitGate = NodePath("../gblock_gate1")
+position = Vector2(3281, 634)
+exitGate = NodePath("../gblock_gate1/exit_location")
 
 [node name="CollisionShape2D" parent="gblock_gate2" index="0"]
+position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_jnv1u")
+
+[node name="exit_location" type="Node2D" parent="gblock_gate2"]
+position = Vector2(12, -11)
 
 [node name="UI" parent="." instance=ExtResource("43_wtodc")]
 
@@ -69983,6 +70123,15 @@ question_id = 6
 [node name="CollisionShape2D" parent="Questions/Question6" index="0"]
 position = Vector2(34, 4)
 shape = SubResource("RectangleShape2D_m6idc")
+
+[node name="Props2" type="Node2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="Area2D" type="Area2D" parent="Props2"]
+
+[node name="MeSinglesPoliceStation16x16AutomaticBarrier3" type="Sprite2D" parent="Props2/Area2D"]
+position = Vector2(4219, 840)
+texture = ExtResource("15_f8bdb")
 
 [editable path="gblock_gate1"]
 [editable path="gblock_gate2"]

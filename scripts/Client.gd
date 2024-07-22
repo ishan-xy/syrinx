@@ -149,19 +149,16 @@ func _on_start_client_button_down():
 	connectToServer("")
 	pass # Replace with function body.
 
-func _on_send_test_packet_button_down():
-	StartGame.rpc()
+func _on_send_test_packet_button_down(startBtn: NodePath):
+	var start_button := get_node(startBtn)
+	StartGame()
 	pass # Replace with function body.
 
-@rpc("any_peer", "call_local")
+#@rpc("any_peer", "call_local")
 func StartGame():
-	var message = {
-		"message" : Message.removeLobby,
-		"lobbyID" : lobbyValue
-	}
-	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	var scene = load("res://scenes/environments/g_block.tscn").instantiate()
 	get_tree().root.add_child(scene)
+	
 
 func _on_join_lobby_button_down():
 	var message = {

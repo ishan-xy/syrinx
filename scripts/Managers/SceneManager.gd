@@ -4,17 +4,13 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var index = 1
-	for i in GameManager.Players:
-		var currentPlayer = PlayerScene.instantiate()
-		currentPlayer.name = str(GameManager.Players[i].id)
-		add_child(currentPlayer)
-		for spawn in get_tree().get_nodes_in_group("PlayerSpwnPoint"):
-			if spawn.name == str(GameManager.Players[i].index):
-				currentPlayer.global_position = spawn.global_position
-		index += 1
+	var currentPlayer = PlayerScene.instantiate()
+	currentPlayer.name = "Player1"
+	add_child(currentPlayer)
+	for spawn in get_tree().get_nodes_in_group("PlayerSpwnPoint"):
+		if spawn.name == "1":
+			currentPlayer.global_position = spawn.global_position
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
