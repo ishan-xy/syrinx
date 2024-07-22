@@ -1,4 +1,4 @@
-[gd_scene load_steps=208 format=3 uid="uid://dhy8nscwhc53c"]
+[gd_scene load_steps=222 format=3 uid="uid://dhy8nscwhc53c"]
 
 [ext_resource type="Texture2D" uid="uid://covu1acdcjyxf" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Autotiles_16x16/Game_Maker_Studio_Autotiles_16x16.png" id="1_kmd6a"]
 [ext_resource type="Texture2D" uid="uid://dxf5uhowhfusy" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/16_Office_16x16.png" id="2_0rmeo"]
@@ -131,6 +131,8 @@
 [ext_resource type="Texture2D" uid="uid://blqhhgovm27ge" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Camping_16x16_Tree_Wall_Modular_5.png" id="129_c4ps0"]
 [ext_resource type="Texture2D" uid="uid://dab8ahjvdbhcp" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Camping_16x16_Tree_Wall_Modular_6.png" id="130_m8y4j"]
 [ext_resource type="Texture2D" uid="uid://ca2yknvqywj82" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Camping_16x16_Tree_Wall_Modular_4.png" id="131_hqcdm"]
+[ext_resource type="Texture2D" uid="uid://cip5er28eou0l" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Garden_16x16_Bush_Potted_1.png" id="132_hi6xl"]
+[ext_resource type="Texture2D" uid="uid://begq42gaoreb" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Swimming_Pool_16x16_Toy_1.png" id="133_2wlfg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_htqfj"]
 texture = ExtResource("1_kmd6a")
@@ -12064,6 +12066,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8262y"]
 size = Vector2(136.5, 166.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpabq"]
+size = Vector2(27, 60.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dgqus"]
 size = Vector2(93, 139.5)
 
@@ -12166,13 +12171,16 @@ animations = [{
 size = Vector2(26.4511, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tw3mr"]
-size = Vector2(879, 83)
+size = Vector2(1154.5, 83)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blulc"]
 size = Vector2(103, 66.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ey0m"]
-size = Vector2(138, 541.5)
+size = Vector2(1172, 711)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7c4u"]
+size = Vector2(78.7407, 92.6512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6t30r"]
 atlas = ExtResource("86_8e5ei")
@@ -12323,6 +12331,35 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d4a6b"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ff08"]
+radius = 22.1246
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4ouv"]
+radius = 16.9812
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rwq17"]
+radius = 13.3221
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_axfi3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjgro"]
+radius = 13.7774
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3mhn"]
+radius = 14.9788
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvlwg"]
+size = Vector2(507.663, 74.2094)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y813g"]
+size = Vector2(168, 161.337)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfwxl"]
+radius = 33.7496
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbts"]
+size = Vector2(402, 378)
+
 [node name="waterbody cafe" type="Node2D"]
 
 [node name="floor tiles" type="TileMap" parent="."]
@@ -12399,13 +12436,17 @@ texture = ExtResource("6_2cnes")
 position = Vector2(976, -479)
 texture = ExtResource("37_vsj86")
 
+[node name="rods" type="Sprite2D" parent="miscellaneous/construction/obstacles"]
+position = Vector2(896, -239)
+texture = ExtResource("38_1rs7l")
+
 [node name="rods2" type="Sprite2D" parent="miscellaneous/construction/obstacles"]
 position = Vector2(896, -261)
 texture = ExtResource("38_1rs7l")
 
-[node name="rods" type="Sprite2D" parent="miscellaneous/construction/obstacles"]
-position = Vector2(896, -239)
-texture = ExtResource("38_1rs7l")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="miscellaneous/construction/obstacles/rods2"]
+position = Vector2(0, 15.75)
+shape = SubResource("RectangleShape2D_lpabq")
 
 [node name="stackedbricks" type="Sprite2D" parent="miscellaneous/construction/obstacles"]
 position = Vector2(903, 17)
@@ -12538,7 +12579,7 @@ rotation = 0.698132
 shape = SubResource("RectangleShape2D_yulse")
 
 [node name="c_csed_1" type="CollisionShape2D" parent="csed_components"]
-position = Vector2(440.5, -17.5)
+position = Vector2(298.75, 16)
 shape = SubResource("RectangleShape2D_tw3mr")
 
 [node name="c_csed_2" type="CollisionShape2D" parent="csed_components"]
@@ -12550,7 +12591,7 @@ position = Vector2(633.5, 35)
 shape = SubResource("RectangleShape2D_blulc")
 
 [node name="c_csed_4" type="CollisionShape2D" parent="csed_components"]
-position = Vector2(814, -299.75)
+position = Vector2(297, -384.5)
 shape = SubResource("RectangleShape2D_4ey0m")
 
 [node name="MeSinglesVillas16x16Tree1" type="Sprite2D" parent="."]
@@ -12676,6 +12717,10 @@ texture = ExtResource("79_m34cd")
 position = Vector2(-2570, -911)
 scale = Vector2(1.6875, 1.36719)
 texture = ExtResource("83_fcsf4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCityProps16x16JunkShack1"]
+position = Vector2(-0.851807, -0.977234)
+shape = SubResource("RectangleShape2D_m7c4u")
 
 [node name="MeSinglesCityProps16x16Manhole8" type="Sprite2D" parent="."]
 position = Vector2(-1507, 350)
@@ -13075,10 +13120,18 @@ position = Vector2(1444, 916)
 scale = Vector2(2.90625, 2.8125)
 texture = ExtResource("106_wx1xs")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesVillas16x16Tree6"]
+position = Vector2(6.53763, 19.9111)
+shape = SubResource("CircleShape2D_1ff08")
+
 [node name="MeSinglesCamping16x16Tree2" type="Sprite2D" parent="."]
 position = Vector2(1227, -263)
 scale = Vector2(3.82813, 4.25)
 texture = ExtResource("107_381n5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16Tree2"]
+position = Vector2(1.56735, 16.7059)
+shape = SubResource("CircleShape2D_b4ouv")
 
 [node name="MeSinglesVehicles16x16Boat1Up2" type="Sprite2D" parent="."]
 position = Vector2(-2238, -799)
@@ -13172,15 +13225,28 @@ position = Vector2(1561, 693)
 scale = Vector2(2.33333, 2.03125)
 texture = ExtResource("123_n3ekt")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesVillas16x16Tree13"]
+position = Vector2(-1.28572, 20.6769)
+shape = SubResource("CircleShape2D_rwq17")
+
 [node name="MeSinglesVillas16x16Tree14" type="Sprite2D" parent="."]
 position = Vector2(1280, 553)
 scale = Vector2(2.4625, 2.89063)
 texture = ExtResource("104_faq38")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesVillas16x16Tree14"]
+position = Vector2(0.406091, 27.3297)
+shape = SubResource("CircleShape2D_axfi3")
+
 [node name="MeSinglesCamping16x16Tree100" type="Sprite2D" parent="."]
 position = Vector2(1437, 562)
 scale = Vector2(3.125, 2.8875)
 texture = ExtResource("124_86xx2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16Tree100"]
+position = Vector2(0.639998, 25.974)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_mjgro")
 
 [node name="MeSinglesSchool16x16SchoolYardToy12" type="Sprite2D" parent="."]
 position = Vector2(1335, 722)
@@ -13192,8 +13258,12 @@ position = Vector2(1589, 4)
 scale = Vector2(5.34375, 6.125)
 texture = ExtResource("126_jnwj4")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16Tree127"]
+position = Vector2(2.61988, 11.2653)
+shape = SubResource("CircleShape2D_q3mhn")
+
 [node name="MeSinglesCamping16x16Tree145" type="Sprite2D" parent="."]
-position = Vector2(1562, -1400)
+position = Vector2(-1320, -1382)
 scale = Vector2(14.5, 14.474)
 texture = ExtResource("127_tvkgs")
 
@@ -13222,12 +13292,43 @@ position = Vector2(1482.88, -940.125)
 scale = Vector2(3.91992, 4.44688)
 texture = ExtResource("129_c4ps0")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16TreeWallModular8"]
+position = Vector2(-192.32, -1.7709)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_yvlwg")
+
 [node name="MeSinglesCamping16x16TreeWallModular9" type="Sprite2D" parent="."]
 position = Vector2(1800.75, -946.25)
 scale = Vector2(4.26561, 4.29375)
 texture = ExtResource("130_m8y4j")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16TreeWallModular9"]
+position = Vector2(-0.879128, -7.39447)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y813g")
+
 [node name="MeSinglesCamping16x16TreeWallModular4" type="Sprite2D" parent="."]
 position = Vector2(-365, -939)
 scale = Vector2(4.03125, 4.24687)
 texture = ExtResource("131_hqcdm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeSinglesCamping16x16TreeWallModular4"]
+position = Vector2(13.1473, -9.18323)
+shape = SubResource("CircleShape2D_lfwxl")
+
+[node name="MeSinglesGarden16x16BushPotted1" type="Sprite2D" parent="."]
+position = Vector2(1169, -186)
+texture = ExtResource("132_hi6xl")
+
+[node name="MeSinglesSwimmingPool16x16Toy1" type="Sprite2D" parent="."]
+position = Vector2(1679, -812)
+texture = ExtResource("133_2wlfg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(924, 347)
+shape = SubResource("RectangleShape2D_iwbts")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1346, 726.332)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y813g")
