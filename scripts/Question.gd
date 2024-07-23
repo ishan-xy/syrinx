@@ -11,10 +11,8 @@ var isAnswered: bool
 var userAns: String
 
 
-func _init(_id: int, _text: String,_hintText: String, _hintPoints: int, _isAnswered: bool = false,  _userAns: String = ""):
+func _init(_id: int, _text: String, _isAnswered: bool = false,  _userAns: String = ""):
 	id = _id
 	text = _text
-	hintText = _hintText
-	hintPoints = _hintPoints
 	isAnswered = _isAnswered
 	userAns = _userAns

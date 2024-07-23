@@ -2,13 +2,10 @@ extends Node2D
 
 var httpRequest := HTTPRequest.new()
 var clients: PackedByteArray = []
-var Username := "ishansingla"
-var Password := "12345678"
 
 func _ready() -> void:
 	add_child(httpRequest)
 	set_physics_process(false)
-	_auth()
 
 func _auth_error(error: String) -> void:
 	print_debug("auth error: ", error)
@@ -16,7 +13,7 @@ func _auth_error(error: String) -> void:
 func _lobby_error(error: String) -> void:
 	print_debug("lobby error: ", error)
 
-func _auth() -> void:
+func _auth(Username:String, Password:String) -> void:
 	httpRequest.request_completed.connect(_on_auth_response)
 	print("authenticating")
 	var err := httpRequest.request("http://127.0.0.1:8080/authanticate", [], HTTPClient.METHOD_POST, JSON.stringify({"Username": Username, "Password":Password}))
@@ -24,8 +21,11 @@ func _auth() -> void:
 
 var SessionIDBodyString: String
 var SessionID: PackedByteArray
+signal auth_response(bool)
 func _on_auth_response(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	if result != OK: return _auth_error("Http response error, result error: "+str(result))
+	if result != OK: 
+		auth_response.emit(false)
+		return _auth_error("Http response error, result error: "+str(result))
 	#if response_code != 200: _auth_error("Http response error, response code: "+str(response_code))
 	SessionIDBodyString = body.get_string_from_ascii()
 	var json: Dictionary = JSON.parse_string(body.get_string_from_ascii())
@@ -50,6 +50,7 @@ func _on_lobby_response(_result: int, _response_code: int, _headers: PackedStrin
 	wsConn.connection_established.connect(_on_ws_ready)
 	set_physics_process(true)
 	print("Connected to Lobby")
+	auth_response.emit(true)
 	wsConn.connection_closed.connect(_connect_to_lobby)
 	_connect_to_lobby()
 
