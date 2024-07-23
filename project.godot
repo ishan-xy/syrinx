@@ -47,10 +47,6 @@ layout/style_list=[]
 layout/default_style="res://scenes/dialogue.tres"
 extensions_folder="res://addons/dialogic_additions"
 
-[display]
-
-window/stretch/scale=5.0
-
 [editor]
 
 version_control/plugin_name="GitPlugin"

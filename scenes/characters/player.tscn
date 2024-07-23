@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://csxndgunsyc70"]
+[gd_scene load_steps=58 format=3 uid="uid://bueapawflsasp"]
 
 [ext_resource type="Texture2D" uid="uid://brbdm8wtcplj2" path="res://assets/mysticwoods/characters/player.png" id="1_yvf2c"]
 
@@ -6,33 +6,44 @@
 script/source = "extends CharacterBody2D
 
 # Player's movement speed
-const SPEED = 100*60
+const SPEED = 100 * 60
 
 # Player States
-enum Direction{ right, up, left, down, }
+enum Direction { right, up, left, down }
 @export var movement := Direction.down
 @onready var anim := $AnimatedSprite2D
+@onready var camera := $Camera2D
+var isInteracting = false
 
-# `true` iff this is the multiplayer authority, do NOT change this
-
-# Customm movement logic for 4 (NOT `8`) directional movement
+# Custom movement logic for 4 (NOT `8`) directional movement
 var _prev := PackedByteArray()
+
+func _ready():
+	camera.make_current()
+
 func pressed_direction(direction: Direction) -> void:
 	_prev.append(direction)
 	movement = direction
 	anim.animation_type = anim.AnimationType.walk
+	update_animation_type(anim.AnimationType.walk)
+
 func released_direction(direction: Direction) -> void:
 	var pos := _prev.rfind(direction)
 	if pos != -1:
 		_prev.remove_at(pos)
 	if _prev.is_empty():
 		anim.animation_type = anim.AnimationType.idle
+		update_animation_type(anim.AnimationType.idle)
 		return
 	else:
 		movement = _prev[-1] as Direction
 	return
+
+func update_animation_type(type: int) -> void:
+	anim.animation_type = type
+
 func process_ui_key(direction: Direction) -> bool:
-	var key_name: String = \"ui_\"+Direction.keys()[direction]
+	var key_name: String = \"move_\" + Direction.keys()[direction]
 	if Input.is_action_just_pressed(key_name):
 		pressed_direction(direction)
 		return true
@@ -41,7 +52,7 @@ func process_ui_key(direction: Direction) -> bool:
 		return true
 	return false
 
-#Process user input
+# Process user input
 func process_input() -> void:
 	var inp: bool = false
 	inp = inp or process_ui_key(Direction.right)
@@ -51,30 +62,47 @@ func process_input() -> void:
 	if Input.is_key_pressed(KEY_SHIFT):
 		if anim.animation_type == anim.AnimationType.walk:
 			anim.animation_type = anim.AnimationType.sprint
+			update_animation_type(anim.AnimationType.sprint)
 	if inp:
 		$Direction.set_rotation_degrees(90 * movement)
+		update_rotation_degrees(90 * movement)
 
 # Process input and move
 func _physics_process(delta: float) -> void:
+	if not isInteracting:
+		process_input()
+		if not (Input.is_action_pressed(\"move_up\") or Input.is_action_pressed(\"move_right\") or \\
+				Input.is_action_pressed(\"move_down\") or Input.is_action_pressed(\"move_left\")):
+			anim.animation_type = anim.AnimationType.idle
+			update_animation_type(anim.AnimationType.idle)
 
-	process_input()
-	if not (Input.is_action_pressed(\"ui_up\") or Input.is_action_pressed(\"ui_right\") or\\
-	 Input.is_action_pressed(\"ui_down\") or Input.is_action_pressed(\"ui_left\")):
-		anim.animation_type = anim.AnimationType.idle
-	
-	if anim.animation_type == anim.AnimationType.idle:
-		return
-	
-	velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
-	velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
-	
-	if anim.animation_type == anim.AnimationType.sprint:
-		velocity *= 2*delta
-	else:
-		velocity *= delta
-	# WARNING: DO NOT USE `move_and_slide`, player interaction becomes bery buggy
-	move_and_collide(velocity * delta)
+		if anim.animation_type == anim.AnimationType.idle:
+			return
 
+		velocity.x = SPEED if movement == Direction.right else -SPEED if movement == Direction.left else 0
+		velocity.y = SPEED if movement == Direction.down else -SPEED if movement == Direction.up else 0
+
+		if anim.animation_type == anim.AnimationType.sprint:
+			velocity *= 2 * delta
+		else:
+			velocity *= delta
+
+		# WARNING: DO NOT USE `move_and_slide`, player interaction becomes very buggy
+		move_and_collide(velocity * delta)
+
+func update_position(pos: Vector2) -> void:
+	position = pos
+
+func update_velocity(vel: Vector2) -> void:
+	velocity = vel
+
+func update_rotation_degrees(degrees: float) -> void:
+	$Direction.rotation_degrees = degrees
+
+func SetIsInteracting(flag):
+	isInteracting = flag
+func GetIsInteracting():
+	return isInteracting
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_74xpf"]
@@ -521,7 +549,7 @@ func play_animation() -> void:
 			self.play(\"side_\"+anim_name)
 
 # Play animation on frame update, not physics update
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	play_animation()
 
 func _enter_tree():
@@ -529,26 +557,24 @@ func _enter_tree():
 	self.play(\"down_idle\")
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sriwm"]
-radius = 8.0
-height = 37.9914
+[sub_resource type="CircleShape2D" id="CircleShape2D_5rwyh"]
+radius = 5.0
 
 [sub_resource type="GDScript" id="GDScript_drsgr"]
 script/source = "extends Area2D
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	print_debug(\"Enter\")
 	pass # Replace with function body.
 
-func _on_area_exited(area: Area2D) -> void:
+func _on_area_exited(_area: Area2D) -> void:
 	print_debug(\"Exit\")
 	pass # Replace with function body.
 "
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
-collision_layer = 3
-collision_mask = 31
+collision_layer = 131
 floor_stop_on_slope = false
 floor_block_on_wall = false
 platform_on_leave = 2
@@ -557,19 +583,21 @@ safe_margin = 0.001
 script = SubResource("GDScript_cwf02")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_xgcfc")
-animation = &"up_idle"
-offset = Vector2(-0.5, -13)
+animation = &"down_swing"
+frame = 1
+frame_progress = 0.766112
+offset = Vector2(-0.5, -13.6)
 script = SubResource("GDScript_12o1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
-scale = Vector2(0.997913, 0.473791)
-shape = SubResource("CapsuleShape2D_sriwm")
+shape = SubResource("CircleShape2D_5rwyh")
 
 [node name="Direction" type="Marker2D" parent="."]
 position = Vector2(0, -2)
