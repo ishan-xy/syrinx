@@ -1,4 +1,4 @@
-[gd_scene load_steps=160 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=162 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -69344,6 +69344,12 @@ size = Vector2(146, 57.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e71u0"]
 size = Vector2(61, 46)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qodr"]
+size = Vector2(76, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1dx7"]
+size = Vector2(24, 37)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mq7pr"]
 size = Vector2(38, 17)
 
@@ -70630,6 +70636,36 @@ question_id = 17
 position = Vector2(98.5, 24)
 shape = SubResource("RectangleShape2D_e71u0")
 
+[node name="Question18" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3720, 1906)
+collision_layer = 129
+collision_mask = 129
+question_id = 18
+
+[node name="CollisionShape2D" parent="Questions/Question18" index="0"]
+position = Vector2(96, 23.5)
+shape = SubResource("RectangleShape2D_2qodr")
+
+[node name="Question19" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2604, 1453)
+collision_layer = 129
+collision_mask = 129
+question_id = 19
+
+[node name="CollisionShape2D" parent="Questions/Question19" index="0"]
+position = Vector2(100, 20.5)
+shape = SubResource("RectangleShape2D_a1dx7")
+
+[node name="Question20" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2389, 1650)
+collision_layer = 129
+collision_mask = 129
+question_id = 20
+
+[node name="CollisionShape2D" parent="Questions/Question20" index="0"]
+position = Vector2(100, 20.5)
+shape = SubResource("RectangleShape2D_a1dx7")
+
 [node name="to add picture" type="Node" parent="Questions"]
 
 [node name="Question8" parent="Questions/to add picture" instance=ExtResource("44_t7ode")]
@@ -71412,4 +71448,7 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question15"]
 [editable path="Questions/Question16"]
 [editable path="Questions/Question17"]
+[editable path="Questions/Question18"]
+[editable path="Questions/Question19"]
+[editable path="Questions/Question20"]
 [editable path="Questions/to add picture/Question8"]
