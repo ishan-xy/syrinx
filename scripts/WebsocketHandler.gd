@@ -2,21 +2,24 @@ extends Node2D
 
 var httpRequest := HTTPRequest.new()
 var clients: PackedByteArray = []
-
+var authBtn
 func _ready() -> void:
+	authBtn = get_tree().get_nodes_in_group("auth_button")[0]
 	add_child(httpRequest)
 	set_physics_process(false)
 
 func _auth_error(error: String) -> void:
+	authBtn.OnAuthResponse(false, error)
 	print_debug("auth error: ", error)
 
 func _lobby_error(error: String) -> void:
+	authBtn.OnAuthResponse(false, error)
 	print_debug("lobby error: ", error)
 
 func _auth(Username:String, Password:String) -> void:
 	httpRequest.request_completed.connect(_on_auth_response)
 	print("authenticating")
-	var err := httpRequest.request("http://127.0.0.1:8080/authanticate", [], HTTPClient.METHOD_POST, JSON.stringify({"Username": Username, "Password":Password}))
+	var err := httpRequest.request("https://api.syrinx.ccstiet.com/authanticate", [], HTTPClient.METHOD_POST, JSON.stringify({"Username": Username, "Password":Password}))
 	if err != OK: return _auth_error("_auth: Error while sending request / Connection error")
 
 var SessionIDBodyString: String
@@ -24,7 +27,7 @@ var SessionID: PackedByteArray
 signal auth_response(bool)
 func _on_auth_response(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != OK: 
-		auth_response.emit(false)
+		authBtn.OnAuthResponse(false, result)
 		return _auth_error("Http response error, result error: "+str(result))
 	#if response_code != 200: _auth_error("Http response error, response code: "+str(response_code))
 	SessionIDBodyString = body.get_string_from_ascii()
@@ -36,7 +39,7 @@ func _on_auth_response(result: int, _response_code: int, _headers: PackedStringA
 	
 	httpRequest.request_completed.disconnect(_on_auth_response)
 	httpRequest.request_completed.connect(_on_lobby_response)
-	httpRequest.request("http://127.0.0.1:8080/getlobby", [], HTTPClient.METHOD_POST, SessionIDBodyString)
+	httpRequest.request("https://api.syrinx.ccstiet.com/getlobby", [], HTTPClient.METHOD_POST, SessionIDBodyString)
 
 var LobbyID: String
 var wsConn := WebSocketClient.new()
@@ -50,12 +53,13 @@ func _on_lobby_response(_result: int, _response_code: int, _headers: PackedStrin
 	wsConn.connection_established.connect(_on_ws_ready)
 	set_physics_process(true)
 	print("Connected to Lobby")
-	auth_response.emit(true)
+	#auth_response.emit(true)
+	authBtn.OnAuthResponse(true, _result)
 	wsConn.connection_closed.connect(_connect_to_lobby)
 	_connect_to_lobby()
 
 func _connect_to_lobby() -> void:
-	wsConn.connect_to_url("ws://127.0.0.1:8080/lobby/" + LobbyID)
+	wsConn.connect_to_url("wss://api.syrinx.ccstiet.com/lobby/" + LobbyID)
 
 	#$"../Control".queue_free()
 

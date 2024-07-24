@@ -1,6 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://dsd44cbstk6jw"]
+[gd_scene load_steps=24 format=3 uid="uid://dsd44cbstk6jw"]
 
+[ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_batbh"]
 [ext_resource type="TileSet" uid="uid://2ye4enawrhu4" path="res://components/ME_auto_tiles.tres" id="1_yvfht"]
+[ext_resource type="PackedScene" uid="uid://csxndgunsyc70" path="res://scenes/characters/player.tscn" id="2_nl2sg"]
+[ext_resource type="PackedScene" uid="uid://cs32wacbpdddi" path="res://scenes/Prefabs/QuestionArea.tscn" id="4_2yqbe"]
+[ext_resource type="PackedScene" uid="uid://bi3r665jav7n7" path="res://scenes/MainUI.tscn" id="5_nepmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h15gv"]
 size = Vector2(1598, 217.001)
@@ -51,8 +55,16 @@ size = Vector2(653, 374)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_drq4h"]
 size = Vector2(271, 69)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1fg4"]
+size = Vector2(46, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xqk2"]
+size = Vector2(46, 75)
+
 [node name="Level 3" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_batbh")
+PlayerScene = ExtResource("2_nl2sg")
 metadata/_edit_horizontal_guides_ = [-439.0]
 
 [node name="Tilemap" type="TileMap" parent="."]
@@ -434,3 +446,39 @@ shape = SubResource("RectangleShape2D_drq4h")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Colliders/Big House"]
 position = Vector2(-761, -184)
 shape = SubResource("RectangleShape2D_drq4h")
+
+[node name="Questions" type="Node" parent="."]
+
+[node name="QuestionArea" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(-72, -223)
+question_id = 1
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea" index="0"]
+position = Vector2(0, 2.5)
+
+[node name="QuestionArea2" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(-957, -37)
+question_id = 2
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea2" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_f1fg4")
+
+[node name="QuestionArea3" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(88, 155)
+question_id = 3
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea3" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_4xqk2")
+
+[node name="SpawnLocations" type="Node2D" parent="." groups=["PlayerSpwnPoint"]]
+position = Vector2(76, -81)
+
+[node name="1" type="Node2D" parent="SpawnLocations"]
+
+[node name="UI" parent="." instance=ExtResource("5_nepmg")]
+
+[editable path="Questions/QuestionArea"]
+[editable path="Questions/QuestionArea2"]
+[editable path="Questions/QuestionArea3"]
