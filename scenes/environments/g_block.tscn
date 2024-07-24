@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=158 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -69303,18 +69303,42 @@ size = Vector2(37, 14.5)
 size = Vector2(58, 74)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdhe7"]
-size = Vector2(20, 22)
+size = Vector2(39, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqhuv"]
 size = Vector2(32, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_036kg"]
-size = Vector2(21, 36)
+size = Vector2(77, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6idc"]
 size = Vector2(22, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nke76"]
+size = Vector2(38, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yae83"]
+size = Vector2(38, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqmpo"]
+size = Vector2(38, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lt6bv"]
+size = Vector2(74, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ui4ns"]
+size = Vector2(74, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8k6x"]
+size = Vector2(74, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5wgk"]
+size = Vector2(74, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5o01"]
+size = Vector2(74, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq7pr"]
 size = Vector2(38, 17)
 
 [node name="g-block" type="Node2D"]
@@ -69324,7 +69348,6 @@ script = ExtResource("1_f1by4")
 PlayerScene = ExtResource("37_ra42a")
 
 [node name="Base" type="TileMap" parent="."]
-y_sort_enabled = true
 position = Vector2(0, 1)
 tile_set = SubResource("TileSet_60c5l")
 format = 2
@@ -70330,12 +70353,6 @@ y_sort_enabled = true
 [node name="1" type="Node2D" parent="SpawnLocations" groups=["PlayerSpwnPoint"]]
 position = Vector2(2944, 945)
 
-[node name="2" type="Node2D" parent="SpawnLocations" groups=["PlayerSpwnPoint"]]
-position = Vector2(2953, 1348)
-
-[node name="3" type="Node2D" parent="SpawnLocations" groups=["PlayerSpwnPoint"]]
-position = Vector2(3280, 1353)
-
 [node name="TableArea" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(2771, 1420)
@@ -70468,17 +70485,17 @@ position = Vector2(10, 7)
 shape = SubResource("RectangleShape2D_5qdn3")
 
 [node name="Question3" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(4266, 926)
+position = Vector2(4209, 888)
 collision_layer = 129
 collision_mask = 129
 question_id = 3
 
 [node name="CollisionShape2D" parent="Questions/Question3" index="0"]
-position = Vector2(7, -26)
+position = Vector2(8.5, -31.5)
 shape = SubResource("RectangleShape2D_jdhe7")
 
 [node name="Question4" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3412, 1651)
+position = Vector2(3398, 1747)
 collision_layer = 129
 collision_mask = 129
 question_id = 4
@@ -70488,17 +70505,17 @@ position = Vector2(-20, 4.5)
 shape = SubResource("RectangleShape2D_eqhuv")
 
 [node name="Question5" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3654, 1926)
+position = Vector2(3628, 1954)
 collision_layer = 129
 collision_mask = 129
 question_id = 5
 
 [node name="CollisionShape2D" parent="Questions/Question5" index="0"]
-position = Vector2(0.5, 4)
+position = Vector2(28.5, 8.5)
 shape = SubResource("RectangleShape2D_036kg")
 
 [node name="Question6" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3542, 596)
+position = Vector2(3542, 589)
 collision_layer = 129
 collision_mask = 129
 question_id = 6
@@ -70516,6 +70533,88 @@ question_id = 7
 [node name="CollisionShape2D" parent="Questions/Question7" index="0"]
 position = Vector2(32, 2.5)
 shape = SubResource("RectangleShape2D_nke76")
+
+[node name="Question9" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3019, 556)
+collision_layer = 129
+collision_mask = 129
+question_id = 9
+
+[node name="CollisionShape2D" parent="Questions/Question9" index="0"]
+position = Vector2(32, 2.5)
+shape = SubResource("RectangleShape2D_yae83")
+
+[node name="Question10" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3330, 530)
+collision_layer = 129
+collision_mask = 129
+question_id = 10
+
+[node name="CollisionShape2D" parent="Questions/Question10" index="0"]
+position = Vector2(32, 2.5)
+shape = SubResource("RectangleShape2D_dqmpo")
+
+[node name="Question11" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3457, 589)
+collision_layer = 129
+collision_mask = 129
+question_id = 11
+
+[node name="CollisionShape2D" parent="Questions/Question11" index="0"]
+position = Vector2(31, 0)
+shape = SubResource("RectangleShape2D_lt6bv")
+
+[node name="Question12" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3900, 1167)
+collision_layer = 129
+collision_mask = 129
+question_id = 12
+
+[node name="CollisionShape2D" parent="Questions/Question12" index="0"]
+position = Vector2(31, 0)
+shape = SubResource("RectangleShape2D_ui4ns")
+
+[node name="Question13" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3917, 1046)
+collision_layer = 129
+collision_mask = 129
+question_id = 13
+
+[node name="CollisionShape2D" parent="Questions/Question13" index="0"]
+position = Vector2(31, 18.5)
+shape = SubResource("RectangleShape2D_s8k6x")
+
+[node name="Question14" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3910, 917)
+collision_layer = 129
+collision_mask = 129
+question_id = 14
+
+[node name="CollisionShape2D" parent="Questions/Question14" index="0"]
+position = Vector2(31, 18.5)
+shape = SubResource("RectangleShape2D_k5wgk")
+
+[node name="Question15" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3909, 841)
+collision_layer = 129
+collision_mask = 129
+question_id = 15
+
+[node name="CollisionShape2D" parent="Questions/Question15" index="0"]
+position = Vector2(27, 19)
+shape = SubResource("RectangleShape2D_y5o01")
+
+[node name="to add picture" type="Node" parent="Questions"]
+
+[node name="Question8" parent="Questions/to add picture" instance=ExtResource("44_t7ode")]
+position = Vector2(2920, 382)
+collision_layer = 129
+collision_mask = 129
+question_id = 8
+
+[node name="CollisionShape2D" parent="Questions/to add picture/Question8" index="0"]
+position = Vector2(32, 2.5)
+shape = SubResource("RectangleShape2D_mq7pr")
 
 [node name="Props2" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -71278,3 +71377,11 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question5"]
 [editable path="Questions/Question6"]
 [editable path="Questions/Question7"]
+[editable path="Questions/Question9"]
+[editable path="Questions/Question10"]
+[editable path="Questions/Question11"]
+[editable path="Questions/Question12"]
+[editable path="Questions/Question13"]
+[editable path="Questions/Question14"]
+[editable path="Questions/Question15"]
+[editable path="Questions/to add picture/Question8"]
