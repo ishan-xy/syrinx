@@ -302,14 +302,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_lhv81")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_left = -656.0
+offset_top = 3.0
+offset_right = 941.0
+offset_bottom = 356.0
 grow_horizontal = 2
 scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(769, 10)
+tooltip_text = "(No extra points will be deducted if you've already purchased the hint)"
 theme_override_font_sizes/font_size = 128
-text = "Confirm to get hint
-30 points will be reduced"
+text = "Buy for 30 points?
+(Points will only be used once)"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="confirmBtn" type="Button" parent="Question/hint_cnf"]
 layout_mode = 0
@@ -337,6 +342,7 @@ text = "Cancel
 script = SubResource("GDScript_4rh68")
 
 [node name="hint" type="Panel" parent="Question" groups=["hint"]]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -390,6 +396,7 @@ text = "Done"
 script = SubResource("GDScript_e4ok8")
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

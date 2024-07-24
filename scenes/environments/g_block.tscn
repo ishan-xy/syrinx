@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=150 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -36,7 +36,6 @@
 [ext_resource type="Texture2D" uid="uid://by3p2l4lyrii8" path="res://assets/logo8.png" id="31_3mia4"]
 [ext_resource type="Texture2D" uid="uid://cpnajxkgq7trn" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_73.png" id="31_7mk74"]
 [ext_resource type="Texture2D" uid="uid://re0f43nqjf65" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_134.png" id="32_dive6"]
-[ext_resource type="Texture2D" uid="uid://dtv0ygbhoqo3i" path="res://assets/logo4.png" id="32_vlank"]
 [ext_resource type="Texture2D" uid="uid://ch6dl4cesj5xi" path="res://assets/logo1.png" id="33_ahtah"]
 [ext_resource type="Texture2D" uid="uid://b02qxkfuvi6ul" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_183.png" id="33_mcfsa"]
 [ext_resource type="Texture2D" uid="uid://on7u7we8con3" path="res://assets/logo2.png" id="34_gayxq"]
@@ -69209,9 +69208,6 @@ radius = 5.09902
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sru32"]
 size = Vector2(69, 35)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmpxb"]
-size = Vector2(81, 45)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1h6n"]
 size = Vector2(20, 85)
 
@@ -69300,14 +69296,26 @@ size = Vector2(40, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jnv1u"]
 size = Vector2(64, 15)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxfa8"]
-size = Vector2(75, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjijb"]
+size = Vector2(37, 14.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rfyh"]
-size = Vector2(23, 61)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qdn3"]
+size = Vector2(58, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdhe7"]
+size = Vector2(20, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqhuv"]
+size = Vector2(32, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_036kg"]
+size = Vector2(21, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6idc"]
 size = Vector2(22, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nke76"]
+size = Vector2(38, 17)
 
 [node name="g-block" type="Node2D"]
 y_sort_enabled = true
@@ -69619,14 +69627,18 @@ scale = Vector2(0.116, 0.11)
 texture = ExtResource("27_um1qi")
 
 [node name="Waspire" type="Sprite2D" parent="Buildings/advertisements"]
-position = Vector2(834, 450)
+y_sort_enabled = true
+position = Vector2(834, 475)
 scale = Vector2(1.2, 1.2009)
 texture = ExtResource("25_yfrra")
+offset = Vector2(0, -20)
 
 [node name="Logo6" type="Sprite2D" parent="Buildings/advertisements/Waspire"]
-position = Vector2(-2.95639e-05, 2.5)
-scale = Vector2(0.12, 0.125)
+y_sort_enabled = true
+position = Vector2(-2.95639e-05, 2.09491)
+scale = Vector2(0.12, 0.120742)
 texture = ExtResource("28_p5g7r")
+offset = Vector2(0, -158.73)
 
 [node name="Deradh" type="Sprite2D" parent="Buildings/advertisements"]
 position = Vector2(84.5, -294)
@@ -69655,15 +69667,15 @@ position = Vector2(-2.95639e-05, 3)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("31_3mia4")
 
-[node name="NotatMRP" type="Sprite2D" parent="Buildings/advertisements"]
-position = Vector2(-1041, 772)
-scale = Vector2(1.8125, 1.81135)
+[node name="Entinal" type="Sprite2D" parent="Buildings/advertisements"]
+position = Vector2(-1043, 771)
+scale = Vector2(1.875, 1.81135)
 texture = ExtResource("25_yfrra")
 
-[node name="Logo4" type="Sprite2D" parent="Buildings/advertisements/NotatMRP"]
-position = Vector2(7.79629e-05, 3)
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("32_vlank")
+[node name="Logo2" type="Sprite2D" parent="Buildings/advertisements/Entinal"]
+position = Vector2(3.67165e-05, 2.99998)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("34_gayxq")
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Buildings/advertisements"]
 position = Vector2(835, 465)
@@ -69682,10 +69694,6 @@ polygon = PackedVector2Array(32, -4, 32, 10, -36, 10, -36, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/advertisements"]
 position = Vector2(571, -348.5)
 shape = SubResource("RectangleShape2D_sru32")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="Buildings/advertisements"]
-position = Vector2(185.5, 85.5)
-shape = SubResource("RectangleShape2D_tmpxb")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Buildings/advertisements"]
 position = Vector2(1299, -94.5)
@@ -69715,16 +69723,6 @@ shape = SubResource("CircleShape2D_2ufgs")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Buildings/advertisements"]
 position = Vector2(-61, 647)
 shape = SubResource("RectangleShape2D_5l6ih")
-
-[node name="Entinal" type="Sprite2D" parent="Buildings/advertisements"]
-position = Vector2(186, 83)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("25_yfrra")
-
-[node name="Logo2" type="Sprite2D" parent="Buildings/advertisements/Entinal"]
-position = Vector2(3.67165e-05, 2.99998)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("34_gayxq")
 
 [node name="ad2" type="StaticBody2D" parent="Buildings"]
 y_sort_enabled = true
@@ -70123,7 +70121,7 @@ position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_nvlgy")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Buildings/Trees"]
-position = Vector2(2480, 1379)
+position = Vector2(2514, 1383)
 scale = Vector2(1.5, 1.5)
 
 [node name="MeSinglesCamping16x16Tree206" type="Sprite2D" parent="Buildings/Trees/StaticBody2D"]
@@ -70456,51 +70454,51 @@ collision_mask = 129
 question_id = 1
 
 [node name="CollisionShape2D" parent="Questions/Question" index="0"]
-position = Vector2(1.5, 4.5)
-shape = SubResource("RectangleShape2D_vxfa8")
+position = Vector2(-102.5, -14.25)
+shape = SubResource("RectangleShape2D_tjijb")
 
 [node name="Question2" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(2259, 1866)
+position = Vector2(2102, 1724)
 collision_layer = 129
 collision_mask = 129
 question_id = 2
 
 [node name="CollisionShape2D" parent="Questions/Question2" index="0"]
-position = Vector2(1.5, 4.5)
-shape = SubResource("RectangleShape2D_vxfa8")
+position = Vector2(10, 7)
+shape = SubResource("RectangleShape2D_5qdn3")
 
 [node name="Question3" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3951, 1070)
+position = Vector2(4266, 926)
 collision_layer = 129
 collision_mask = 129
 question_id = 3
 
 [node name="CollisionShape2D" parent="Questions/Question3" index="0"]
-position = Vector2(5.5, -6.5)
-shape = SubResource("RectangleShape2D_6rfyh")
+position = Vector2(7, -26)
+shape = SubResource("RectangleShape2D_jdhe7")
 
 [node name="Question4" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3668, 1736)
+position = Vector2(3412, 1651)
 collision_layer = 129
 collision_mask = 129
 question_id = 4
 
 [node name="CollisionShape2D" parent="Questions/Question4" index="0"]
-position = Vector2(1.5, 4.5)
-shape = SubResource("RectangleShape2D_vxfa8")
+position = Vector2(-20, 4.5)
+shape = SubResource("RectangleShape2D_eqhuv")
 
 [node name="Question5" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3797, 1924)
+position = Vector2(3654, 1926)
 collision_layer = 129
 collision_mask = 129
 question_id = 5
 
 [node name="CollisionShape2D" parent="Questions/Question5" index="0"]
-position = Vector2(1.5, 4.5)
-shape = SubResource("RectangleShape2D_vxfa8")
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_036kg")
 
 [node name="Question6" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3635, 596)
+position = Vector2(3542, 596)
 collision_layer = 129
 collision_mask = 129
 question_id = 6
@@ -70508,6 +70506,16 @@ question_id = 6
 [node name="CollisionShape2D" parent="Questions/Question6" index="0"]
 position = Vector2(34, 4)
 shape = SubResource("RectangleShape2D_m6idc")
+
+[node name="Question7" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3247, 613)
+collision_layer = 129
+collision_mask = 129
+question_id = 7
+
+[node name="CollisionShape2D" parent="Questions/Question7" index="0"]
+position = Vector2(32, 2.5)
+shape = SubResource("RectangleShape2D_nke76")
 
 [node name="Props2" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -71269,3 +71277,4 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question4"]
 [editable path="Questions/Question5"]
 [editable path="Questions/Question6"]
+[editable path="Questions/Question7"]

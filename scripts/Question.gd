@@ -16,3 +16,6 @@ func _init(_id: int, _text: String, _isAnswered: bool = false,  _userAns: String
 	text = _text
 	isAnswered = _isAnswered
 	userAns = _userAns
+
+func _add_hint(_hintText):
+	hintText = _hintText
