@@ -25,13 +25,17 @@ script/source = "extends Button
 var username : TextEdit
 var password : LineEdit
 var start : Button
+var error_label : Label
 
 func _ready():
 	username = get_node(\"../Username\")
 	password = get_node(\"../Password\")
 	start = get_node(\"../StartGame\")
+	error_label = get_node(\"../Error\")
 	start.visible = false
 	start.disabled = true
+	error_label.visible = false
+	error_label.text = \"\"
 	visible = true
 func _pressed():
 	print(\"Username: \" + username.text + \"\\nPassword: \" + password.text)
@@ -39,7 +43,8 @@ func _pressed():
 	WebsocketHandler._auth(username.text, password.text)
 	disabled = true
 
-func OnAuthResponse(success):
+func OnAuthResponse(success, err):
+	print(success)
 	if success:
 		start.visible = true
 		start.disabled = false
@@ -47,7 +52,15 @@ func OnAuthResponse(success):
 	else:
 		print(\"Error while authenticating\")
 		disabled =false
+		err_handler(err)
 	
+func err_handler(err):
+	if err == \"Server error:\\nUsername and Password are required\":
+		err = \"Username and Password are required\"
+	if err == \"Server error:\\nmongo: no documents in result\":
+		err = \"Invalid Credentials\"
+	error_label.text = err
+	error_label.visible = true
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbe3e"]
@@ -141,7 +154,7 @@ text = "Start Game
 "
 script = SubResource("GDScript_y35yx")
 
-[node name="Connect" type="Button" parent="Panel"]
+[node name="Connect" type="Button" parent="Panel" groups=["auth_button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -227,5 +240,19 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_47s23")
 placeholder_text = "Password"
 caret_blink = true
 secret = true
+
+[node name="Error" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Error"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="text_changed" from="Panel/Password" to="Panel/Password" method="_on_text_changed"]
