@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=160 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -69338,6 +69338,12 @@ size = Vector2(74, 59)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5o01"]
 size = Vector2(74, 59)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hkpql"]
+size = Vector2(146, 57.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e71u0"]
+size = Vector2(61, 46)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mq7pr"]
 size = Vector2(38, 17)
 
@@ -70604,6 +70610,26 @@ question_id = 15
 position = Vector2(27, 19)
 shape = SubResource("RectangleShape2D_y5o01")
 
+[node name="Question16" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4130, 730)
+collision_layer = 129
+collision_mask = 129
+question_id = 16
+
+[node name="CollisionShape2D" parent="Questions/Question16" index="0"]
+position = Vector2(63, 18.25)
+shape = SubResource("RectangleShape2D_hkpql")
+
+[node name="Question17" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4182, 2070)
+collision_layer = 129
+collision_mask = 129
+question_id = 17
+
+[node name="CollisionShape2D" parent="Questions/Question17" index="0"]
+position = Vector2(98.5, 24)
+shape = SubResource("RectangleShape2D_e71u0")
+
 [node name="to add picture" type="Node" parent="Questions"]
 
 [node name="Question8" parent="Questions/to add picture" instance=ExtResource("44_t7ode")]
@@ -71384,4 +71410,6 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question13"]
 [editable path="Questions/Question14"]
 [editable path="Questions/Question15"]
+[editable path="Questions/Question16"]
+[editable path="Questions/Question17"]
 [editable path="Questions/to add picture/Question8"]
