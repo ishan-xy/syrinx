@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=153 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -69317,6 +69317,15 @@ size = Vector2(22, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nke76"]
 size = Vector2(38, 17)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okcgf"]
+size = Vector2(42, 32.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo0hb"]
+size = Vector2(40, 35.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr47w"]
+size = Vector2(32, 41.1875)
+
 [node name="g-block" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(0, -8)
@@ -70517,6 +70526,36 @@ question_id = 7
 position = Vector2(32, 2.5)
 shape = SubResource("RectangleShape2D_nke76")
 
+[node name="Question8" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3247, 613)
+collision_layer = 129
+collision_mask = 129
+question_id = 8
+
+[node name="CollisionShape2D" parent="Questions/Question8" index="0"]
+position = Vector2(-197, -51.1875)
+shape = SubResource("RectangleShape2D_okcgf")
+
+[node name="Question9" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3245, 683)
+collision_layer = 129
+collision_mask = 129
+question_id = 9
+
+[node name="CollisionShape2D" parent="Questions/Question9" index="0"]
+position = Vector2(1002, -128.688)
+shape = SubResource("RectangleShape2D_uo0hb")
+
+[node name="Question10" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3247, 613)
+collision_layer = 129
+collision_mask = 129
+question_id = 10
+
+[node name="CollisionShape2D" parent="Questions/Question10" index="0"]
+position = Vector2(858, 454.406)
+shape = SubResource("RectangleShape2D_vr47w")
+
 [node name="Props2" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0, 1)
@@ -71278,3 +71317,6 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question5"]
 [editable path="Questions/Question6"]
 [editable path="Questions/Question7"]
+[editable path="Questions/Question8"]
+[editable path="Questions/Question9"]
+[editable path="Questions/Question10"]
