@@ -17,6 +17,7 @@ var is_panel_freed = false
 
 func _ready():
 	panel = get_node(\"Panel\")
+	panel.visible = true
 
 func _process(delta):
 	if is_panel_freed:
