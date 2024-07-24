@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b71tiknqgwxki"]
+[gd_scene load_steps=3 format=3 uid="uid://v2p8kun1twtm"]
 
 [ext_resource type="PackedScene" uid="uid://csxndgunsyc70" path="res://scenes/characters/player.tscn" id="1_k5vdm"]
 [ext_resource type="TileSet" uid="uid://2ye4enawrhu4" path="res://components/ME_auto_tiles.tres" id="3_rw4yy"]
@@ -16,4 +16,4 @@ layer_0/tile_data = PackedInt32Array(-3014277, 15, 0, -2948741, 15, 1, -2883205,
 top_level = true
 position = Vector2(8977, 4890)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D2" type="Camera2D" parent="Player"]
