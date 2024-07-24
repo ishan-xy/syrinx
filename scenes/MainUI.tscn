@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4nvfgj87p3fa"]
+[gd_scene load_steps=23 format=3 uid="uid://8mnmvvsj40u5"]
 
 [ext_resource type="Texture2D" uid="uid://srgwookmvm7l" path="res://assets/scroll/pngs/medium.png" id="1_muv1u"]
 [ext_resource type="FontFile" uid="uid://dech6cjsnspma" path="res://assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_0laop"]
@@ -17,6 +17,7 @@ var is_panel_freed = false
 
 func _ready():
 	panel = get_node(\"Panel\")
+	panel.visible = true
 
 func _process(delta):
 	if is_panel_freed:
