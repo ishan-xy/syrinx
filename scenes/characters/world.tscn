@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgipu7kxahr7j"]
+
+[ext_resource type="PackedScene" uid="uid://dsd44cbstk6jw" path="res://scenes/level_1.tscn" id="2_qxe0y"]
+
+[sub_resource type="GDScript" id="GDScript_oqeu7"]
+script/source = "extends Node2D
+
+# TODO: Implement manual syncronization of player's properties
+
+# This is to be used for testing only
+const IS_SERVER: bool = true
+func _ready():
+	if IS_SERVER:
+		_on_host_pressed()
+	else:
+		_on_join_pressed()
+
+# server's port
+const PORT = 3001
+
+# ENetMultiplayerPeer is faster but incompatiblle with browsers
+var peer := WebSocketMultiplayerPeer.new()
+
+# WARNING: `player_scene` has to be set in the ui of \"Multiplayer Syncronizer\"
+var player_scene = load(\"res://scenes/characters/player.tscn\") as PackedScene
+
+func _on_host_pressed():
+	peer.create_server(PORT)
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(add_player)
+	add_player(1)
+	$UI.queue_free()
+
+func _on_join_pressed():
+	peer.create_client(\"ws://127.0.0.1:\"+str(PORT)+\"/\")
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(add_player)
+	$UI.queue_free()
+
+func add_player(id):
+	var player := player_scene.instantiate()
+	player.name = str(id)
+	call_deferred(\"add_child\", player)
+
+func exit_game(id):
+	multiplayer.peer_disconnected.connect(del_player)
+	del_player(id)
+
+func del_player(id):
+	rpc(\"_del_player\", id)
+
+@rpc(\"any_peer\", \"call_local\") func _del_player(id):
+	get_node(str(id)).queue_free()
+"
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(24, 0)
+
+[node name="Level1" parent="." instance=ExtResource("2_qxe0y")]
+
+[node name="Multiplayer" type="Node2D" parent="."]
+y_sort_enabled = true
+script = SubResource("GDScript_oqeu7")
+
+[node name="UI" type="Control" parent="Multiplayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 24.0
+size_flags_vertical = 2
+
+[node name="Host" type="Button" parent="Multiplayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.4
+offset_right = 51.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
+text = "HOST"
+metadata/_edit_use_anchors_ = true
+
+[node name="Join" type="Button" parent="Multiplayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 0.8
+offset_right = 43.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
+text = "JOIN"
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Multiplayer/UI"]
+position = Vector2(16, 16)
+editor_draw_limits = true
+
+[node name="Spawner" type="MultiplayerSpawner" parent="Multiplayer"]
+spawn_path = NodePath("..")
+spawn_limit = 10
+
+[connection signal="pressed" from="Multiplayer/UI/Host" to="Multiplayer" method="_on_host_pressed"]
+[connection signal="pressed" from="Multiplayer/UI/Join" to="Multiplayer" method="_on_join_pressed"]
