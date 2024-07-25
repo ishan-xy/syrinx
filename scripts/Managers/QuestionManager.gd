@@ -12,7 +12,8 @@ var lastSentID := -1
 var lastTimestamp := Time.get_unix_time_from_system()
 
 func _ready():
-	WebsocketHandler.data_recieved.connect(_on_data_recieved)
+	if WebsocketHandler.data_recieved.connect(_on_data_recieved):
+		WebsocketHandler.data_recieved.connect(_on_data_recieved)
 
 func fetch_question_by_id(_id: int):
 	if lastSentID == _id and Time.get_unix_time_from_system() - lastTimestamp < 5:
@@ -24,9 +25,9 @@ func fetch_question_by_id(_id: int):
 	_ques_id = _id
 	if _id in questions and questions[_id].validate_text():
 		setQuestionText(questions[_id])
-		print("ques in dict")
+		#print("ques in dict")
 	else:
-		print("fetching ques")
+		#print("fetching ques")
 		WebsocketHandler.wsConn.send_text(JSON.stringify({"ID":_id}))
 
 func _on_data_recieved(data):
@@ -52,6 +53,7 @@ func handleQuestionResponse(_id: int, _text: String) -> void:
 		questions[_id] = quesObj
 	else:
 		questions[_id].add_text(quesObj.text)
+	questions[_id].isAnswered = false
 	setQuestionText(questions[_id])
 
 func handleAnswerResponse(_id:int, ansflag:bool):
@@ -59,7 +61,7 @@ func handleAnswerResponse(_id:int, ansflag:bool):
 		questions[_id] = Question.new(_id, "", ansflag)
 	questions[_id].isAnswered = ansflag
 	if not ansflag:
-		label.text = "You are Wromg!"
+		label.text = "You are Wrong!"
 		await get_tree().create_timer(1).timeout
 	setQuestionText(questions[_id])
 
@@ -92,8 +94,9 @@ func setQuestionText(ques: Question):
 func OnPlayerAskHint(_hintLabel):
 	hintLabel = _hintLabel
 	if questions.has(_ques_id) and questions[_ques_id].validate_hint():
-		_hintLabel.text = questions[_ques_id].hintText
+		_hintLabel.text = questions[_ques_id].hint
 		return
+	hintLabel.text = "Loading..."
 	WebsocketHandler.wsConn.send_text(JSON.stringify({"ID":_ques_id, "Hint":"true"}))
 
 func OnPlayerEnter(question_id: int, _label: RichTextLabel, _submitBtn: Button, _user_ans: TextEdit) -> void:
@@ -111,6 +114,7 @@ func OnPlayerToggle(question_id: int):
 func OnPlayerSubmit(ques_id:int, _ansNode : TextEdit) -> void:
 	_ques_id = ques_id
 	var ans := _ansNode.text
+	_ansNode.text = ""
 	ans = ans.strip_edges().replace("\n", "")
 	# Now send this answer to the WebSocket server to check the answer
 	var string := {

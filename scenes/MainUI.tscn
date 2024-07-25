@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://8mnmvvsj40u5"]
+[gd_scene load_steps=22 format=3 uid="uid://8mnmvvsj40u5"]
 
 [ext_resource type="Texture2D" uid="uid://srgwookmvm7l" path="res://assets/scroll/pngs/medium.png" id="1_muv1u"]
-[ext_resource type="FontFile" uid="uid://dqvqwvo1e1gc0" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="4_lfmlb"]
+[ext_resource type="FontFile" uid="uid://b3444dq4q6vvk" path="res://assets/fonts/VT323-Regular.ttf" id="2_opw0s"]
+[ext_resource type="Script" path="res://scenes/Button.gd" id="4_3bmm5"]
 [ext_resource type="Texture2D" uid="uid://dx1qaf6l42wrn" path="res://assets/scroll/pngs/parts/ribbon.png" id="5_n0ew6"]
 [ext_resource type="Texture2D" uid="uid://dy0nd4d8c3uw6" path="res://assets/image-removebg-preview.png" id="6_sjvex"]
 
@@ -155,14 +156,13 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 174.0
-offset_bottom = 136.0
+offset_bottom = 91.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 focus_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("4_lfmlb")
-theme_override_fonts/bold_font = ExtResource("4_lfmlb")
+theme_override_fonts/normal_font = ExtResource("2_opw0s")
 theme_override_font_sizes/normal_font_size = 48
 text = "This is the Question. How will this Look.
 Hello 0123456789"
@@ -193,8 +193,8 @@ scale = Vector2(0.6, 0.6)
 theme_override_colors/background_color = Color(0, 0, 0, 0)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.403922)
-theme_override_fonts/font = ExtResource("4_lfmlb")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_opw0s")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_nd6g1")
 placeholder_text = "Answer Here"
 wrap_mode = 1
@@ -236,10 +236,14 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(410, 155)
-theme_override_fonts/font = ExtResource("4_lfmlb")
+theme_override_fonts/font = ExtResource("2_opw0s")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_sbi0l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sbi0l")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sbi0l")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sbi0l")
 text = "Submit"
+script = ExtResource("4_3bmm5")
 
 [node name="hint_btn" type="Panel" parent="Question" groups=["hintBtn"]]
 layout_mode = 1
@@ -267,7 +271,6 @@ grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 tooltip_text = "Get Hint
 -30 points"
-theme_override_fonts/font = ExtResource("4_lfmlb")
 theme_override_font_sizes/font_size = 256
 theme_override_styles/normal = SubResource("StyleBoxFlat_sbi0l")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sbi0l")
@@ -309,7 +312,7 @@ pivot_offset = Vector2(769, 10)
 tooltip_text = "(No extra points will be deducted if you've already purchased the hint)"
 mouse_filter = 1
 theme_override_font_sizes/font_size = 128
-text = "Buy for 60 points?
+text = "Buy for 30 points?
 (Points will only be used once)"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -371,7 +374,6 @@ grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(769, 10)
 theme_override_font_sizes/font_size = 128
-text = "Hint: This is our hintasddfsdf  ds dfds f dsf dsf sd f ds fds fds DF  SDFDSF DSF SDF  S DFDSFDSFDS    FSDF DS  D FSD   DFDS FDS  DSFSDF "
 autowrap_mode = 3
 
 [node name="doneBtn" type="Button" parent="Question/hint"]

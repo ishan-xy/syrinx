@@ -42,10 +42,11 @@ func _on_body_entered(body: Node) -> void:
 
 		inPlayerArea = true
 		playerBody = body
-		print(\"Press E to interact\")
+		#print(\"Press E to interact\")
 
 func _on_playersubmit_pressed():
 	QuestionManager.OnPlayerSubmit(question_id, user_answer)
+	
 	
 func toggle_question_panel() -> void:
 	quesPanel.visible = !quesPanel.visible
@@ -61,7 +62,8 @@ func close_question_panel() -> void:
 
 func _on_body_exited(_body: Node) -> void:
 	inPlayerArea = false
-	submitBtn.button_down.disconnect(_on_playersubmit_pressed)
+	if submitBtn.button_down.is_connected(_on_playersubmit_pressed):
+		submitBtn.button_down.disconnect(_on_playersubmit_pressed)
 	close_question_panel()
 
 func _on_TextEdit_focus_entered():

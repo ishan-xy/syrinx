@@ -38,7 +38,7 @@ func _ready():
 	error_label.text = \"\"
 	visible = true
 func _pressed():
-	print(\"Username: \" + username.text + \"\\nPassword: \" + password.text)
+	#print(\"Username: \" + username.text + \"\\nPassword: \" + password.text)
 	WebsocketHandler.auth_response.connect(OnAuthResponse)
 	WebsocketHandler._auth(username.text.strip_edges(), password.text)
 	disabled = true
@@ -56,6 +56,7 @@ func OnAuthResponse(success, err):
 		err_handler(err)
 	
 func err_handler(err):
+	err = str(err)
 	if err == \"Server error:\\nUsername and Password are required\":
 		err = \"Username and Password are required\"
 	if err == \"Server error:\\nmongo: no documents in result\":

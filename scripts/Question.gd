@@ -25,6 +25,7 @@ func _init(_id: int, _text: String = "", _isAnswered: bool = false):
 	userAns = ""
 	text_timestamp = Time.get_unix_time_from_system()
 	hint_timestamp = text_timestamp
+	hint = ""
 
 func add_hint(_hint):
 	hint = _hint
