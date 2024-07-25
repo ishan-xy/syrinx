@@ -56,9 +56,11 @@ func _on_lobby_response(_result: int, _response_code: int, _headers: PackedStrin
 	#auth_response.emit(true)
 	authBtn.OnAuthResponse(true, _result)
 	wsConn.connection_closed.connect(_connect_to_lobby)
-	_connect_to_lobby()
+	wsConn.connect_to_url("wss://api.syrinx.ccstiet.com/lobby/" + LobbyID)
 
-func _connect_to_lobby() -> void:
+func _connect_to_lobby(_was_clean: bool = false) -> void:
+	await get_tree().create_timer(.5).timeout
+	print("_connect_to_lobby: called")
 	wsConn.connect_to_url("wss://api.syrinx.ccstiet.com/lobby/" + LobbyID)
 
 	#$"../Control".queue_free()
@@ -71,7 +73,8 @@ func _on_ws_ready(_peer: WebSocketPeer, _protocol: String) -> void:
 var myIndex: int = -1
 signal data_recieved(String)
 func _on_data_recieved(_peer : WebSocketPeer, message, _is_string : bool) -> void:
-	data_recieved.emit(	message.get_string_from_ascii())
+	if _is_string:
+		data_recieved.emit(message.get_string_from_ascii())
 
 	print(message.get_string_from_ascii())
 
