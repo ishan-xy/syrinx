@@ -1,9 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://8mnmvvsj40u5"]
+[gd_scene load_steps=21 format=3 uid="uid://8mnmvvsj40u5"]
 
 [ext_resource type="Texture2D" uid="uid://srgwookmvm7l" path="res://assets/scroll/pngs/medium.png" id="1_muv1u"]
-[ext_resource type="FontFile" uid="uid://dech6cjsnspma" path="res://assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_0laop"]
-[ext_resource type="FontFile" uid="uid://bye0glqrqpgde" path="res://assets/fonts/Pixelify_Sans/static/PixelifySans-Bold.ttf" id="3_5xrfk"]
-[ext_resource type="FontFile" uid="uid://dhptw8ukwfp6a" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="4_lfmlb"]
+[ext_resource type="FontFile" uid="uid://dqvqwvo1e1gc0" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="4_lfmlb"]
 [ext_resource type="Texture2D" uid="uid://dx1qaf6l42wrn" path="res://assets/scroll/pngs/parts/ribbon.png" id="5_n0ew6"]
 [ext_resource type="Texture2D" uid="uid://dy0nd4d8c3uw6" path="res://assets/image-removebg-preview.png" id="6_sjvex"]
 
@@ -129,10 +127,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -538.5
-offset_top = -698.5
-offset_right = 538.5
-offset_bottom = 698.5
+offset_left = -547.0
+offset_top = -706.0
+offset_right = 530.0
+offset_bottom = 691.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.39, 0.39)
@@ -156,19 +154,19 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = 3002.0
-offset_bottom = 2521.0
+offset_left = -3.0
+offset_top = 0.5
+offset_right = 169.0
+offset_bottom = 138.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.6, 0.6)
 focus_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_0laop")
-theme_override_fonts/bold_font = ExtResource("3_5xrfk")
-theme_override_font_sizes/normal_font_size = 256
-text = "This is the Question. How will this Look.
-Hello 0123456789"
+theme_override_fonts/normal_font = ExtResource("4_lfmlb")
+theme_override_fonts/bold_font = ExtResource("4_lfmlb")
+theme_override_font_sizes/normal_font_size = 48
+text = "Quick Brown Fox Jumps over the fence 0123456789"
 scroll_active = false
 selection_enabled = true
 
@@ -189,17 +187,20 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 3024.5
-offset_bottom = 977.5
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 167.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.6, 0.6)
 theme_override_colors/background_color = Color(0, 0, 0, 0)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.403922)
 theme_override_fonts/font = ExtResource("4_lfmlb")
-theme_override_font_sizes/font_size = 256
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_nd6g1")
+text = "Quick brown fox jumps over the fence"
 placeholder_text = "Answer Here"
 wrap_mode = 1
 scroll_smooth = true
@@ -311,6 +312,7 @@ grow_horizontal = 2
 scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(769, 10)
 tooltip_text = "(No extra points will be deducted if you've already purchased the hint)"
+mouse_filter = 1
 theme_override_font_sizes/font_size = 128
 text = "Buy for 30 points?
 (Points will only be used once)"
@@ -374,7 +376,6 @@ grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(769, 10)
 theme_override_font_sizes/font_size = 128
-text = "Hint: This is our hintasddfsdf  ds dfds f dsf dsf sd f ds fds fds DF  SDFDSF DSF SDF  S DFDSFDSFDS    FSDF DS  D FSD   DFDS FDS  DSFSDF "
 autowrap_mode = 3
 
 [node name="doneBtn" type="Button" parent="Question/hint"]

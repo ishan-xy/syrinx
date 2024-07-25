@@ -1,4 +1,4 @@
-[gd_scene load_steps=153 format=3 uid="uid://dfd6dhbst1xss"]
+[gd_scene load_steps=177 format=3 uid="uid://dfd6dhbst1xss"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_f1by4"]
 [ext_resource type="Texture2D" uid="uid://d1k8p7iugnk2w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_ulrqp"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://l45lle1xoln0" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/5_Floor_Modular_Building_Singles_16x16/ME_Singles_Floor_Modular_Building_16x16_Roof_Props_1.png" id="21_hgxw0"]
 [ext_resource type="Texture2D" uid="uid://4t0ytb3en8sm" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/5_Floor_Modular_Building_Singles_16x16/ME_Singles_Floor_Modular_Building_16x16_Roof_Props_15.png" id="25_2bftc"]
 [ext_resource type="Texture2D" uid="uid://ntkavm46r1er" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/5_Floor_Modular_Building_Singles_16x16/ME_Singles_Floor_Modular_Building_16x16_Ground_Floor_Ice_Cream_Shop_3.png" id="25_cal58"]
+[ext_resource type="Texture2D" uid="uid://cj0cwwm2yvd7t" path="res://assets/G_Block.png" id="25_o85un"]
 [ext_resource type="Texture2D" uid="uid://nd1e3tuvahni" path="res://assets/ME_Singles_Floor_Modular_Building_16x16_Roof_Props_12.png" id="25_yfrra"]
 [ext_resource type="Texture2D" uid="uid://cvpcbm0xw760a" path="res://assets/logo7.png" id="26_4rki2"]
 [ext_resource type="Texture2D" uid="uid://dutquo3iubwwb" path="res://assets/logo5.png" id="27_um1qi"]
@@ -95,6 +96,7 @@
 [ext_resource type="Texture2D" uid="uid://c3jffkg1asku4" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Worksite_16x16_Stacked_Material_7.png" id="89_7ahbv"]
 [ext_resource type="Texture2D" uid="uid://brkh1flh28l11" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Worksite_16x16_Portable_Toilet_4.png" id="90_6toti"]
 [ext_resource type="Texture2D" uid="uid://0fh8vhr88mgk" path="res://assets/modernexteriors/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Worksite_16x16_Light_Tower_2.png" id="91_yqdmc"]
+[ext_resource type="FontFile" uid="uid://dqvqwvo1e1gc0" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="97_kcvud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdls5"]
 texture = ExtResource("8_hmtay")
@@ -69285,8 +69287,6 @@ size = Vector2(208, 12.1201)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hm1w"]
 size = Vector2(193, 5)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sopri"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctxxx"]
 size = Vector2(75, 32.3333)
 
@@ -69318,13 +69318,82 @@ size = Vector2(22, 32)
 size = Vector2(38, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okcgf"]
-size = Vector2(42, 32.375)
+size = Vector2(32, 32.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uo0hb"]
 size = Vector2(40, 35.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr47w"]
-size = Vector2(32, 41.1875)
+size = Vector2(34, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1xgr"]
+size = Vector2(22, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3p83"]
+size = Vector2(20, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfgru"]
+size = Vector2(20, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5bju"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnaj6"]
+size = Vector2(33, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvhx5"]
+size = Vector2(33, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wary6"]
+size = Vector2(33, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_660uq"]
+size = Vector2(33, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vueo5"]
+size = Vector2(33, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmsty"]
+size = Vector2(50, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6cqai"]
+size = Vector2(42, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81vh7"]
+size = Vector2(43, 71)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2p3i"]
+size = Vector2(72, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hu8hq"]
+size = Vector2(49, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8xbl"]
+size = Vector2(53, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jatb"]
+size = Vector2(28, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfbsh"]
+size = Vector2(29, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpsxf"]
+size = Vector2(80, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt8v1"]
+size = Vector2(28, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wohfb"]
+size = Vector2(49, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uul2g"]
+radius = 22.12
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bcngi"]
+size = Vector2(80, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owb20"]
+size = Vector2(22, 38)
 
 [node name="g-block" type="Node2D"]
 y_sort_enabled = true
@@ -69603,13 +69672,26 @@ polygon = PackedVector2Array(1, -37.9, 40, -36, 40, 26, 10.7, 26, 12, 27, 12, 33
 y_sort_enabled = true
 position = Vector2(2321, 1796)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Buildings/gblock canteen"]
+visible = false
+polygon = PackedVector2Array(110, -75, 110, 69, -226, 69, -226, -75, -166, -75, -166, -110, 50, -110, 50, -75)
+
 [node name="MeSinglesFloorModularBuilding16x16GroundFloorIceCreamShop6" type="Sprite2D" parent="Buildings/gblock canteen"]
+visible = false
 position = Vector2(-58, -51)
 scale = Vector2(3, 3)
 texture = ExtResource("25_cal58")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Buildings/gblock canteen"]
-polygon = PackedVector2Array(110, -75, 110, 69, -226, 69, -226, -75, -166, -75, -166, -110, 50, -110, 50, -75)
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Buildings/gblock canteen"]
+visible = false
+position = Vector2(-64, -12)
+scale = Vector2(2.5, 2.5)
+polygon = PackedVector2Array(38, -31, 39.7, -20, 56, -20, 56, 32, -56, 32, -56, -20, -39.7, -20, -38, -31.3, -38, -32, 38, -32)
+
+[node name="GBlock" type="Sprite2D" parent="Buildings/gblock canteen"]
+position = Vector2(-64, -12)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("25_o85un")
 
 [node name="advertisements" type="StaticBody2D" parent="Buildings"]
 y_sort_enabled = true
@@ -69975,6 +70057,28 @@ position = Vector2(232, 595)
 scale = Vector2(1.65626, 1.82495)
 shape = SubResource("CircleShape2D_7046j")
 
+[node name="oak9" type="Sprite2D" parent="Buildings/plantation"]
+position = Vector2(272, 138.14)
+scale = Vector2(1.65626, 1.82495)
+texture = ExtResource("31_7mk74")
+offset = Vector2(0, -16.845)
+
+[node name="CollisionShape2D24" type="CollisionShape2D" parent="Buildings/plantation"]
+position = Vector2(273, 144.14)
+scale = Vector2(1.65626, 1.82495)
+shape = SubResource("CircleShape2D_7046j")
+
+[node name="oak10" type="Sprite2D" parent="Buildings/plantation"]
+position = Vector2(115, 216.14)
+scale = Vector2(1.65626, 1.82495)
+texture = ExtResource("31_7mk74")
+offset = Vector2(0, -16.845)
+
+[node name="CollisionShape2D25" type="CollisionShape2D" parent="Buildings/plantation"]
+position = Vector2(116, 222.14)
+scale = Vector2(1.65626, 1.82495)
+shape = SubResource("CircleShape2D_7046j")
+
 [node name="CollisionShape2D16" type="CollisionShape2D" parent="Buildings/plantation"]
 position = Vector2(273, 796)
 scale = Vector2(1.04688, 1.84375)
@@ -70281,13 +70385,13 @@ shape = SubResource("RectangleShape2D_r03ih")
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="Buildings/Worksite/LightTower"]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(61.5, 175)
+position = Vector2(68.6201, 175)
 shape = SubResource("RectangleShape2D_w8b3m")
 
 [node name="CollisionShape2D12" type="CollisionShape2D" parent="Buildings/Worksite/LightTower"]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(94, 133)
+position = Vector2(100.62, 133)
 shape = SubResource("RectangleShape2D_rj8do")
 
 [node name="CollisionShape2D13" type="CollisionShape2D" parent="Buildings/Worksite/LightTower"]
@@ -70327,11 +70431,6 @@ y_sort_enabled = true
 position = Vector2(-236.5, -105.5)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_3hm1w")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-y_sort_enabled = true
-position = Vector2(57, 14)
-shape = SubResource("WorldBoundaryShape2D_sopri")
 
 [node name="SpawnLocations" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -70457,13 +70556,12 @@ offset_bottom = 253.0
 [node name="Questions" type="Node" parent="."]
 
 [node name="Question" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(2702, 1324)
+position = Vector2(2600, 1309)
 collision_layer = 129
 collision_mask = 129
 question_id = 1
 
 [node name="CollisionShape2D" parent="Questions/Question" index="0"]
-position = Vector2(-102.5, -14.25)
 shape = SubResource("RectangleShape2D_tjijb")
 
 [node name="Question2" parent="Questions" instance=ExtResource("44_t7ode")]
@@ -70477,23 +70575,21 @@ position = Vector2(10, 7)
 shape = SubResource("RectangleShape2D_5qdn3")
 
 [node name="Question3" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(4266, 926)
+position = Vector2(4273, 900)
 collision_layer = 129
 collision_mask = 129
 question_id = 3
 
 [node name="CollisionShape2D" parent="Questions/Question3" index="0"]
-position = Vector2(7, -26)
 shape = SubResource("RectangleShape2D_jdhe7")
 
 [node name="Question4" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3412, 1651)
+position = Vector2(3392, 1655)
 collision_layer = 129
 collision_mask = 129
 question_id = 4
 
 [node name="CollisionShape2D" parent="Questions/Question4" index="0"]
-position = Vector2(-20, 4.5)
 shape = SubResource("RectangleShape2D_eqhuv")
 
 [node name="Question5" parent="Questions" instance=ExtResource("44_t7ode")]
@@ -70507,54 +70603,399 @@ position = Vector2(0.5, 4)
 shape = SubResource("RectangleShape2D_036kg")
 
 [node name="Question6" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3542, 596)
+position = Vector2(3576, 602)
 collision_layer = 129
 collision_mask = 129
 question_id = 6
 
 [node name="CollisionShape2D" parent="Questions/Question6" index="0"]
-position = Vector2(34, 4)
 shape = SubResource("RectangleShape2D_m6idc")
 
 [node name="Question7" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3247, 613)
+position = Vector2(3277, 610)
 collision_layer = 129
 collision_mask = 129
 question_id = 7
 
 [node name="CollisionShape2D" parent="Questions/Question7" index="0"]
-position = Vector2(32, 2.5)
 shape = SubResource("RectangleShape2D_nke76")
 
 [node name="Question8" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3247, 613)
+position = Vector2(3049, 556)
 collision_layer = 129
 collision_mask = 129
 question_id = 8
 
 [node name="CollisionShape2D" parent="Questions/Question8" index="0"]
-position = Vector2(-197, -51.1875)
 shape = SubResource("RectangleShape2D_okcgf")
 
 [node name="Question9" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3245, 683)
+position = Vector2(4246, 564)
 collision_layer = 129
 collision_mask = 129
 question_id = 9
 
 [node name="CollisionShape2D" parent="Questions/Question9" index="0"]
-position = Vector2(1002, -128.688)
 shape = SubResource("RectangleShape2D_uo0hb")
 
 [node name="Question10" parent="Questions" instance=ExtResource("44_t7ode")]
-position = Vector2(3247, 613)
+position = Vector2(4103, 1070)
 collision_layer = 129
 collision_mask = 129
 question_id = 10
 
 [node name="CollisionShape2D" parent="Questions/Question10" index="0"]
-position = Vector2(858, 454.406)
+position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_vr47w")
+
+[node name="Question11" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3979, 860)
+collision_layer = 129
+collision_mask = 129
+question_id = 11
+
+[node name="CollisionShape2D" parent="Questions/Question11" index="0"]
+position = Vector2(-5, -5)
+shape = SubResource("RectangleShape2D_j1xgr")
+
+[node name="Question12" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3788, 1409)
+collision_layer = 129
+collision_mask = 129
+question_id = 12
+
+[node name="CollisionShape2D" parent="Questions/Question12" index="0"]
+position = Vector2(-6, -5)
+shape = SubResource("RectangleShape2D_w3p83")
+
+[node name="Question13" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3688, 912)
+collision_layer = 129
+collision_mask = 129
+question_id = 13
+
+[node name="CollisionShape2D" parent="Questions/Question13" index="0"]
+position = Vector2(-2, 12)
+shape = SubResource("RectangleShape2D_bfgru")
+
+[node name="Question14" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2767, 1153)
+collision_layer = 129
+collision_mask = 129
+question_id = 14
+
+[node name="CollisionShape2D" parent="Questions/Question14" index="0"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_x5bju")
+
+[node name="Question15" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2705, 1510)
+collision_layer = 129
+collision_mask = 129
+question_id = 15
+
+[node name="CollisionShape2D" parent="Questions/Question15" index="0"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_nnaj6")
+
+[node name="Question16" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(1847, 1904)
+collision_layer = 129
+collision_mask = 129
+question_id = 16
+
+[node name="CollisionShape2D" parent="Questions/Question16" index="0"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_tvhx5")
+
+[node name="Question17" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(1875, 1707)
+collision_layer = 129
+collision_mask = 129
+question_id = 17
+
+[node name="CollisionShape2D" parent="Questions/Question17" index="0"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_wary6")
+
+[node name="Question18" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2921, 1414)
+collision_layer = 129
+collision_mask = 129
+question_id = 18
+
+[node name="CollisionShape2D" parent="Questions/Question18" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_660uq")
+
+[node name="Question19" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4258, 2092)
+collision_layer = 129
+collision_mask = 129
+question_id = 19
+
+[node name="CollisionShape2D" parent="Questions/Question19" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_vueo5")
+
+[node name="Question20" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3999, 1998)
+collision_layer = 129
+collision_mask = 129
+question_id = 20
+
+[node name="CollisionShape2D" parent="Questions/Question20" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_vueo5")
+
+[node name="Question21" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4024, 1878)
+collision_layer = 129
+collision_mask = 129
+question_id = 21
+
+[node name="CollisionShape2D" parent="Questions/Question21" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_vueo5")
+
+[node name="Question22" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3522, 1668)
+collision_layer = 129
+collision_mask = 129
+question_id = 22
+
+[node name="CollisionShape2D" parent="Questions/Question22" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_vueo5")
+
+[node name="Question23" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2262, 1871)
+collision_layer = 129
+collision_mask = 129
+question_id = 23
+
+[node name="CollisionShape2D" parent="Questions/Question23" index="0"]
+position = Vector2(-4, -13)
+shape = SubResource("RectangleShape2D_cmsty")
+
+[node name="Question24" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3281, 932)
+collision_layer = 129
+collision_mask = 129
+question_id = 24
+
+[node name="CollisionShape2D" parent="Questions/Question24" index="0"]
+shape = SubResource("RectangleShape2D_6cqai")
+
+[node name="Question25" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3360, 547)
+collision_layer = 129
+collision_mask = 129
+question_id = 25
+
+[node name="CollisionShape2D" parent="Questions/Question25" index="0"]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_81vh7")
+
+[node name="Question26" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2388, 2055)
+collision_layer = 129
+collision_mask = 129
+question_id = 26
+
+[node name="CollisionShape2D" parent="Questions/Question26" index="0"]
+position = Vector2(2.5, 6.5)
+shape = SubResource("RectangleShape2D_81vh7")
+
+[node name="Question27" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2565, 1997)
+collision_layer = 129
+collision_mask = 129
+question_id = 27
+
+[node name="CollisionShape2D" parent="Questions/Question27" index="0"]
+position = Vector2(17, 1.5)
+shape = SubResource("RectangleShape2D_o2p3i")
+
+[node name="Question28" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3916, 1179)
+collision_layer = 129
+collision_mask = 129
+question_id = 28
+
+[node name="CollisionShape2D" parent="Questions/Question28" index="0"]
+position = Vector2(15.5, -4.5)
+shape = SubResource("RectangleShape2D_hu8hq")
+
+[node name="Question29" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3834, 1484)
+collision_layer = 129
+collision_mask = 129
+question_id = 29
+
+[node name="CollisionShape2D" parent="Questions/Question29" index="0"]
+position = Vector2(7.5, -5.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question30" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3380, 1420)
+collision_layer = 129
+collision_mask = 129
+question_id = 30
+
+[node name="CollisionShape2D" parent="Questions/Question30" index="0"]
+position = Vector2(7.5, -5.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question31" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3106, 1654)
+collision_layer = 129
+collision_mask = 129
+question_id = 31
+
+[node name="CollisionShape2D" parent="Questions/Question31" index="0"]
+position = Vector2(7.5, -5.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question32" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4209, 777)
+collision_layer = 129
+collision_mask = 129
+question_id = 32
+
+[node name="CollisionShape2D" parent="Questions/Question32" index="0"]
+position = Vector2(7.5, -5.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question33" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3783, 1873)
+collision_layer = 129
+collision_mask = 129
+question_id = 33
+
+[node name="CollisionShape2D" parent="Questions/Question33" index="0"]
+position = Vector2(9, -6.5)
+shape = SubResource("RectangleShape2D_1jatb")
+
+[node name="Question34" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2974, 1860)
+collision_layer = 129
+collision_mask = 129
+question_id = 34
+
+[node name="CollisionShape2D" parent="Questions/Question34" index="0"]
+position = Vector2(9, -6.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question35" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2585, 1646)
+collision_layer = 129
+collision_mask = 129
+question_id = 35
+
+[node name="CollisionShape2D" parent="Questions/Question35" index="0"]
+position = Vector2(21.5, -7.5)
+shape = SubResource("RectangleShape2D_j8xbl")
+
+[node name="Question36" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3114, 1928)
+collision_layer = 129
+collision_mask = 129
+question_id = 36
+
+[node name="CollisionShape2D" parent="Questions/Question36" index="0"]
+position = Vector2(22.5, -16)
+shape = SubResource("RectangleShape2D_tfbsh")
+
+[node name="Question37" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3265, 1624)
+collision_layer = 129
+collision_mask = 129
+question_id = 37
+
+[node name="CollisionShape2D" parent="Questions/Question37" index="0"]
+position = Vector2(23, -13.5)
+shape = SubResource("RectangleShape2D_hpsxf")
+
+[node name="Question38" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3711, 1319)
+collision_layer = 129
+collision_mask = 129
+question_id = 38
+
+[node name="CollisionShape2D" parent="Questions/Question38" index="0"]
+position = Vector2(17, -14)
+shape = SubResource("RectangleShape2D_vt8v1")
+
+[node name="Question39" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2646, 1118)
+collision_layer = 129
+collision_mask = 129
+question_id = 39
+
+[node name="CollisionShape2D" parent="Questions/Question39" index="0"]
+position = Vector2(17.5, -13)
+shape = SubResource("RectangleShape2D_wohfb")
+
+[node name="Question40" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3914, 1673)
+collision_layer = 129
+collision_mask = 129
+question_id = 40
+
+[node name="CollisionShape2D" parent="Questions/Question40" index="0"]
+position = Vector2(18, -11)
+shape = SubResource("CircleShape2D_uul2g")
+
+[node name="Question41" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3527, 1864)
+collision_layer = 129
+collision_mask = 129
+question_id = 41
+
+[node name="CollisionShape2D" parent="Questions/Question41" index="0"]
+position = Vector2(2, 1.5)
+shape = SubResource("RectangleShape2D_bcngi")
+
+[node name="Question42" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(4154, 1783)
+collision_layer = 129
+collision_mask = 129
+question_id = 42
+
+[node name="CollisionShape2D" parent="Questions/Question42" index="0"]
+position = Vector2(2, 1.5)
+shape = SubResource("RectangleShape2D_bcngi")
+
+[node name="Question43" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(3974, 1064)
+collision_layer = 129
+collision_mask = 129
+question_id = 43
+
+[node name="CollisionShape2D" parent="Questions/Question43" index="0"]
+position = Vector2(5, -0.5)
+shape = SubResource("RectangleShape2D_owb20")
+
+[node name="Question44" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2423, 1102)
+collision_layer = 129
+collision_mask = 129
+question_id = 44
+
+[node name="CollisionShape2D" parent="Questions/Question44" index="0"]
+position = Vector2(5, -0.5)
+shape = SubResource("RectangleShape2D_owb20")
+
+[node name="Question45" parent="Questions" instance=ExtResource("44_t7ode")]
+position = Vector2(2941, 935)
+collision_layer = 129
+collision_mask = 129
+question_id = 45
+
+[node name="CollisionShape2D" parent="Questions/Question45" index="0"]
+position = Vector2(5, 1)
+shape = SubResource("RectangleShape2D_owb20")
 
 [node name="Props2" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -71307,6 +71748,18 @@ texture = ExtResource("81_de4bi")
 position = Vector2(2105, 1495)
 texture = ExtResource("80_f020w")
 
+[node name="Label" type="Label" parent="."]
+offset_left = 2963.0
+offset_top = 990.0
+offset_right = 3903.0
+offset_bottom = 1301.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0.174143, 0.391228, 0.217686, 1)
+theme_override_fonts/font = ExtResource("97_kcvud")
+theme_override_font_sizes/font_size = 128
+text = "What does Pressing E do?"
+autowrap_mode = 3
+
 [editable path="gblock_gate1"]
 [editable path="gblock_gate2"]
 [editable path="UI"]
@@ -71320,3 +71773,38 @@ texture = ExtResource("80_f020w")
 [editable path="Questions/Question8"]
 [editable path="Questions/Question9"]
 [editable path="Questions/Question10"]
+[editable path="Questions/Question11"]
+[editable path="Questions/Question12"]
+[editable path="Questions/Question13"]
+[editable path="Questions/Question14"]
+[editable path="Questions/Question15"]
+[editable path="Questions/Question16"]
+[editable path="Questions/Question17"]
+[editable path="Questions/Question18"]
+[editable path="Questions/Question19"]
+[editable path="Questions/Question20"]
+[editable path="Questions/Question21"]
+[editable path="Questions/Question22"]
+[editable path="Questions/Question23"]
+[editable path="Questions/Question24"]
+[editable path="Questions/Question25"]
+[editable path="Questions/Question26"]
+[editable path="Questions/Question27"]
+[editable path="Questions/Question28"]
+[editable path="Questions/Question29"]
+[editable path="Questions/Question30"]
+[editable path="Questions/Question31"]
+[editable path="Questions/Question32"]
+[editable path="Questions/Question33"]
+[editable path="Questions/Question34"]
+[editable path="Questions/Question35"]
+[editable path="Questions/Question36"]
+[editable path="Questions/Question37"]
+[editable path="Questions/Question38"]
+[editable path="Questions/Question39"]
+[editable path="Questions/Question40"]
+[editable path="Questions/Question41"]
+[editable path="Questions/Question42"]
+[editable path="Questions/Question43"]
+[editable path="Questions/Question44"]
+[editable path="Questions/Question45"]
