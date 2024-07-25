@@ -83,7 +83,7 @@ signal data_recieved(String)
 func _on_data_recieved(_peer : WebSocketPeer, message, _is_string : bool) -> void:
 	if _is_string:
 		data_recieved.emit(message.get_string_from_ascii())
-	print(message.get_string_from_ascii())
+	#print(message.get_string_from_ascii())
 
 func _physics_process(_delta) -> void:
 	if wsConn != null:

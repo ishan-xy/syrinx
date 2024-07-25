@@ -585,6 +585,10 @@ script = SubResource("GDScript_cwf02")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
+limit_left = 1840
+limit_top = 610
+limit_right = 5695
+limit_bottom = 3245
 position_smoothing_enabled = true
 editor_draw_limits = true
 
