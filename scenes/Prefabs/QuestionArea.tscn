@@ -32,8 +32,6 @@ func _process(_delta: float) -> void:
 		toggle_question_panel()
 	if Input.is_action_just_pressed(\"exit_menu\") and inPlayerArea:
 		close_question_panel()
-	if is_typing and Input.is_action_just_pressed(\"submit\"):
-		_on_playersubmit_pressed()
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group(\"Player\"):
