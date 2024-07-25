@@ -17,7 +17,7 @@ func _on_body_entered(body: Node) -> void:
 		exit_script.set_is_player_inside(true)
 		set_is_player_inside(true)
 		if exit_script.get_is_player_inside():
-			print(exit_script.name + \": \" + str(exit_script.get_is_player_inside()))
+			#print(exit_script.name + \": \" + str(exit_script.get_is_player_inside()))
 			body.position = exit_node.global_position
 
 
@@ -25,7 +25,7 @@ func _on_body_exited(body: Node) -> void:
 	if body.is_in_group(\"Player\") and isPlayerInside:
 		exit_script.set_is_player_inside(false)
 		set_is_player_inside(false)
-		print(exit_script.name + \": \" + str(exit_script.get_is_player_inside()))
+		#print(exit_script.name + \": \" + str(exit_script.get_is_player_inside()))
 
 func set_is_player_inside(flag: bool) -> void:
 	isPlayerInside = flag
