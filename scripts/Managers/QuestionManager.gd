@@ -12,8 +12,7 @@ var lastSentID := -1
 var lastTimestamp := Time.get_unix_time_from_system()
 
 func _ready():
-	if WebsocketHandler.data_recieved.is_connected(_on_data_recieved):
-		WebsocketHandler.data_recieved.connect(_on_data_recieved)
+	WebsocketHandler.data_recieved.connect(_on_data_recieved)
 
 func fetch_question_by_id(_id: int):
 	if lastSentID == _id and Time.get_unix_time_from_system() - lastTimestamp < 5:

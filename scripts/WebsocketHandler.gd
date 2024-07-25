@@ -46,7 +46,7 @@ var LobbyID: String
 var wsConn := WebSocketClient.new()
 func _on_lobby_response(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.parse_string(body.get_string_from_ascii())
-	#print(body.get_string_from_ascii())
+	print(body.get_string_from_ascii())
 	if json == null: return _lobby_error("Json parse error")
 	elif json.has("Error"): return _lobby_error("Server error:\n" + str(json["Error"]))
 	elif !json.has("LobbyID"): return _lobby_error("Mendatory key LobbyID not found")
