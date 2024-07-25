@@ -3,6 +3,7 @@ extends Node2D
 var httpRequest := HTTPRequest.new()
 var clients: PackedByteArray = []
 var authBtn
+
 func _ready() -> void:
 	authBtn = get_tree().get_nodes_in_group("auth_button")[0]
 	add_child(httpRequest)
@@ -59,7 +60,9 @@ func _on_lobby_response(_result: int, _response_code: int, _headers: PackedStrin
 	wsConn.connect_to_url("wss://api.syrinx.ccstiet.com/lobby/" + LobbyID)
 
 func _connect_to_lobby(_was_clean: bool = false) -> void:
+	set_physics_process(false)
 	await get_tree().create_timer(.5).timeout
+	set_physics_process(true)
 	print("_connect_to_lobby: called")
 	wsConn.connect_to_url("wss://api.syrinx.ccstiet.com/lobby/" + LobbyID)
 
@@ -79,4 +82,5 @@ func _on_data_recieved(_peer : WebSocketPeer, message, _is_string : bool) -> voi
 	print(message.get_string_from_ascii())
 
 func _physics_process(_delta) -> void:
-	wsConn.poll()
+	if wsConn != null:
+		wsConn.poll()

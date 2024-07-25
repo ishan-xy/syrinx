@@ -8,10 +8,18 @@ var _ques_id: int
 var hintLabel
 var err_solved: bool
 
+var lastSentID := -1
+var lastTimestamp := Time.get_unix_time_from_system()
+
 func _ready():
 	WebsocketHandler.data_recieved.connect(_on_data_recieved)
 
 func fetch_question_by_id(_id: int):
+	if lastSentID == _id and Time.get_unix_time_from_system() - lastTimestamp < 5:
+		return
+	else:
+		lastSentID = _id
+		lastTimestamp = Time.get_unix_time_from_system()
 	_ques_id = _id
 	if _id in questions and questions[_id].validate_text():
 		setQuestionText(questions[_id])
@@ -35,10 +43,9 @@ func _on_data_recieved(data):
 		elif result.has("Error"):
 			handleErrorResponse(_ques_id, str(result["Error"]))
 	else:
-		print("JSON parse error: ", err)
+		print("ERROR: JSON parse error: ", err)
 		
 func handleQuestionResponse(_id: int, _text: String) -> void:
-	print(str(_id) + " " + _text)
 	var quesObj = Question.new(_id, _text)
 	if not _id in questions:
 		questions[_id] = quesObj
@@ -56,11 +63,10 @@ func handleAnswerResponse(_id:int, ansflag:bool):
 	setQuestionText(questions[_id])
 
 func handleHintResponse(_id: int, _hint: String):
-	print(_hint)
 	if not questions.has(_id):
 		questions[_id] = Question.new(_id)
 	questions[_id].add_hint(_hint)
-	hintLabel.text = "Hint: " + _hint
+	hintLabel.text = "HINT: " + _hint
 
 func handleErrorResponse(_id: int, _err: String):
 	if _err == "Solved":
@@ -68,7 +74,9 @@ func handleErrorResponse(_id: int, _err: String):
 			questions[_id] = Question.new(_id)
 		questions[_id].isAnswered = true
 		setQuestionText(questions[_id])
-	print(_err)
+	else:
+		label.text = "ERROR: " + _err
+	print("ERROR: ", _err)
 
 func setQuestionText(ques: Question):
 	if ques.isAnswered:
@@ -80,20 +88,6 @@ func setQuestionText(ques: Question):
 		ansNode.get_parent().visible = true
 		submitBtn.get_parent().visible = true
 
-		#else:
-			#if _is_submit:
-				#label.text = "You are wrong!"
-				#ansNode.get_parent().visible = false
-				#submitBtn.get_parent().visible = false
-				#_is_submit = false
-		#ansNode.text = _user_ans
-	#elif err_solved:
-		#label.text = "You are Correct!"
-		#submitBtn.get_parent().visible = false
-		#ansNode.get_parent().visible = false
-		#err_solved = false
-
-
 func OnPlayerAskHint(_hintLabel):
 	hintLabel = _hintLabel
 	if questions.has(_ques_id) and questions[_ques_id].validate_hint():
@@ -102,7 +96,6 @@ func OnPlayerAskHint(_hintLabel):
 	WebsocketHandler.wsConn.send_text(JSON.stringify({"ID":_ques_id, "Hint":"true"}))
 
 func OnPlayerEnter(question_id: int, _label: RichTextLabel, _submitBtn: Button, _user_ans: TextEdit) -> void:
-	print("Fetch Question " + str(question_id))
 	label = _label
 	submitBtn = _submitBtn
 	ansNode = _user_ans
