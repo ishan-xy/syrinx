@@ -16,7 +16,8 @@ func _ready():
 
 func fetch_question_by_id(_id: int):
 	if lastSentID == _id and Time.get_unix_time_from_system() - lastTimestamp < 5:
-		return
+		if _id in questions:
+			setQuestionText(questions[_id])
 	else:
 		lastSentID = _id
 		lastTimestamp = Time.get_unix_time_from_system()
