@@ -45103,27 +45103,27 @@ position = Vector2(-995, 203)
 
 [node name="MeSinglesVehicles16x16IceCreamTruck1" type="Sprite2D" parent="cart"]
 y_sort_enabled = true
-position = Vector2(-9, 65)
+position = Vector2(-9, 43)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("91_1wasx")
-offset = Vector2(0, -50)
+offset = Vector2(0, -40)
 
 [node name="MeSinglesVehicles16x16StreetFoodTable5" type="Sprite2D" parent="cart/MeSinglesVehicles16x16IceCreamTruck1"]
 y_sort_enabled = true
-position = Vector2(10.8, 12.4)
+position = Vector2(10.8, 19.6)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("92_ee8n7")
 offset = Vector2(0, -7.86)
 
 [node name="MeSinglesVehicles16x16StreetFoodTable6" type="Sprite2D" parent="cart/MeSinglesVehicles16x16IceCreamTruck1"]
 y_sort_enabled = true
-position = Vector2(30, 12.4)
+position = Vector2(30, 19.6)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("93_07xno")
 offset = Vector2(0, -7.86)
 
 [node name="MeSinglesCamping16x16Table3" type="Sprite2D" parent="cart/MeSinglesVehicles16x16IceCreamTruck1"]
-position = Vector2(20, 60)
+position = Vector2(20, 67.2)
 texture = ExtResource("94_de6l3")
 offset = Vector2(0, -6.96)
 
@@ -45150,7 +45150,7 @@ texture = ExtResource("95_47e1h")
 offset = Vector2(0, -6.96)
 
 [node name="MeSinglesCamping16x16Table4" type="Sprite2D" parent="cart/MeSinglesVehicles16x16IceCreamTruck1"]
-position = Vector2(-31.6, 59.2)
+position = Vector2(-31.6, 66.4)
 texture = ExtResource("94_de6l3")
 offset = Vector2(0, -6.96)
 
@@ -45178,28 +45178,28 @@ offset = Vector2(0, -6.96)
 
 [node name="MeSinglesVehicles16x16TacosTruck1" type="Sprite2D" parent="cart"]
 y_sort_enabled = true
-position = Vector2(335, 86)
+position = Vector2(335, 62)
 scale = Vector2(-2.5, 2.5)
 texture = ExtResource("96_2y5ux")
-offset = Vector2(0, -50)
+offset = Vector2(0, -40)
 
 [node name="MeSinglesVehicles16x16StreetFoodTable1" type="Sprite2D" parent="cart/MeSinglesVehicles16x16TacosTruck1"]
 y_sort_enabled = true
-position = Vector2(11.6001, 2.8)
+position = Vector2(11.6001, 17.6001)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("97_g41pi")
 offset = Vector2(0, -9.92)
 
 [node name="MeSinglesVehicles16x16StreetFoodTable7" type="Sprite2D" parent="cart/MeSinglesVehicles16x16TacosTruck1"]
 y_sort_enabled = true
-position = Vector2(30.8, 2.8)
+position = Vector2(30.8, 17.6001)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("98_kgss4")
 offset = Vector2(0, -9.92)
 
 [node name="MeSinglesCamping16x16Table2" type="Sprite2D" parent="cart/MeSinglesVehicles16x16TacosTruck1"]
 y_sort_enabled = true
-position = Vector2(33.6, 47.2)
+position = Vector2(33.6, 62)
 texture = ExtResource("99_p3i11")
 offset = Vector2(0, -9.92)
 
@@ -45231,7 +45231,7 @@ offset = Vector2(0, -9.92)
 
 [node name="MeSinglesCamping16x16Table3" type="Sprite2D" parent="cart/MeSinglesVehicles16x16TacosTruck1"]
 y_sort_enabled = true
-position = Vector2(-22.8, 46.8)
+position = Vector2(-22.8, 61.6)
 texture = ExtResource("99_p3i11")
 offset = Vector2(0, -9.92)
 
