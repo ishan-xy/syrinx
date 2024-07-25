@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bphkpk4eqpnk4"]
+[gd_scene load_steps=14 format=3 uid="uid://b1e7qcqkaoc3u"]
 
 [ext_resource type="Texture2D" uid="uid://bkqaswg44whby" path="res://assets/mysticwoods/bg image.png" id="1_0w6gc"]
 [ext_resource type="Texture2D" uid="uid://db63ko3lmin38" path="res://assets/logo with bg (1).png" id="2_2vrr0"]
@@ -25,29 +25,44 @@ script/source = "extends Button
 var username : TextEdit
 var password : LineEdit
 var start : Button
+var error_label : Label
 
 func _ready():
 	username = get_node(\"../Username\")
 	password = get_node(\"../Password\")
 	start = get_node(\"../StartGame\")
+	error_label = get_node(\"../Error\")
 	start.visible = false
 	start.disabled = true
+	error_label.visible = false
+	error_label.text = \"\"
 	visible = true
 func _pressed():
-	print(\"Username: \" + username.text + \"\\nPassword: \" + password.text)
+	#print(\"Username: \" + username.text + \"\\nPassword: \" + password.text)
 	WebsocketHandler.auth_response.connect(OnAuthResponse)
-	WebsocketHandler._auth(username.text, password.text)
+	WebsocketHandler._auth(username.text.strip_edges(), password.text)
 	disabled = true
 
-func OnAuthResponse(success):
+func OnAuthResponse(success, err):
+	print(success)
 	if success:
 		start.visible = true
 		start.disabled = false
 		visible = false
+		err_handler(\"\")
 	else:
 		print(\"Error while authenticating\")
 		disabled =false
+		err_handler(err)
 	
+func err_handler(err):
+	err = str(err)
+	if err == \"Server error:\\nUsername and Password are required\":
+		err = \"Username and Password are required\"
+	if err == \"Server error:\\nmongo: no documents in result\":
+		err = \"Invalid Credentials\"
+	error_label.text = err
+	error_label.visible = true
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbe3e"]
@@ -141,7 +156,7 @@ text = "Start Game
 "
 script = SubResource("GDScript_y35yx")
 
-[node name="Connect" type="Button" parent="Panel"]
+[node name="Connect" type="Button" parent="Panel" groups=["auth_button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -203,7 +218,6 @@ pivot_offset = Vector2(1000, 500)
 theme_override_font_sizes/font_size = 128
 theme_override_styles/normal = SubResource("StyleBoxFlat_ir0s3")
 theme_override_styles/focus = SubResource("StyleBoxFlat_bnjy3")
-text = "ishansingla"
 placeholder_text = "Username"
 caret_blink = true
 
@@ -225,9 +239,21 @@ pivot_offset = Vector2(1000, 500)
 theme_override_font_sizes/font_size = 128
 theme_override_styles/normal = SubResource("StyleBoxFlat_4y8bc")
 theme_override_styles/focus = SubResource("StyleBoxFlat_47s23")
-text = "12345678"
 placeholder_text = "Password"
 caret_blink = true
 secret = true
+
+[node name="Error" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="text_changed" from="Panel/Password" to="Panel/Password" method="_on_text_changed"]
