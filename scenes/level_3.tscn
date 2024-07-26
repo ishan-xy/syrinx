@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dsd44cbstk6jw"]
+[gd_scene load_steps=19 format=3 uid="uid://dsd44cbstk6jw"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_batbh"]
 [ext_resource type="TileSet" uid="uid://2ye4enawrhu4" path="res://components/ME_auto_tiles.tres" id="1_yvfht"]
@@ -13,6 +13,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h15gv"]
 size = Vector2(1598, 217.001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5psy"]
+size = Vector2(41.5002, 105)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvhbu"]
 size = Vector2(2018, 338)
@@ -64,6 +67,14 @@ position = Vector2(-1530, 0)
 position = Vector2(45.5004, -152)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_h15gv")
+
+[node name="Left2" type="StaticBody2D" parent="World Borders"]
+position = Vector2(-1530, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Borders/Left2"]
+position = Vector2(575, -205)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_i5psy")
 
 [node name="Top" type="StaticBody2D" parent="World Borders"]
 position = Vector2(-1530, 0)
@@ -129,15 +140,20 @@ question_id = 80
 position = Vector2(-26, -20)
 shape = SubResource("RectangleShape2D_4xqk2")
 
+[node name="QuestionArea81" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(-931, 486)
+question_id = 81
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea81" index="0"]
+position = Vector2(-26, -20)
+shape = SubResource("RectangleShape2D_4xqk2")
+
 [node name="SpawnLocations" type="Node2D" parent="." groups=["PlayerSpwnPoint"]]
 position = Vector2(76, -81)
 
 [node name="1" type="Node2D" parent="SpawnLocations"]
 
 [node name="UI" parent="." instance=ExtResource("5_nepmg")]
-
-[node name="hint" parent="UI/Question" index="6"]
-visible = false
 
 [node name="extras" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -209,6 +225,48 @@ texture = ExtResource("6_wkwvu")
 offset = Vector2(0, -15.975)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="extras/bigtree3"]
+position = Vector2(-209.86, 306.495)
+polygon = PackedVector2Array(14.8837, 21.7248, 16.3721, 27.5963, 14.1395, 31.1193, 2.23257, 32.2936, -14.8837, 31.1193, -17.1163, 24.6606, -8.93024, 21.1376)
+
+[node name="bigtree8" type="StaticBody2D" parent="extras"]
+y_sort_enabled = true
+position = Vector2(-584, -261)
+scale = Vector2(1.34375, 1.70313)
+
+[node name="MeSinglesCamping16x16Tree1" type="Sprite2D" parent="extras/bigtree8"]
+position = Vector2(-210.605, 327.046)
+texture = ExtResource("6_wkwvu")
+offset = Vector2(0, -15.975)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="extras/bigtree8"]
+position = Vector2(-209.86, 306.495)
+polygon = PackedVector2Array(14.8837, 21.7248, 16.3721, 27.5963, 14.1395, 31.1193, 2.23257, 32.2936, -14.8837, 31.1193, -17.1163, 24.6606, -8.93024, 21.1376)
+
+[node name="bigtree9" type="StaticBody2D" parent="extras"]
+y_sort_enabled = true
+position = Vector2(-517, -242)
+scale = Vector2(1.34375, 1.70313)
+
+[node name="MeSinglesCamping16x16Tree1" type="Sprite2D" parent="extras/bigtree9"]
+position = Vector2(-210.605, 327.046)
+texture = ExtResource("6_wkwvu")
+offset = Vector2(0, -15.975)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="extras/bigtree9"]
+position = Vector2(-209.86, 306.495)
+polygon = PackedVector2Array(14.8837, 21.7248, 16.3721, 27.5963, 14.1395, 31.1193, 2.23257, 32.2936, -14.8837, 31.1193, -17.1163, 24.6606, -8.93024, 21.1376)
+
+[node name="bigtree10" type="StaticBody2D" parent="extras"]
+y_sort_enabled = true
+position = Vector2(-454, -211)
+scale = Vector2(1.34375, 1.70313)
+
+[node name="MeSinglesCamping16x16Tree1" type="Sprite2D" parent="extras/bigtree10"]
+position = Vector2(-210.605, 327.046)
+texture = ExtResource("6_wkwvu")
+offset = Vector2(0, -15.975)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="extras/bigtree10"]
 position = Vector2(-209.86, 306.495)
 polygon = PackedVector2Array(14.8837, 21.7248, 16.3721, 27.5963, 14.1395, 31.1193, 2.23257, 32.2936, -14.8837, 31.1193, -17.1163, 24.6606, -8.93024, 21.1376)
 
@@ -356,6 +414,19 @@ position = Vector2(-420, -258)
 texture = ExtResource("8_ru50o")
 offset = Vector2(0, -16.42)
 
+[node name="appletree4" type="StaticBody2D" parent="extras"]
+y_sort_enabled = true
+position = Vector2(653, -235)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="extras/appletree4"]
+position = Vector2(-416, -271)
+polygon = PackedVector2Array(20, 26, -15, 29, -23, 26, -30, 21.2, -25.2, 16.4, 17, 16)
+
+[node name="MeSinglesCamping16x16Tree52" type="Sprite2D" parent="extras/appletree4"]
+position = Vector2(-457, -283)
+texture = ExtResource("8_ru50o")
+offset = Vector2(0, -16.42)
+
 [node name="appletree2" type="StaticBody2D" parent="extras"]
 y_sort_enabled = true
 position = Vector2(581, -246)
@@ -394,4 +465,5 @@ polygon = PackedVector2Array(-48, 2, 54, 3, 56, 40, -52, 40, -52, 37)
 [editable path="Questions/QuestionArea78"]
 [editable path="Questions/QuestionArea79"]
 [editable path="Questions/QuestionArea80"]
+[editable path="Questions/QuestionArea81"]
 [editable path="UI"]

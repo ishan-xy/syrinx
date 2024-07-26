@@ -48,6 +48,7 @@ func _on_playersubmit_pressed():
 	
 func toggle_question_panel() -> void:
 	quesPanel.visible = !quesPanel.visible
+	user_answer.text = \"\"
 	QuestionManager.OnPlayerToggle(question_id)
 	if playerBody:
 		playerBody.SetIsInteracting(quesPanel.visible)
