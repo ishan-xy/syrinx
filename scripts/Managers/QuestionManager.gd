@@ -4,108 +4,117 @@ var questions = {}
 var label : RichTextLabel
 var ansNode : TextEdit
 var submitBtn : Button
-var _ques_id
+var _ques_id: int
 var hintLabel
 var err_solved: bool
-func fetch_question_by_id(ques_id: int):
-	if ques_id in questions:
-		setQuestionText(ques_id)
-		print("ques in dict")
+
+var lastSentID := -1
+var lastTimestamp := Time.get_unix_time_from_system()
+
+func _ready():
+	WebsocketHandler.data_recieved.connect(_on_data_recieved)
+
+func fetch_question_by_id(_id: int):
+	if lastSentID == _id and Time.get_unix_time_from_system() - lastTimestamp < 5:
+		if _id in questions:
+			setQuestionText(questions[_id])
+			return
+			
+	_ques_id = _id
+	if _id in questions and questions[_id].validate_text():
+		setQuestionText(questions[_id])
+		#print("ques in dict")
 	else:
-		var wsConn = WebsocketHandler.wsConn
-		print("fetching ques")
-		WebsocketHandler.data_recieved.connect(_on_data_recieved.bind(ques_id))
-		wsConn.send_text(JSON.stringify({"ID":ques_id}))
-		
-func _on_data_recieved(data, ques_id:int):
-	WebsocketHandler.data_recieved.disconnect(_on_data_recieved.bind(ques_id))
+		#print("fetching ques")
+		lastSentID = _id
+		lastTimestamp = Time.get_unix_time_from_system()
+		WebsocketHandler.wsConn.send_text(JSON.stringify({"ID":_id}))
+
+func _on_data_recieved(data):
+	#WebsocketHandler.data_recieved.disconnect(_on_data_recieved)
 	var json := JSON.new()
 	var err = json.parse(data)
 	if err == OK:
 		var result = json.parse_string(data)
 		if result.has("Question"):
-			addQuestion(ques_id, str(result["Question"]))
-			print(str(ques_id) + " " + str(result["Question"]))
+			handleQuestionResponse(_ques_id, str(result["Question"]))
 		elif result.has("correct"):
-			handleAnswerResponse(ques_id, bool(result["correct"]))
+			handleAnswerResponse(_ques_id, bool(result["correct"]))
 		elif result.has("Hint"):
-			print(str(result["Hint"]))
-			if questions.has(ques_id):
-				questions[ques_id]._add_hint(str(result["Hint"]))
-			hintLabel.text = "Hint: " + questions[ques_id].hintText
+			handleHintResponse(_ques_id, str(result["Hint"]))
 		elif result.has("Error"):
-			if result["Error"] == "Solved":
-				err_solved = true
-				print(err_solved)
-				setQuestionText(_ques_id)
-			print(str(result["Error"]))
+			handleErrorResponse(_ques_id, str(result["Error"]))
 	else:
-		print("JSON parse error: ", err)
+		print("ERROR: JSON parse error: ", err)
 		
-func addQuestion(_id: int, _text: String) -> void:
-	if _id not in questions:
-		var quesObj = Question.new(_id, _text)
+func handleQuestionResponse(_id: int, _text: String) -> void:
+	var quesObj = Question.new(_id, _text)
+	if not _id in questions:
 		questions[_id] = quesObj
-		setQuestionText(_id)
-
+	else:
+		questions[_id].add_text(quesObj.text)
+	questions[_id].isAnswered = false
+	setQuestionText(questions[_id])
 
 func handleAnswerResponse(_id:int, ansflag:bool):
-	if ansflag:
-		questions[_id].isAnswered = true
-		setQuestionText(_id,"",true)
-	elif not ansflag:
-		questions[_id].isAnswered = false
-		setQuestionText(_id,"",true)
-	
+	if not _id in questions:
+		questions[_id] = Question.new(_id, "", ansflag)
+	questions[_id].isAnswered = ansflag
+	if not ansflag:
+		label.text = "You are Wrong!"
+		await get_tree().create_timer(1).timeout
+	setQuestionText(questions[_id])
 
-func setQuestionText(_ques_id: int, _user_ans: String = "", _is_submit:bool=false):
-	if questions.has(_ques_id):
-		if questions[_ques_id].isAnswered or err_solved:
-			label.text = "You are Correct!"
-			submitBtn.get_parent().visible = false
-			ansNode.get_parent().visible = false
-			questions[_ques_id].isAnswered = true
-			err_solved = false
-		else:
-			if _is_submit:
-				label.text = "You are wrong!"
-				ansNode.get_parent().visible = false
-				submitBtn.get_parent().visible = false
-				_is_submit = false
-			else:
-				label.text = questions[_ques_id].text
-				ansNode.get_parent().visible = true
-				submitBtn.get_parent().visible = true
-	
-		ansNode.text = _user_ans
-	elif err_solved:
+func handleHintResponse(_id: int, _hint: String):
+	if not questions.has(_id):
+		questions[_id] = Question.new(_id)
+	questions[_id].add_hint(_hint)
+	hintLabel.text = "HINT: " + _hint
+
+func handleErrorResponse(_id: int, _err: String):
+	if _err == "Solved":
+		if not _id in questions:
+			questions[_id] = Question.new(_id)
+		questions[_id].isAnswered = true
+		setQuestionText(questions[_id])
+	else:
+		label.text = "ERROR: " + _err
+	print("ERROR: ", _err)
+
+func setQuestionText(ques: Question):
+	if ques.isAnswered:
 		label.text = "You are Correct!"
 		submitBtn.get_parent().visible = false
 		ansNode.get_parent().visible = false
-		err_solved = false
-		
+	else:
+		label.text = ques.text
+		ansNode.get_parent().visible = true
+		submitBtn.get_parent().visible = true
 
 func OnPlayerAskHint(_hintLabel):
 	hintLabel = _hintLabel
-	if questions.has(_ques_id):
-		if questions[_ques_id].hintText != "":
-			_hintLabel.text = questions[_ques_id].hintText
-			return
-	WebsocketHandler.data_recieved.connect(_on_data_recieved.bind(_ques_id))
+	if questions.has(_ques_id) and questions[_ques_id].validate_hint():
+		_hintLabel.text = questions[_ques_id].hint
+		return
+	hintLabel.text = "Loading..."
 	WebsocketHandler.wsConn.send_text(JSON.stringify({"ID":_ques_id, "Hint":"true"}))
+
 func OnPlayerEnter(question_id: int, _label: RichTextLabel, _submitBtn: Button, _user_ans: TextEdit) -> void:
-	print("Fetch Question " + str(question_id))
 	label = _label
 	submitBtn = _submitBtn
 	ansNode = _user_ans
-	_ques_id = question_id
+	if label != null:
+		label.text = "Loading..."
 	fetch_question_by_id(question_id)
 
 func OnPlayerToggle(question_id: int):
+	label.text = "Loading..."
 	fetch_question_by_id(question_id)
 
 func OnPlayerSubmit(ques_id:int, _ansNode : TextEdit) -> void:
+	_ques_id = ques_id
 	var ans := _ansNode.text
+	_ansNode.text = ""
 	ans = ans.strip_edges().replace("\n", "")
 	# Now send this answer to the WebSocket server to check the answer
 	var string := {
@@ -113,7 +122,6 @@ func OnPlayerSubmit(ques_id:int, _ansNode : TextEdit) -> void:
 		"Answer": ans
 	}
 	var json_string: Variant= JSON.stringify(string)
-	WebsocketHandler.data_recieved.connect(_on_data_recieved.bind(ques_id))
 	WebsocketHandler.wsConn.send_text(json_string)
 	if questions.has(ques_id):
 		questions[ques_id].userAns = ans

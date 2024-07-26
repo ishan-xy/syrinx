@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://hgjn55ag6hig"]
 
-[ext_resource type="Texture2D" uid="uid://dwvchcqu0nyqu" path="res://assets/mystic woods/bg image.png" id="1_3g4ct"]
+[ext_resource type="Texture2D" uid="uid://dwvchcqu0nyqu" path="res://assets/mystic woods/bg_image.png" id="1_3g4ct"]
 [ext_resource type="Texture2D" uid="uid://db63ko3lmin38" path="res://assets/logo with bg (1).png" id="2_mqp7x"]
 [ext_resource type="Texture2D" uid="uid://ccm3sipkyuw6r" path="res://assets/Traced-Logo white.png" id="3_e04om"]
 [ext_resource type="Texture2D" uid="uid://186e2imnj2f" path="res://assets/Untitled(1).png" id="3_qhejd"]

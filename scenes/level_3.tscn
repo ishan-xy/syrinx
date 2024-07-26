@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsd44cbstk6jw"]
+[gd_scene load_steps=18 format=3 uid="uid://dsd44cbstk6jw"]
 
 [ext_resource type="Script" path="res://scripts/Managers/SceneManager.gd" id="1_batbh"]
 [ext_resource type="TileSet" uid="uid://2ye4enawrhu4" path="res://components/ME_auto_tiles.tres" id="1_yvfht"]
 [ext_resource type="PackedScene" uid="uid://csxndgunsyc70" path="res://scenes/characters/player.tscn" id="2_nl2sg"]
-[ext_resource type="PackedScene" uid="uid://cs32wacbpdddi" path="res://scenes/QuestionArea.tscn" id="4_2yqbe"]
-[ext_resource type="PackedScene" uid="uid://bi3r665jav7n7" path="res://scenes/MainUI.tscn" id="5_nepmg"]
+[ext_resource type="PackedScene" uid="uid://cs32wacbpdddi" path="res://scenes/Prefabs/QuestionArea.tscn" id="4_2yqbe"]
+[ext_resource type="PackedScene" uid="uid://8mnmvvsj40u5" path="res://scenes/MainUI.tscn" id="5_nepmg"]
 [ext_resource type="Texture2D" uid="uid://8fdf21xjl31w" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_1.png" id="6_wkwvu"]
 [ext_resource type="Texture2D" uid="uid://c3lkbgomuqav5" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_16.png" id="7_pdkrx"]
 [ext_resource type="Texture2D" uid="uid://cc7evo5s55edi" path="res://assets/modernexteriors/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Tree_52.png" id="8_ru50o"]
@@ -23,11 +23,14 @@ size = Vector2(2199, 255)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvcu0"]
 size = Vector2(1706, 254.997)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twp3t"]
+size = Vector2(44, 74)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1fg4"]
-size = Vector2(46, 75)
+size = Vector2(81, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4xqk2"]
-size = Vector2(46, 75)
+size = Vector2(83, 37)
 
 [node name="Level 3" type="Node2D"]
 y_sort_enabled = true
@@ -86,39 +89,54 @@ shape = SubResource("RectangleShape2D_vvcu0")
 
 [node name="Questions" type="Node" parent="."]
 
-[node name="QuestionArea" parent="Questions" instance=ExtResource("4_2yqbe")]
-visible = false
+[node name="QuestionArea76" parent="Questions" instance=ExtResource("4_2yqbe")]
 position = Vector2(-72, -223)
-question_id = 1
+question_id = 76
 
-[node name="CollisionShape2D" parent="Questions/QuestionArea" index="0"]
-position = Vector2(0, 2.5)
+[node name="CollisionShape2D" parent="Questions/QuestionArea76" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_twp3t")
 
-[node name="QuestionArea2" parent="Questions" instance=ExtResource("4_2yqbe")]
-visible = false
+[node name="QuestionArea77" parent="Questions" instance=ExtResource("4_2yqbe")]
 position = Vector2(-957, -37)
-question_id = 2
+question_id = 77
 
-[node name="CollisionShape2D" parent="Questions/QuestionArea2" index="0"]
-position = Vector2(0, 2.5)
+[node name="CollisionShape2D" parent="Questions/QuestionArea77" index="0"]
+position = Vector2(3.5, 2.5)
 shape = SubResource("RectangleShape2D_f1fg4")
 
-[node name="QuestionArea3" parent="Questions" instance=ExtResource("4_2yqbe")]
-visible = false
+[node name="QuestionArea78" parent="Questions" instance=ExtResource("4_2yqbe")]
 position = Vector2(88, 155)
-question_id = 3
+question_id = 78
 
-[node name="CollisionShape2D" parent="Questions/QuestionArea3" index="0"]
+[node name="CollisionShape2D" parent="Questions/QuestionArea78" index="0"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_4xqk2")
 
+[node name="QuestionArea79" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(-226, -547)
+question_id = 79
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea79" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_4xqk2")
+
+[node name="QuestionArea80" parent="Questions" instance=ExtResource("4_2yqbe")]
+position = Vector2(-23, -60)
+question_id = 80
+
+[node name="CollisionShape2D" parent="Questions/QuestionArea80" index="0"]
+position = Vector2(-26, -20)
+shape = SubResource("RectangleShape2D_4xqk2")
+
 [node name="SpawnLocations" type="Node2D" parent="." groups=["PlayerSpwnPoint"]]
-visible = false
 position = Vector2(76, -81)
 
 [node name="1" type="Node2D" parent="SpawnLocations"]
 
 [node name="UI" parent="." instance=ExtResource("5_nepmg")]
+
+[node name="hint" parent="UI/Question" index="6"]
 visible = false
 
 [node name="extras" type="Node2D" parent="."]
@@ -371,6 +389,9 @@ offset = Vector2(0, -5.73)
 position = Vector2(-50, -128)
 polygon = PackedVector2Array(-48, 2, 54, 3, 56, 40, -52, 40, -52, 37)
 
-[editable path="Questions/QuestionArea"]
-[editable path="Questions/QuestionArea2"]
-[editable path="Questions/QuestionArea3"]
+[editable path="Questions/QuestionArea76"]
+[editable path="Questions/QuestionArea77"]
+[editable path="Questions/QuestionArea78"]
+[editable path="Questions/QuestionArea79"]
+[editable path="Questions/QuestionArea80"]
+[editable path="UI"]
